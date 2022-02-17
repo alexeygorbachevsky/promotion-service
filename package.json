@@ -6,7 +6,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "yarn check-not-master && lint-staged",
-      "pre-push": "yarn check-not-master && yarn validate-branch-name && yarn test --coverage"
+      "pre-push": "yarn check-not-master && yarn validate-branch-name"
     }
   },
   "lint-staged": {
