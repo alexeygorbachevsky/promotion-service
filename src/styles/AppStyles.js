@@ -28,25 +28,20 @@ const AppStyles = createGlobalStyle`
     background-color: ${PALETTE.getPageBackground};
   }
 
-  // TODO: add focus styles for all interactive elements
   input, textarea, select, button, [role="button"] {
-    outline: none !important;
+    outline: none;
     appearance: none;
   }
 
-  /* a {
-    outline: none !important;
+  a {
+    outline: none;
     text-decoration: none;
-  } */
+  }
 
   ul {
     margin: 0;
     padding: 0;
     list-style-type: none;
-  }
-
-  .grecaptcha-badge {
-    visibility: hidden;
   }
 
   ::placeholder {
