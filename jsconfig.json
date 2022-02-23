@@ -5,10 +5,12 @@
     "allowSyntheticDefaultImports": true,
     "baseUrl": "./",
     "paths": {
+      "assets/*": ["src/assets/*"],
       "helpers/*": ["src/helpers/*"],
       "constants/*": ["src/constants/*"],
       "styles": ["src/styles"],
-      "components": ["src/web/components"]
+      "components": ["src/web/components"],
+      "pages": ["src/web/pages"]
     }
   }
 }

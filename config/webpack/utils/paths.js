@@ -13,4 +13,6 @@ module.exports = {
   // custom directories to enable nice-looking absolute paths
   customDirSrc: resolveApp("src"),
   customDirWeb: resolveApp("src/web"),
+  appPackageJson: resolveApp("package.json"),
+  yarnLockFile: resolveApp("yarn.lock"),
 };

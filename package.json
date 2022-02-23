@@ -1,5 +1,5 @@
 {
-  "name": "rs-school-react",
+  "name": "nft-marketplace",
   "version": "1.0.0",
   "description": "",
   "private": true,
@@ -16,7 +16,8 @@
     ]
   },
   "scripts": {
-    "start": "cross-env HTTPS=true NODE_ENV=development webpack-dev-server --config config/webpack/webpack.config.dev.js --mode development --open",
+    "start": "cross-env HTTPS=true NODE_ENV=development node scripts/start.js",
+    "start-via-cli": "cross-env HTTPS=true NODE_ENV=development webpack-dev-server --config config/webpack/webpack.config.dev.js --mode development --open",
     "build": "cross-env NODE_ENV=production webpack --config config/webpack/webpack.config.prod.js --mode production",
     "coverage": "jest --coverage --config config/jest/jest.config.js",
     "watch": "cross-env NODE_ENV=production webpack --config config/webpack/webpack.config.prod.js --mode production --watch",
@@ -69,6 +70,7 @@
     "mini-css-extract-plugin": "2.5.3",
     "postcss-loader": "^6.2.1",
     "prettier": "^2.5.1",
+    "react-dev-utils": "^12.0.0",
     "react-svg-loader": "^3.0.3",
     "terser-webpack-plugin": "^5.3.1",
     "webpack": "^5.68.0",

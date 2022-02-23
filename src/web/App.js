@@ -2,11 +2,24 @@ import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 
 import "assets/fonts/fonts.css";
+
 import { AppStyles } from "styles";
 
-import { ErrorBoundary } from "components";
+import { SIZE } from "constants/styles";
+
+import { ErrorBoundary, NavHeader } from "components";
+
+import { MarketPlace } from "pages";
 
 const Wrapper = styled.div``;
+
+const Main = styled.main`
+  min-height: 100vh;
+  height: calc(100vh - ${SIZE.header}px);
+  padding-top: ${SIZE.header}px;
+  background-color: #131419;
+  overflow-x: hidden;
+`;
 
 const App = () => (
   <ErrorBoundary>
@@ -14,7 +27,10 @@ const App = () => (
     <ThemeProvider theme={{ isDarkMode: true }}>
       <Wrapper>
         <AppStyles />
-        Hello
+        <Main>
+          <NavHeader />
+          <MarketPlace />
+        </Main>
       </Wrapper>
     </ThemeProvider>
   </ErrorBoundary>
