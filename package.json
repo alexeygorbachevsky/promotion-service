@@ -5,8 +5,8 @@
   "private": true,
   "husky": {
     "hooks": {
-      "pre-commit": "yarn check-not-master && lint-staged",
-      "pre-push": "yarn check-not-master && yarn validate-branch-name"
+      "//pre-commit": "yarn check-not-master && lint-staged",
+      "//pre-push": "yarn check-not-master && yarn validate-branch-name"
     }
   },
   "lint-staged": {
