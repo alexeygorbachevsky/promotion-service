@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import NativeLogoIcon from "assets/icons/logo20.svg";
 
-import { SIZE, toREM, Z_INDEX } from "constants/styles";
+import {PALETTE, SIZE, toREM, Z_INDEX} from "constants/styles";
 
 import { NavMenu } from "components";
 
@@ -17,9 +17,9 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #1c1c24;
+  background-color: ${PALETTE.getHeaderBackground};
   padding: 0 110px;
-  border-bottom: 2px solid #262631;
+  border-bottom: 2px solid ${PALETTE.getBorderColor};
 
   ${({ $isWithFooter }) =>
     $isWithFooter &&
@@ -27,7 +27,7 @@ const Wrapper = styled.div`
       top: unset;
       border-bottom: unset;
       bottom: 0;
-      border-top: 2px solid #262631;
+      border-top: 2px solid ${PALETTE.getBorderColor};
     `}
 `;
 
@@ -49,6 +49,7 @@ const Circle = styled.div`
 `;
 
 const LogoIcon = styled(NativeLogoIcon)``;
+
 const UserSettingsMenuMock = styled.div`
   width: 230px;
   height: 40px;
@@ -66,7 +67,7 @@ const NavHeader = ({ isWithFooter }) => (
         <Circle>
           <LogoIcon />
         </Circle>
-        <Title>NFT Marketplace</Title>
+        <Title>Promotion Service</Title>
       </LogoWrapper>
 
       <NavMenu />

@@ -10,7 +10,7 @@
       "constants/*": ["src/constants/*"],
       "styles": ["src/styles"],
       "components": ["src/web/components"],
-      "pages": ["src/web/pages"]
+      "features": ["src/web/features"]
     }
   }
 }

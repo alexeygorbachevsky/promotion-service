@@ -5,11 +5,11 @@ import "assets/fonts/fonts.css";
 
 import { AppStyles } from "styles";
 
-import { SIZE } from "constants/styles";
+import { PALETTE, SIZE } from "constants/styles";
 
 import { ErrorBoundary, NavHeader } from "components";
 
-import { MarketPlace } from "pages";
+import { TaskList } from "features";
 
 const Wrapper = styled.div``;
 
@@ -17,7 +17,7 @@ const Main = styled.main`
   min-height: 100vh;
   height: calc(100vh - ${SIZE.header}px);
   padding-top: ${SIZE.header}px;
-  background-color: #131419;
+  background-color: ${PALETTE.getPageBackground};
   overflow-x: hidden;
 `;
 
@@ -29,7 +29,7 @@ const App = () => (
         <AppStyles />
         <Main>
           <NavHeader />
-          <MarketPlace />
+          <TaskList />
         </Main>
       </Wrapper>
     </ThemeProvider>

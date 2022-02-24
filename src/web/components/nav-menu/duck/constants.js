@@ -4,7 +4,7 @@ import ContactUsIcon24 from "assets/icons/contact-us24.svg";
 
 export const NAV_MENU_ITEMS = [
   {
-    title: "Marketplace",
+    title: "Task List",
     Icon: MenuIcon24,
     to: "",
   },

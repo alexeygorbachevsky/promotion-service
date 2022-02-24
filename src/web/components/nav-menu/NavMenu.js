@@ -1,5 +1,5 @@
 import React from "react";
-import styled, { withTheme } from "styled-components";
+import styled, { withTheme, css } from "styled-components";
 
 import { PALETTE, toREM } from "constants/styles";
 
@@ -25,9 +25,11 @@ const NavItem = styled.div`
 const Title = styled.div`
   margin-left: 10px;
   line-height: ${toREM(20)};
-  ${({ $isSelected, theme }) =>
+  ${({ $isSelected }) =>
     !$isSelected &&
-    `color: ${theme.isDarkMode ? PALETTE.purple[-5] : PALETTE.sand[-5]}`};
+    css`
+      color: ${PALETTE.getNotSelectedTextColor};
+    `};
 `;
 
 const NavMenu = ({ theme }) => (

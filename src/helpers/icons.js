@@ -1,10 +1,10 @@
 import { PALETTE } from "constants/styles";
 
 export const getIconStyles = ({ theme, isSelected }) => {
-  let color = theme.isDarkMode ? PALETTE.purple[-5] : PALETTE.sand[-5];
+  let color = PALETTE.getNotSelectedTextColor({theme});
 
   if (isSelected) {
-    color = theme.isDarkMode ? PALETTE.white : PALETTE.black[1];
+    color = PALETTE.getText({ theme });
   }
 
   return {
