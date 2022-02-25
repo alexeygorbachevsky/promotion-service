@@ -20,12 +20,10 @@ module.exports = {
       new CssMinimizerPlugin(),
       new TerserPlugin({
         terserOptions: {
-          // pass true to work around Safari 10/11 bugs in loop scoping and await
           safari10: true,
         },
       }),
     ],
-    // Automatically split vendor and commons
     splitChunks: {
       chunks: "all",
     },
@@ -39,7 +37,6 @@ module.exports = {
 
   plugins,
 
-  // just for caution, whatever build will be succeeded
   performance: {
     hints: "error",
     maxAssetSize: 1500000,

@@ -2,13 +2,16 @@ import React from "react";
 import styled from "styled-components";
 
 import { PALETTE, toREM } from "constants/styles";
+import { Button as NativeButton } from "basics";
+
+import { EmptyImage } from "./components";
 
 const Wrapper = styled.div`
   padding: 20px;
   width: 290px;
   height: 360px;
   border-radius: 15px;
-  background: ${PALETTE.getHeaderBackground};
+  background-color: ${PALETTE.getHeaderBackground};
 `;
 
 const UserWrapper = styled.div`
@@ -20,7 +23,7 @@ const AvatarWrapper = styled.div`
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background-color: ${PALETTE.getEmptyIconBackground};
+  background-color: ${PALETTE.getEmptyItemBackground};
 `;
 
 const UserInfo = styled.div`
@@ -34,7 +37,7 @@ const UserName = styled.div``;
 const EmptyUserName = styled.div`
   width: 95px;
   height: 18px;
-  background: #2d2d3a;
+  background-color: ${PALETTE.getEmptyItemBackground};
   border-radius: 15px;
 `;
 
@@ -48,14 +51,38 @@ const EmptyType = styled.div`
   margin-top: 6px;
   width: 95px;
   height: 14px;
-  background: #2d2d3a;
+  background-color: ${PALETTE.getEmptyItemBackground};
   border-radius: 15px;
 `;
 
-const IconWrapper = styled.div``;
+const TaskWrapper = styled.div`
+  margin-top: 20px;
+`;
+
+const Button = styled(NativeButton)`
+  margin-top: 20px;
+`;
+
+const EmptyButton = styled.div`
+  margin-top: 20px;
+  width: 250px;
+  height: 50px;
+  background-color: ${PALETTE.getEmptyItemBackground};
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const EmptyButtonText = styled.div`
+  width: 95px;
+  height: 18px;
+  background-color: ${PALETTE.getEmptyImageBackground};
+  border-radius: 15px;
+`;
 
 const TaskCard = ({ card }) => {
-  const { avatar: Avatar, name, type } = card;
+  const { avatar: Avatar, name, type, task: Task } = card;
   return (
     <Wrapper>
       <UserWrapper>
@@ -65,7 +92,14 @@ const TaskCard = ({ card }) => {
           {type ? <Type>{type}</Type> : <EmptyType />}
         </UserInfo>
       </UserWrapper>
-      <IconWrapper />
+      <TaskWrapper>{Task ? <Task /> : <EmptyImage />}</TaskWrapper>
+      {name && type && Avatar ? (
+        <Button>Perform a task</Button>
+      ) : (
+        <EmptyButton>
+          <EmptyButtonText />
+        </EmptyButton>
+      )}
     </Wrapper>
   );
 };

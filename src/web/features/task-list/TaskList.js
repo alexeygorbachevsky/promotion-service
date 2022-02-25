@@ -1,22 +1,24 @@
 import React from "react";
 import styled from "styled-components";
 
-import {SIZE} from "constants/styles";
+import { customScrollbar, SIZE } from "constants/styles";
 
-import {TaskCard, TaskListHeader} from "./components";
-import {taskListConstants} from "./duck";
+import { useIsScroll } from "hooks";
+
+import { TaskCard, TaskListHeader, GoTop } from "./components";
+import { taskListConstants } from "./duck";
 
 const {
-    TASK_LIST_HEADER_HEIGHT,
-    TASK_LIST_HEADER_PADDING_TOP,
-    TASK_LIST_MAX_WIDTH,
-    CARDS,
+  TASK_LIST_HEADER_HEIGHT,
+  TASK_LIST_HEADER_PADDING_TOP,
+  TASK_LIST_MAX_WIDTH,
+  CARDS,
 } = taskListConstants;
 
 const Wrapper = styled.div`
   padding-top: ${TASK_LIST_HEADER_PADDING_TOP}px;
   max-width: ${TASK_LIST_MAX_WIDTH}px;
-  margin: 0px auto;
+  margin: 0 auto;
   height: 100%;
   overflow-y: hidden;
 `;
@@ -24,7 +26,8 @@ const Wrapper = styled.div`
 const Table = styled.div`
   width: 100%;
   height: calc(
-    100vh - ${SIZE.header + TASK_LIST_HEADER_HEIGHT + TASK_LIST_HEADER_PADDING_TOP}px
+    100vh -
+      ${SIZE.header + TASK_LIST_HEADER_HEIGHT + TASK_LIST_HEADER_PADDING_TOP}px
   );
 `;
 
@@ -37,21 +40,26 @@ const Body = styled.div`
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 22px;
+  ${customScrollbar};
 `;
 
-// TODO: custom scroll bar
-const TaskList = () => (
+const TaskList = () => {
+  const { isScroll, containerRefCallback, containerRef } = useIsScroll();
+
+  return (
     <Wrapper>
-        <Table>
-            <TaskListHeader/>
-            <Body>
-                {CARDS.map(card => (
-                    <TaskCard key={card.id} card={card}/>
-                ))}
-            </Body>
-        </Table>
+      <Table>
+        <TaskListHeader />
+        <Body ref={containerRefCallback}>
+          {CARDS.map(card => (
+            <TaskCard key={card.id} card={card} />
+          ))}
+        </Body>
+      </Table>
+      {isScroll && <GoTop containerRef={containerRef} />}
     </Wrapper>
-);
+  );
+};
 
 export default TaskList;

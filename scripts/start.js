@@ -49,6 +49,7 @@ choosePort(HOST, DEFAULT_PORT)
       host: HOST,
       port: DEFAULT_PORT,
       hot: true,
+      liveReload: false,
       server: "https",
     };
 

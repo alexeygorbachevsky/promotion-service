@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import NativeLogoIcon from "assets/icons/logo20.svg";
 
-import {PALETTE, SIZE, toREM, Z_INDEX} from "constants/styles";
+import { PALETTE, SIZE, toREM, Z_INDEX } from "constants/styles";
 
 import { NavMenu } from "components";
 
@@ -38,6 +38,7 @@ const LogoWrapper = styled.div`
   align-items: center;
 `;
 
+// TODO: background
 const Circle = styled.div`
   display: flex;
   justify-content: center;

@@ -15,4 +15,5 @@ module.exports = {
   customDirWeb: resolveApp("src/web"),
   appPackageJson: resolveApp("package.json"),
   yarnLockFile: resolveApp("yarn.lock"),
+  appPublic: resolveApp("public"),
 };
