@@ -22,6 +22,11 @@ import task8 from "assets/icons/tasks/task8.svg";
 import task9 from "assets/icons/tasks/task9.svg";
 import task10 from "assets/icons/tasks/task10.svg";
 
+import like from "assets/icons/task-types/like.svg";
+import comment from "assets/icons/task-types/comment.svg";
+import followers from "assets/icons/task-types/followers.svg";
+import view from "assets/icons/task-types/view.svg";
+
 export const TASK_LIST_HEADER_HEIGHT = 50;
 export const TASK_LIST_HEADER_PADDING_TOP = 40;
 export const TASK_LIST_MAX_WIDTH = 1300;
@@ -32,6 +37,7 @@ export const CARDS = [
     avatar: avatar1,
     name: "Tran Mau Tri Tam",
     type: "Like",
+    typeImage: like,
     task: task1,
   },
   {
@@ -39,6 +45,7 @@ export const CARDS = [
     avatar: avatar2,
     name: "Anastasia",
     type: "Comment",
+    typeImage: comment,
     task: task2,
   },
   {
@@ -46,6 +53,7 @@ export const CARDS = [
     avatar: avatar3,
     name: "Martin David",
     type: "Like",
+    typeImage: like,
     task: task3,
   },
   {
@@ -53,6 +61,7 @@ export const CARDS = [
     avatar: avatar4,
     name: "Dwinawan",
     type: "Followers",
+    typeImage: followers,
     task: task4,
   },
   {
@@ -60,6 +69,7 @@ export const CARDS = [
     avatar: avatar5,
     name: "Anton Tkachev",
     type: "Views",
+    typeImage: view,
     task: task5,
   },
   {
@@ -67,6 +77,7 @@ export const CARDS = [
     avatar: avatar6,
     name: "Adam Anderson",
     type: "Followers",
+    typeImage: followers,
     task: task6,
   },
   {
@@ -74,6 +85,7 @@ export const CARDS = [
     avatar: avatar7,
     name: "Taras Migulko",
     type: "Like",
+    typeImage: like,
     task: task7,
   },
   {
@@ -81,6 +93,7 @@ export const CARDS = [
     avatar: avatar8,
     name: "Brent Schoepf",
     type: "Comment",
+    typeImage: comment,
     task: task8,
   },
   {
@@ -88,6 +101,7 @@ export const CARDS = [
     avatar: avatar9,
     name: "Dmitry Lauretsky",
     type: "Like",
+    typeImage: like,
     task: task9,
   },
   {
@@ -95,6 +109,7 @@ export const CARDS = [
     avatar: avatar10,
     name: "Outcrowd",
     type: "Comment",
+    typeImage: comment,
     task: task10,
   },
   {
