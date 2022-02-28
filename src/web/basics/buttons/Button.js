@@ -20,13 +20,17 @@ const Wrapper = styled(BlankButton)`
   text-decoration: none;
   white-space: nowrap;
 
-  transition: background-color 0.15s ease-out;
+  transition: background-color 0.3s ease-out;
 
   background-color: transparent;
 
   &:hover:not(:disabled) {
     color: ${PALETTE.white};
     background-color: ${PALETTE.blue};
+  }
+
+  &:focus {
+    box-shadow: 0 0 10px ${PALETTE.blue};
   }
 
   &:disabled {

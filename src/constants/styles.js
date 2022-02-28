@@ -23,7 +23,7 @@ PALETTE.getHeaderBackground = ({ theme }) =>
   theme.isDarkMode ? "#1c1c24" : PALETTE.white;
 
 PALETTE.getPageBackground = ({ theme }) =>
-  theme.isDarkMode ? "#131419" : "#DDE1E8";
+  theme.isDarkMode ? "#131419" : "#EAEDF2";
 
 PALETTE.getBorderColor = ({ theme }) =>
   theme.isDarkMode ? "#262631" : "#cbcfd7";
