@@ -14,7 +14,8 @@ export const FONT_FAMILY = {
 export const PALETTE = {
   white: "#ffffff",
   black: "#000000",
-  blue: "#4447E2",
+  blue: "#4447e2",
+  green: "#50d86a",
 };
 
 PALETTE.getText = ({ theme }) => (theme.isDarkMode ? PALETTE.white : "#282B31");
@@ -45,6 +46,7 @@ export const SIZE = {
 
 export const Z_INDEX = {
   navHeader: 1,
+  overlay: 5,
 };
 
 export const customScrollbar = () => `

@@ -1,0 +1,1 @@
+export const MODAL_OVERLAY_ID = "MODAL_OVERLAY_ID";

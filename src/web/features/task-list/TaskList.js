@@ -1,9 +1,9 @@
-import React  from "react";
+import React from "react";
 import styled from "styled-components";
 
 import { customScrollbar, SIZE } from "constants/styles";
 
-import { useIsScroll } from "hooks";
+import { useScroll } from "hooks";
 
 import { TaskCard, TaskListHeader, GoTop } from "./components";
 import { taskListConstants } from "./duck";
@@ -45,7 +45,7 @@ const Body = styled.div`
 `;
 
 const TaskList = () => {
-  const { isScroll, containerRefCallback, containerRef } = useIsScroll();
+  const { isScroll, containerRefCallback, containerRef } = useScroll();
 
   return (
     <Wrapper>

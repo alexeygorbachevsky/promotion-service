@@ -25,8 +25,10 @@ const Input = styled(BlankInput)`
   padding: 0 55px 0 45px;
   border-radius: 15px;
   background-color: ${PALETTE.getEmptyItemBackground};
-  font-weight: 500;
-  ${({ $isOpened }) => $isOpened && `border: 2px solid ${PALETTE.blue}`};
+
+  &:focus {
+    border: 2px solid ${PALETTE.blue};
+  }
 
   &::placeholder {
     color: ${PALETTE.getText};
@@ -54,10 +56,11 @@ const CloseButton = styled(BlankButton)`
   transition: all 0.5s;
 
   &:focus {
+    opacity: 1;
     border: 2px solid ${PALETTE.blue};
   }
 
-  @keyframes myAnimation {
+  @keyframes appearance {
     0% {
       transform: rotateX(-0.2turn);
     }
@@ -65,7 +68,7 @@ const CloseButton = styled(BlankButton)`
       transform: rotateX(0);
     }
   }
-  animation-name: myAnimation;
+  animation-name: appearance;
   animation-duration: 0.5s;
 `;
 
@@ -112,7 +115,6 @@ const Search = () => {
       <SearchIcon />
       <Input
         ref={ref}
-        $isOpened={isOpened}
         value={value}
         onKeyDown={onKeyDown}
         onChange={onChange}
@@ -124,7 +126,6 @@ const Search = () => {
         <CloseButton
           onFocus={onFocus}
           onBlur={onBlur}
-          tabIndex={0}
           onClick={onClear}
         >
           <CrossIcon />

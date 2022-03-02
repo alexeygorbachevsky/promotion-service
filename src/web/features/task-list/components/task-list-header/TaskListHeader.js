@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 
 import { PALETTE, toREM } from "constants/styles";
+import { MODAL_IDS } from "constants/modal";
+
+import { openModal } from "helpers/modal";
 
 import { Search } from "components";
 
@@ -51,22 +54,30 @@ const CreateTaskButton = styled(Button)`
   align-items: center;
   justify-content: center;
   background-color: ${PALETTE.getEmptyItemBackground};
-
   &:focus {
-    box-shadow: none;
     border: 2px solid ${PALETTE.blue};
   }
 `;
 
-const TaskListHeader = () => (
-  <Wrapper>
-    <Title>Top Tasks</Title>
-    <ButtonInputWrapper>
-      <Search />
-      <Divider />
-      <CreateTaskButton onClick={()=>alert("fsd")}>+ Create task</CreateTaskButton>
-    </ButtonInputWrapper>
-  </Wrapper>
-);
+const TaskListHeader = () => {
+  useEffect(() => {
+    openModal({ id: MODAL_IDS.createTask });
+  }, []);
+
+  return (
+    <Wrapper>
+      <Title>Top Tasks</Title>
+      <ButtonInputWrapper>
+        <Search />
+        <Divider />
+        <CreateTaskButton
+          onClick={() => openModal({ id: MODAL_IDS.createTask })}
+        >
+          + Create task
+        </CreateTaskButton>
+      </ButtonInputWrapper>
+    </Wrapper>
+  );
+};
 
 export default TaskListHeader;

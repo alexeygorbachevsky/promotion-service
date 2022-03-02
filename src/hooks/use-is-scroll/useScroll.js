@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export const useIsScroll = () => {
+export const useScroll = () => {
   const [containerRef, setContainerRef] = useState(null);
   const [isScroll, setIsScroll] = useState(false);
 

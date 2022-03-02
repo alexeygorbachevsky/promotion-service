@@ -6,6 +6,7 @@ import "assets/fonts/fonts.css";
 import { AppStyles } from "styles";
 
 import { PALETTE, SIZE } from "constants/styles";
+import { MODAL_OVERLAY_ID } from "constants/overlays";
 
 import { ErrorBoundary, NavHeader } from "components";
 
@@ -21,6 +22,8 @@ const Main = styled.main`
   overflow-x: hidden;
 `;
 
+const ModalWrapper = styled.div``;
+
 const App = () => (
   <ErrorBoundary>
     {/* TODO: connect it to redux */}
@@ -31,6 +34,7 @@ const App = () => (
           <NavHeader />
           <TaskList />
         </Main>
+        <ModalWrapper id={MODAL_OVERLAY_ID} />
       </Wrapper>
     </ThemeProvider>
   </ErrorBoundary>

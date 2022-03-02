@@ -68,7 +68,7 @@ const NavHeader = ({ isWithFooter }) => (
         <Circle>
           <LogoIcon />
         </Circle>
-        <Title>Promotion Service</Title>
+        <Title>Promotion service</Title>
       </LogoWrapper>
 
       <NavMenu />

@@ -7,8 +7,8 @@
     "paths": {
       "assets/*": ["src/assets/*"],
       "helpers/*": ["src/helpers/*"],
-      "hooks": ["src/hooks"],
       "constants/*": ["src/constants/*"],
+      "hooks": ["src/hooks"],
       "styles": ["src/styles"],
       "basics": ["src/web/basics"],
       "components": ["src/web/components"],

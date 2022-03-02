@@ -6,6 +6,7 @@ module.exports = {
   plugins: ["prettier", "react-hooks"],
   rules: {
     // OFF
+    "no-return-assign": 0,
     "react/button-has-type": 0,
     "import/no-import-module-exports": 0,
     "react/jsx-no-useless-fragment": 0,

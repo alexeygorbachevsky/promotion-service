@@ -1,1 +1,1 @@
-export { useIsScroll } from "./useIsScroll";
+export { useScroll } from "./useScroll";

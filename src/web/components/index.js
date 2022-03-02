@@ -3,3 +3,4 @@ export { NavHeader } from "./nav-header";
 export { NavMenu } from "./nav-menu";
 export { UserSettingsMenu } from "./user-settings-menu";
 export { Search } from "./search";
+export { CreateTaskModal } from "./modals";
