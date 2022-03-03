@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import styled, { ThemeProvider } from "styled-components";
 
-import { PALETTE, toREM, Z_INDEX } from "constants/styles";
+import { customScrollbar, PALETTE, toREM, Z_INDEX } from "constants/styles";
 
 import { closeModal } from "helpers/modal";
 
@@ -35,13 +35,26 @@ const Overlay = styled.div`
 const Wrapper = styled.div`
   margin 0 5vw 10vh 5vw;
   width: 800px;
-  min-height: 450px;
+  height: 450px;
+  max-height: 450px;
   background-color: ${PALETTE.getPageBackground};
   color: ${PALETTE.getText};
 
   border-radius: 15px;
   border: 2px solid ${PALETTE.getBorderColor};
   box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+  
+  overflow: hidden;
+`;
+
+// TODO: move to constants MODAL_HEADER_HEIGHT
+const MODAL_HEADER_HEIGHT = 87;
+const ScrollWrapper = styled.div`
+  height: calc(100% - ${MODAL_HEADER_HEIGHT}px);
+  width: 100%;
+
+  overflow-y: auto;
+  ${customScrollbar};
 `;
 
 const Header = styled.div`
@@ -131,7 +144,7 @@ const Modal = ({
               <Cross30Icon />
             </CloseButton>
           </Header>
-          {children}
+          <ScrollWrapper>{children}</ScrollWrapper>
         </Wrapper>
       </Overlay>
     </ThemeProvider>

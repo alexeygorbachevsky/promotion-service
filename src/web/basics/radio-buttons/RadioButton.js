@@ -5,7 +5,7 @@ import { KEY_CODES } from "constants/keyCodes";
 
 const Checkmark = styled.span`
   position: absolute;
-  right: 30px;
+  right: 10px;
   height: 20px;
   width: 20px;
 
@@ -22,7 +22,7 @@ const Checkmark = styled.span`
 
 const Input = styled.input`
   position: absolute;
-  right: 30px;
+  right: 10px;
   opacity: 0;
   cursor: pointer;
   height: 0;
@@ -38,8 +38,12 @@ const Label = styled.label`
   display: flex;
   align-items: center;
 
-  margin: 10px 0 10px 20px;
-  padding-left: 35px;
+  margin-left: 20px;
+  padding-left: 10px;
+
+  &:first-of-type {
+    margin-left: 0;
+  }
 
   outline: none;
 
@@ -69,7 +73,7 @@ const Label = styled.label`
 
   ${Input}:checked ~ ${Checkmark}:after {
     display: block;
-    left: 9px;
+    left: 8px;
     top: 4px;
     width: 5px;
     height: 10px;

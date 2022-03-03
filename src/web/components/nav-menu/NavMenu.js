@@ -48,5 +48,5 @@ const NavMenu = ({ theme }) => (
     })}
   </Wrapper>
 );
-
+// TODO: useTheme
 export default withTheme(NavMenu);

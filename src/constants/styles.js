@@ -16,6 +16,11 @@ export const PALETTE = {
   black: "#000000",
   blue: "#4447e2",
   green: "#50d86a",
+  pink: "#ea4c89",
+  lightPink: "#ffcece",
+  lightPurple: "#f0deff",
+  lightGreen: "#deffe5",
+  lightOrange: "#fff6de",
 };
 
 PALETTE.getText = ({ theme }) => (theme.isDarkMode ? PALETTE.white : "#282B31");
