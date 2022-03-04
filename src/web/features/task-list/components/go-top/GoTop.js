@@ -47,6 +47,7 @@ const GoTop = ({ containerRef }) => {
     });
   };
 
+  // TODO: make accessibility
   return (
     <Wrapper onClick={onGoTop}>
       <ArrowHeadUpIcon />

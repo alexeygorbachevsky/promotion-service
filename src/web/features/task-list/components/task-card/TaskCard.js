@@ -2,9 +2,12 @@ import React from "react";
 import styled from "styled-components";
 
 import { PALETTE } from "constants/styles";
+
 import { Button as NativeButton } from "basics";
 
-import { EmptyImage, UserInfo } from "./components";
+import { EmptyImage } from "components";
+
+import {  UserInfo } from "./components";
 
 const Wrapper = styled.div`
   padding: 20px;

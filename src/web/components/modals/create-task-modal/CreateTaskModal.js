@@ -1,162 +1,156 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-import { Modal, RadioButton as NativeRadioButton } from "basics";
+import {
+  Modal,
+  UploadImage,
+  Input,
+  Button,
+  RadioButton,
+  radioButtonConstants,
+} from "basics";
 
-import { MODAL_IDS } from "constants/modal";
 import { PALETTE } from "constants/styles";
+import { MODAL_IDS } from "constants/modal";
 
-import BehanceIcon from "assets/icons/social-networks/behance.svg";
-import DribbleIcon from "assets/icons/social-networks/dribbble.svg";
+import NativeCoinsIcon from "assets/icons/coins.svg";
+import NativeFlashIcon from "assets/icons/flash.svg";
 
-import LikeIcon from "assets/icons/task-types/like.svg";
-import FollowersIcon from "assets/icons/task-types/followers.svg";
-import CommentsIcon from "assets/icons/task-types/comment.svg";
-import ViewIcon from "assets/icons/task-types/view.svg";
+import {
+  SocialNetworks,
+  TaskTypes,
+  createTaskModalComponentsStyled,
+} from "./components";
+
+const { BlockWrapper, BlockTitle } = createTaskModalComponentsStyled;
+const { RADIO_BUTTON_THEME_NAMES } = radioButtonConstants;
 
 const Wrapper = styled.div`
   height: 100%
   width: 100%;
 
-  padding: 0 30px;
+  padding: 10px 30px;
   display: flex;
   flex-direction: column;
 `;
 
-const BlockWrapper = styled.div`
+const BlockDescription = styled(BlockTitle)`
+  margin-top: 20px;
+`;
+
+const ExecutionCostInput = styled(Input)`
   margin-top: 10px;
-  height: 100%;
-  width: 100%;
-
-  display: flex;
-  flex-direction: column;
-
-  &:not(:first-of-type) {
-    margin-top: 40px;
-  }
+  width: 140px;
 `;
 
-const BlockTitle = styled.p`
-  margin: 0;
-  font-size: 14px;
-  line-height: 20px;
-  color: ${PALETTE.getNotSelectedTextColor};
+const CoinsIcon = styled(NativeCoinsIcon)`
+  color: ${PALETTE.getText};
 `;
 
-const RadioButtonsWrapper = styled.div`
+const FlashIcon = styled(NativeFlashIcon)`
+  color: ${PALETTE.getText};
+`;
+
+const CreateTaskButton = styled(Button)`
+  margin-top: 40px;
+  width: 140px;
+`;
+
+const IsPinnedTop = styled(RadioButton)`
   margin-top: 10px;
-  height: 100%;
-  width: 100%;
-
-  display: flex;
-  flex-wrap: wrap;
-`;
-
-const RadioButton = styled(NativeRadioButton)`
-  margin: 0;
-  &:nth-of-type(3),
-  &:nth-of-type(4) {
-    margin-top: 10px;
-  }
-  &:nth-of-type(2),
-  &:nth-of-type(4) {
-    margin-left: 20px;
-  }
-`;
-
-const IconWrapper = styled.div`
-  margin-right: 10px;
-  width: 40px;
-  height: 40px;
-
-  border-radius: 12px;
-  background-color: ${({ $iconBackground }) => $iconBackground};
-  display: flex;
+  width: 60px;
+  padding: 0;
   justify-content: center;
-  align-items: center;
 `;
 
 const CreateTaskModal = () => {
+  const [executionCost, setExecutionCost] = useState(30);
+  const [executionsCount, setExecutionsCount] = useState(500);
+  const [isPinnedTop, setIsPinnedTop] = useState(true);
+
   // TODO: move to constants
-  const socialNetworks = [
-    { text: "Dribble", Icon: DribbleIcon, iconBackground: PALETTE.pink },
-    { text: "Behance", Icon: BehanceIcon, iconBackground: PALETTE.blue },
-  ];
+  // eslint-disable-next-line no-unused-vars
+  const MIN_EXECUTION_COST = 20;
 
-  const taskTypes = [
-    { type: "Likes", Icon: LikeIcon, iconBackground: PALETTE.lightPink },
-    {
-      type: "Followers",
-      Icon: FollowersIcon,
-      iconBackground: PALETTE.lightPurple,
-    },
-    {
-      type: "Comments",
-      Icon: CommentsIcon,
-      iconBackground: PALETTE.lightGreen,
-    },
-    { type: "Views", Icon: ViewIcon, iconBackground: PALETTE.lightOrange },
-  ];
+  const onChangeExecutionCost = e => {
+    const { validity, value } = e.target;
 
-  const [checkedSocialText, setCheckedSocialText] = useState(
-    socialNetworks[0].text,
-  );
+    if (validity.patternMismatch) {
+      return;
+    }
 
-  const [checkedTaskType, setCheckedTaskType] = useState(taskTypes[0].type);
-
-  const onChangeSocialNetwork = e => {
-    const { value } = e.target;
-    setCheckedSocialText(value);
+    setExecutionCost(value);
   };
 
-  const onChangeTaskType = e => {
-    const { value } = e.target;
-    setCheckedTaskType(value);
+  const onChangeExecutionsCount = e => {
+    const { validity, value } = e.target;
+
+    if (validity.patternMismatch) {
+      return;
+    }
+
+    setExecutionsCount(value);
+  };
+
+  const onChangePinnedTop = e => {
+    const { checked } = e.target;
+    setIsPinnedTop(checked);
   };
 
   return (
     <Modal id={MODAL_IDS.createTask} title="Task creation">
-        <Wrapper>
-          <BlockWrapper>
-            <BlockTitle>Select a social network</BlockTitle>
-            <RadioButtonsWrapper>
-              {socialNetworks.map(({ text, Icon, iconBackground }) => (
-                <NativeRadioButton
-                  key={text}
-                  value={text}
-                  name={`${MODAL_IDS.createTask}_social-network`}
-                  isChecked={text === checkedSocialText}
-                  onChange={onChangeSocialNetwork}
-                >
-                  <IconWrapper $iconBackground={iconBackground}>
-                    <Icon />
-                  </IconWrapper>
-                  {text}
-                </NativeRadioButton>
-              ))}
-            </RadioButtonsWrapper>
-          </BlockWrapper>
-
-          <BlockWrapper>
-            <BlockTitle>Task Type</BlockTitle>
-            <RadioButtonsWrapper>
-              {taskTypes.map(({ type, Icon, iconBackground }) => (
-                <RadioButton
-                  key={type}
-                  value={type}
-                  name={`${MODAL_IDS.createTask}_task-type`}
-                  isChecked={type === checkedTaskType}
-                  onChange={onChangeTaskType}
-                >
-                  <IconWrapper $iconBackground={iconBackground}>
-                    <Icon width={24} height={24} />
-                  </IconWrapper>
-                  {type}
-                </RadioButton>
-              ))}
-            </RadioButtonsWrapper>
-          </BlockWrapper>
-        </Wrapper>
+      <Wrapper>
+        <SocialNetworks />
+        <TaskTypes />
+        <BlockWrapper>
+          <BlockTitle>Task image</BlockTitle>
+          <BlockDescription>
+            Upload svg task image. You can find images in
+            &quot;src/assets/tasks-preview&quot; folder.
+          </BlockDescription>
+          <UploadImage />
+        </BlockWrapper>
+        <BlockWrapper>
+          <BlockTitle>Execution cost</BlockTitle>
+          <BlockDescription>
+            At least 20 coins for execution (50% goes to the site commission)
+          </BlockDescription>
+          <ExecutionCostInput
+            value={executionCost}
+            placeholder="Type cost"
+            onChange={onChangeExecutionCost}
+            pattern="\d{0,9}"
+            label={<CoinsIcon />}
+          />
+        </BlockWrapper>
+        <BlockWrapper>
+          <BlockTitle>How much do you need?</BlockTitle>
+          <BlockDescription>
+            At least 10 executions, a maximum of 1000
+          </BlockDescription>
+          <ExecutionCostInput
+            value={executionsCount}
+            placeholder="Type count"
+            onChange={onChangeExecutionsCount}
+            pattern="\d{0,9}"
+            label={<FlashIcon />}
+          />
+        </BlockWrapper>
+        <BlockWrapper>
+          <BlockTitle>Pin my task to the top</BlockTitle>
+          <BlockDescription>
+            Additional cost is charged - 500 coins
+          </BlockDescription>
+          <IsPinnedTop
+            type="checkbox"
+            name={`${MODAL_IDS.createTask}_is-pinned-top`}
+            isChecked={isPinnedTop}
+            onChange={onChangePinnedTop}
+            themeName={RADIO_BUTTON_THEME_NAMES.lightGray}
+          />
+        </BlockWrapper>
+        <CreateTaskButton>Create task</CreateTaskButton>
+      </Wrapper>
     </Modal>
   );
 };

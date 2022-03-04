@@ -3,15 +3,29 @@ import styled, { css } from "styled-components";
 import { PALETTE } from "constants/styles";
 import { KEY_CODES } from "constants/keyCodes";
 
+import { radioButtonConstants } from "./duck";
+
+const { RADIO_BUTTON_THEMES, RADIO_BUTTON_THEME_NAMES } = radioButtonConstants;
+
 const Checkmark = styled.span`
   position: absolute;
-  right: 10px;
   height: 20px;
   width: 20px;
 
+  ${({ $isChildren }) => $isChildren && `right: 10px`};
+
   box-sizing: unset;
   border-radius: 50%;
-  border: 2px solid ${PALETTE.getEmptyItemBackground};
+
+  ${({ $themeName, $isChecked, ...props }) => {
+    const {
+      label: { borderColor },
+    } = RADIO_BUTTON_THEMES[$themeName](props);
+
+    return css`
+      border: 2px solid ${borderColor};
+    `;
+  }};
 
   &:after {
     content: "";
@@ -50,18 +64,27 @@ const Label = styled.label`
   cursor: pointer;
   user-select: none;
   border-radius: 15px;
-  background-color: ${PALETTE.getHeaderBackground};
 
-  ${({ $isChecked }) =>
-    $isChecked
-      ? css`
-          border: 2px solid ${PALETTE.getBorderColor};
-        `
-      : "border: 2px solid transparent"};
+  ${({ $themeName, ...props }) => {
+    const {
+      label: { backgroundColor, borderColor, checkedBorderColor },
+    } = RADIO_BUTTON_THEMES[$themeName](props);
 
-  &:hover {
-    border: 2px solid ${PALETTE.getBorderColor};
-  }
+    return css`
+      background-color: ${backgroundColor};
+
+      ${({ $isChecked }) =>
+        $isChecked
+          ? css`
+              border: 2px solid ${checkedBorderColor};
+            `
+          : "border: 2px solid transparent"};
+
+      &:hover {
+        border: 2px solid ${borderColor};
+      }
+    `;
+  }};
 
   &:focus {
     border: 2px solid ${PALETTE.blue};
@@ -92,20 +115,22 @@ const RadioButton = ({
   className,
   onChange,
   value,
+  themeName = RADIO_BUTTON_THEME_NAMES.primary,
   ...props
 }) => {
   const onKeyDown = e => {
     if (e.keyCode === KEY_CODES.enter) {
-      onChange({ ...e, target: { ...e.target, value } });
+      onChange({ ...e, target: { ...e.target, value, checked: !isChecked } });
     }
   };
 
   return (
     <Label
       className={className}
-      $isChecked={isChecked}
       tabIndex={0}
       onKeyDown={onKeyDown}
+      $isChecked={isChecked}
+      $themeName={themeName}
     >
       {children}
       <Input
@@ -116,7 +141,11 @@ const RadioButton = ({
         onChange={onChange}
         {...props}
       />
-      <Checkmark />
+      <Checkmark
+        $themeName={themeName}
+        $isChecked={isChecked}
+        $isChildren={Boolean(children)}
+      />
     </Label>
   );
 };
