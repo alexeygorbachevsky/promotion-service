@@ -102,6 +102,7 @@ const CreateTaskModal = () => {
       <Wrapper>
         <SocialNetworks />
         <TaskTypes />
+
         <BlockWrapper>
           <BlockTitle>Task image</BlockTitle>
           <BlockDescription>
@@ -110,6 +111,7 @@ const CreateTaskModal = () => {
           </BlockDescription>
           <UploadImage />
         </BlockWrapper>
+
         <BlockWrapper>
           <BlockTitle>Execution cost</BlockTitle>
           <BlockDescription>
@@ -123,6 +125,7 @@ const CreateTaskModal = () => {
             label={<CoinsIcon />}
           />
         </BlockWrapper>
+
         <BlockWrapper>
           <BlockTitle>How much do you need?</BlockTitle>
           <BlockDescription>
@@ -136,6 +139,7 @@ const CreateTaskModal = () => {
             label={<FlashIcon />}
           />
         </BlockWrapper>
+
         <BlockWrapper>
           <BlockTitle>Pin my task to the top</BlockTitle>
           <BlockDescription>
@@ -149,7 +153,10 @@ const CreateTaskModal = () => {
             themeName={RADIO_BUTTON_THEME_NAMES.lightGray}
           />
         </BlockWrapper>
-        <CreateTaskButton>Create task</CreateTaskButton>
+
+        <CreateTaskButton disabled={!executionCost || !executionsCount}>
+          Create task
+        </CreateTaskButton>
       </Wrapper>
     </Modal>
   );

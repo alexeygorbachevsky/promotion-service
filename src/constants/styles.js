@@ -14,8 +14,9 @@ export const FONT_FAMILY = {
 export const PALETTE = {
   white: "#ffffff",
   black: "#000000",
-  blue: "#4447e2",
+  red: "#e24444",
   green: "#50d86a",
+  blue: "#4447e2",
   pink: "#ea4c89",
   lightPink: "#ffcece",
   lightPurple: "#f0deff",

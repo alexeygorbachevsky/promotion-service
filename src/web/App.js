@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import styled, { ThemeProvider } from "styled-components";
 
 import "assets/fonts/fonts.css";
@@ -24,20 +25,22 @@ const Main = styled.main`
 
 const ModalWrapper = styled.div``;
 
-const App = () => (
-  <ErrorBoundary>
-    {/* TODO: connect it to redux */}
-    <ThemeProvider theme={{ isDarkMode: true }}>
-      <Wrapper>
-        <AppStyles />
-        <Main>
-          <NavHeader />
-          <TaskList />
-        </Main>
-        <ModalWrapper id={MODAL_OVERLAY_ID} />
-      </Wrapper>
-    </ThemeProvider>
-  </ErrorBoundary>
-);
+const App = () => {
+  const isDarkMode = useSelector(state => state.auth.isDarkMode);
+  return (
+    <ErrorBoundary>
+      <ThemeProvider theme={{ isDarkMode }}>
+        <Wrapper>
+          <AppStyles />
+          <Main>
+            <NavHeader />
+            <TaskList />
+          </Main>
+          <ModalWrapper id={MODAL_OVERLAY_ID} />
+        </Wrapper>
+      </ThemeProvider>
+    </ErrorBoundary>
+  );
+};
 
 export default App;

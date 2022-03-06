@@ -34,6 +34,7 @@ const Wrapper = styled(BlankButton)`
   }
 
   &:disabled {
+    border: 2px solid ${PALETTE.getEmptyItemBackground};
     opacity: 0.5;
   }
 `;

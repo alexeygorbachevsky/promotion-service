@@ -1,5 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import styled, { ThemeProvider } from "styled-components";
+import { Provider } from "react-redux";
+
+import { getStore } from "helpers/reducerRegistry";
 
 import { customScrollbar, PALETTE, toREM, Z_INDEX } from "constants/styles";
 
@@ -97,6 +100,9 @@ const Modal = ({
   title,
   isCloseOnOverlayClick = true,
 }) => {
+  const store = getStore();
+  const { getState } = store;
+
   // TODO: move to constants
   const MODAL_WRAPPER_ID = "modal_wrapper";
 
@@ -129,25 +135,27 @@ const Modal = ({
   };
 
   return (
-    <ThemeProvider theme={th => ({ ...th, isDarkMode: true })}>
-      <Overlay
-        ref={overlayRef}
-        role="button"
-        id={id}
-        tabIndex={0}
-        {...conditionalOverlayProps}
-      >
-        <Wrapper id={MODAL_WRAPPER_ID} className={className}>
-          <Header>
-            <Title>{title}</Title>
-            <CloseButton onClick={onCloseButton}>
-              <Cross30Icon />
-            </CloseButton>
-          </Header>
-          <ScrollWrapper>{children}</ScrollWrapper>
-        </Wrapper>
-      </Overlay>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={{ isDarkMode: getState().auth.isDarkMode }}>
+        <Overlay
+          ref={overlayRef}
+          role="button"
+          id={id}
+          tabIndex={0}
+          {...conditionalOverlayProps}
+        >
+          <Wrapper id={MODAL_WRAPPER_ID} className={className}>
+            <Header>
+              <Title>{title}</Title>
+              <CloseButton onClick={onCloseButton}>
+                <Cross30Icon />
+              </CloseButton>
+            </Header>
+            <ScrollWrapper>{children}</ScrollWrapper>
+          </Wrapper>
+        </Overlay>
+      </ThemeProvider>
+    </Provider>
   );
 };
 

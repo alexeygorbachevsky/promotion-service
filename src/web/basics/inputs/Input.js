@@ -1,7 +1,7 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-import { PALETTE } from "constants/styles";
+import { PALETTE, toREM } from "constants/styles";
 
 import NativeBlankInput from "./BlankInput";
 
@@ -21,10 +21,17 @@ const BlankInput = styled(NativeBlankInput)`
   border-radius: 15px;
   background-color: ${PALETTE.getEmptyItemBackground};
   border: 2px solid transparent;
-  
-  &:focus {
-    border: 2px solid ${PALETTE.blue};
-  }
+
+  ${({ $isError }) =>
+    $isError
+      ? css`
+          border: 2px solid ${PALETTE.red};
+        `
+      : css`
+          &:focus {
+            border: 2px solid ${PALETTE.blue};
+          }
+        `};
 
   &::placeholder {
     color: ${PALETTE.getNotSelectedTextColor};
@@ -39,13 +46,40 @@ const Label = styled.span`
   align-items: center;
 `;
 
-const Input = React.forwardRef(({ label, className, ...props }, ref) => {
-  const isLabel = Boolean(label);
-  return (
-    <InputWrapper className={className}>
-      {isLabel && <Label>{label}</Label>}
-      <BlankInput $isLabel={isLabel} ref={ref} {...props} />
-    </InputWrapper>
-  );
-});
+const Error = styled.div`
+  width: 100%;
+  position: absolute;
+  left: 5px;
+  bottom: -20px;
+
+  color: ${PALETTE.red};
+  font-size: ${toREM(14)};
+  line-height: ${toREM(20)};
+`;
+
+const Input = React.forwardRef(
+  ({ label, className, error, value, isRequired = true, ...props }, ref) => {
+    const requiredError =
+      isRequired && !value ? "Input field is required" : null;
+
+    const inputError = error || requiredError;
+
+    const isLabel = Boolean(label);
+    const isError = Boolean(inputError);
+
+    return (
+      <InputWrapper className={className}>
+        {isLabel && <Label>{label}</Label>}
+        <BlankInput
+          $isError={isError}
+          $isLabel={isLabel}
+          ref={ref}
+          value={value}
+          {...props}
+        />
+        {isError && <Error>{inputError}</Error>}
+      </InputWrapper>
+    );
+  },
+);
 export default Input;
