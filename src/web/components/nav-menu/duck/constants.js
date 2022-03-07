@@ -1,4 +1,4 @@
-import MenuIcon24 from "assets/icons/menu-icon24.svg";
+import MenuIcon24 from "assets/icons/menu24.svg";
 import SettingsIcon24 from "assets/icons/settings24.svg";
 import ContactUsIcon24 from "assets/icons/contact-us24.svg";
 

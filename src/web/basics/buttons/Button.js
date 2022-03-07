@@ -39,12 +39,10 @@ const Wrapper = styled(BlankButton)`
   }
 `;
 
-const Button = React.forwardRef(({ children, ...props }, ref) => {
-  return (
-    <Wrapper ref={ref} {...props}>
-      {children}
-    </Wrapper>
-  );
-});
+const Button = React.forwardRef(({ children, ...props }, ref) => (
+  <Wrapper ref={ref} {...props}>
+    {children}
+  </Wrapper>
+));
 
 export default Button;

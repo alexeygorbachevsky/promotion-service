@@ -55,7 +55,7 @@ export const Z_INDEX = {
   overlay: 5,
 };
 
-export const customScrollbar = () => `
+export const customScrollbar = ({ $isScrollWrapperHovered }) => `
       &::-webkit-scrollbar {
         width: ${SIZE.customScrollbarWidth}px;
         height: ${SIZE.customScrollbarWidth}px;
@@ -66,13 +66,18 @@ export const customScrollbar = () => `
       &::-webkit-scrollbar-thumb {
         border-radius: 4px;
         background-color: #aaa;
+        display: ${
+          typeof $isScrollWrapperHovered === "boolean" &&
+          !$isScrollWrapperHovered &&
+          `none`
+        };
       }
       
       &::-webkit-scrollbar-thumb:hover {
          background-color: #777;
       }
-
-      // &::-webkit-scrollbar-track:hover {
+      
+       // &::-webkit-scrollbar-track:hover {
       //   background-color: ${PALETTE.white};
       // }
 `;

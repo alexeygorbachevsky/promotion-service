@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { Provider } from "react-redux";
 
@@ -57,7 +57,8 @@ const ScrollWrapper = styled.div`
   width: 100%;
 
   overflow-y: auto;
-  ${customScrollbar};
+  ${({ theme, $isScrollWrapperHovered }) =>
+    customScrollbar({ theme, $isScrollWrapperHovered })};
 `;
 
 const Header = styled.div`
@@ -100,6 +101,16 @@ const Modal = ({
   title,
   isCloseOnOverlayClick = true,
 }) => {
+  const [isWrapperHovered, setIsWrapperHovered] = useState(false);
+
+  const onWrapperMouseEnter = () => {
+    setIsWrapperHovered(true);
+  };
+
+  const onWrapperMouseLeave = () => {
+    setIsWrapperHovered(false);
+  };
+
   const store = getStore();
   const { getState } = store;
 
@@ -144,14 +155,21 @@ const Modal = ({
           tabIndex={0}
           {...conditionalOverlayProps}
         >
-          <Wrapper id={MODAL_WRAPPER_ID} className={className}>
+          <Wrapper
+            id={MODAL_WRAPPER_ID}
+            className={className}
+            onMouseEnter={onWrapperMouseEnter}
+            onMouseLeave={onWrapperMouseLeave}
+          >
             <Header>
               <Title>{title}</Title>
               <CloseButton onClick={onCloseButton}>
                 <Cross30Icon />
               </CloseButton>
             </Header>
-            <ScrollWrapper>{children}</ScrollWrapper>
+            <ScrollWrapper $isScrollWrapperHovered={isWrapperHovered}>
+              {children}
+            </ScrollWrapper>
           </Wrapper>
         </Overlay>
       </ThemeProvider>

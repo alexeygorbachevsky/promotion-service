@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 
 import { PALETTE, toREM } from "constants/styles";
@@ -59,25 +59,17 @@ const CreateTaskButton = styled(Button)`
   }
 `;
 
-const TaskListHeader = () => {
-  useEffect(() => {
-    openModal({ id: MODAL_IDS.createTask });
-  }, []);
-
-  return (
-    <Wrapper>
-      <Title>Top Tasks</Title>
-      <ButtonInputWrapper>
-        <Search />
-        <Divider />
-        <CreateTaskButton
-          onClick={() => openModal({ id: MODAL_IDS.createTask })}
-        >
-          + Create task
-        </CreateTaskButton>
-      </ButtonInputWrapper>
-    </Wrapper>
-  );
-};
+const TaskListHeader = () => (
+  <Wrapper>
+    <Title>Top Tasks</Title>
+    <ButtonInputWrapper>
+      <Search />
+      <Divider />
+      <CreateTaskButton onClick={() => openModal({ id: MODAL_IDS.createTask })}>
+        + Create task
+      </CreateTaskButton>
+    </ButtonInputWrapper>
+  </Wrapper>
+);
 
 export default TaskListHeader;

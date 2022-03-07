@@ -7,6 +7,8 @@ import { PALETTE, SIZE, toREM, Z_INDEX } from "constants/styles";
 
 import { NavMenu } from "components";
 
+import { UserSettingsMenu } from "../user-settings-menu";
+
 const Wrapper = styled.div`
   position: fixed;
   top: 0;
@@ -51,11 +53,6 @@ const Circle = styled.div`
 
 const LogoIcon = styled(NativeLogoIcon)``;
 
-const UserSettingsMenuMock = styled.div`
-  width: 230px;
-  height: 40px;
-`;
-
 const Title = styled.div`
   margin-left: 10px;
   line-height: ${toREM(20)};
@@ -70,11 +67,8 @@ const NavHeader = ({ isWithFooter }) => (
         </Circle>
         <Title>Promotion service</Title>
       </LogoWrapper>
-
       <NavMenu />
-
-      <UserSettingsMenuMock />
-      {/* <UserSettingsMenu /> */}
+      <UserSettingsMenu />
     </Wrapper>
     {isWithFooter && <Wrapper $isWithFooter={isWithFooter}>Some info</Wrapper>}
   </>
