@@ -1,1 +1,1 @@
-export { useScroll } from "./use-is-scroll";
+export { useScroll } from "./use-scroll";

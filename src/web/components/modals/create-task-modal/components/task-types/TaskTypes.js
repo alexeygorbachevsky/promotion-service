@@ -33,6 +33,7 @@ const RadioButton = styled(NativeRadioButton)`
 `;
 
 const TaskTypes = () => {
+  // TODO: move out
   const taskTypes = [
     { type: "Likes", Icon: LikeIcon, iconBackground: PALETTE.lightPink },
     {

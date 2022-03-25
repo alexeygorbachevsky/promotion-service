@@ -31,7 +31,7 @@ class ErrorBoundary extends Component {
       return (
         <Wrapper>
           <Header>Something gets wrong</Header>
-          <Body>The following error is occurred: {error}</Body>
+          <Body>The following error is occurred: {error?.message}</Body>
         </Wrapper>
       );
     }

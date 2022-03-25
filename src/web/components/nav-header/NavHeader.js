@@ -40,14 +40,13 @@ const LogoWrapper = styled.div`
   align-items: center;
 `;
 
-// TODO: background
 const Circle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   height: 30px;
   width: 30px;
-  background-color: #4447e2;
+  background-color: ${PALETTE.blue};
   border-radius: 50%;
 `;
 

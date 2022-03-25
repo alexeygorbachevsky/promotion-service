@@ -5,3 +5,7 @@ export { UserSettingsMenu } from "./user-settings-menu";
 export { Search } from "./search";
 export { CreateTaskModal } from "./modals";
 export { EmptyImage } from "./empty-image";
+export { Carousel } from "./carousel";
+export { Pagination } from "./pagination";
+export { GoTop } from "./go-top";
+export { UploadImage } from "./upload-image";

@@ -9,11 +9,12 @@
       "helpers/*": ["src/helpers/*"],
       "ducks/*": ["src/ducks/*"],
       "constants/*": ["src/constants/*"],
+      "mocked-backend": ["src/mocked-backend"],
       "hooks": ["src/hooks"],
       "styles": ["src/styles"],
       "basics": ["src/web/basics"],
       "components": ["src/web/components"],
-      "features": ["src/web/features"]
+      "pages": ["src/web/pages"]
     }
   }
 }

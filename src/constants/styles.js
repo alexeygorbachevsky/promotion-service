@@ -22,6 +22,10 @@ export const PALETTE = {
   lightPurple: "#f0deff",
   lightGreen: "#deffe5",
   lightOrange: "#fff6de",
+
+  vk: "#5181b8",
+  twitter: "#1da1f2",
+  facebook: "#4267b2",
 };
 
 PALETTE.getText = ({ theme }) => (theme.isDarkMode ? PALETTE.white : "#282B31");

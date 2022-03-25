@@ -1,0 +1,1 @@
+export { getLastNews } from "./lastNews";

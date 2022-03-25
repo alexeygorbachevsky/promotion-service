@@ -1,10 +1,13 @@
+import { LOCAL_STORAGE_APP_PREFIX } from "constants/app";
+
 export const actionTypes = {
   CHANGE_VALUE: "auth.CHANGE_VALUE",
   SET_IS_DARK_MODE: "auth.SET_IS_DARK_MODE",
 };
 
 export const initialState = {
-  isDarkMode: localStorage.getItem("isDarkMode") !== "false",
+  isDarkMode:
+    localStorage.getItem(`${LOCAL_STORAGE_APP_PREFIX}isDarkMode`) !== "false",
 };
 
 export const reducer = (state = initialState, action) => {
@@ -55,7 +58,7 @@ export const actions = {
   },
 
   setDarkMode(isDarkMode) {
-    localStorage.setItem("isDarkMode", isDarkMode ? "true" : "false");
+    localStorage.setItem(`${LOCAL_STORAGE_APP_PREFIX}isDarkMode`, isDarkMode ? "true" : "false");
 
     return { type: actionTypes.SET_IS_DARK_MODE, payload: { isDarkMode } };
   },

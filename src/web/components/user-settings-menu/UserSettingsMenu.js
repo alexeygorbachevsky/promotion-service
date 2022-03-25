@@ -71,8 +71,6 @@ const UserSettingsButton = styled(BlankButton)`
   justify-content: space-between;
   align-items: center;
 
-  border-radius: 15px;
-
   border: 2px solid transparent;
 
   &:focus {

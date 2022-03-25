@@ -3,6 +3,8 @@ import styled, { withTheme, css } from "styled-components";
 
 import { PALETTE, toREM } from "constants/styles";
 
+import { Link as NativeLink } from "basics";
+
 import { getIconStyles } from "helpers/icons";
 
 import { NAV_MENU_ITEMS } from "./duck";
@@ -13,20 +15,16 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
-const NavItem = styled.div`
+const Link = styled(NativeLink)`
   display: flex;
   align-items: center;
-
-  &:not(:first-of-type) {
-    margin-left: 40px;
-  }
 `;
 
 const Title = styled.div`
   margin-left: 10px;
   line-height: ${toREM(20)};
-  ${({ $isSelected }) =>
-    !$isSelected &&
+  ${({ $isActive }) =>
+    !$isActive &&
     css`
       color: ${PALETTE.getNotSelectedTextColor};
     `};
@@ -34,16 +32,19 @@ const Title = styled.div`
 
 const NavMenu = ({ theme }) => (
   <Wrapper>
-    {NAV_MENU_ITEMS.map(({ title, Icon }, index) => {
-      // TODO: change after route will be implemented
-      const isSelected = index === 0;
+    {NAV_MENU_ITEMS.map(({ title, Icon, to }, index) => {
       return (
-        // eslint-disable-next-line react/no-array-index-key
-        <NavItem key={index}>
-          <Icon style={getIconStyles({ theme, isSelected })} />
-          {/* TODO: make as Route */}
-          <Title $isSelected={isSelected}> {title}</Title>
-        </NavItem>
+        <Link
+          // eslint-disable-next-line react/no-array-index-key
+          key={index}
+          to={to}
+          render={({ isActive }) => (
+            <>
+              <Icon style={getIconStyles({ theme, isSelected: isActive })} />
+              <Title $isActive={isActive}> {title}</Title>
+            </>
+          )}
+        />
       );
     })}
   </Wrapper>

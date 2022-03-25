@@ -28,8 +28,8 @@ const EmptyTaskIcon = styled(NativeEmptyTaskIcon)`
   color: ${PALETTE.getEmptyImageBackground};
 `;
 
-const EmptyImage = () => (
-  <EmptyTaskWrapper>
+const EmptyImage = ({className}) => (
+  <EmptyTaskWrapper className={className}>
     <Substrate>
       <EmptyTaskIcon />
     </Substrate>

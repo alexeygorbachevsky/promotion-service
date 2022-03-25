@@ -3,12 +3,13 @@ import styled from "styled-components";
 
 import {
   Modal,
-  UploadImage,
   Input,
   Button,
   RadioButton,
   radioButtonConstants,
 } from "basics";
+
+import { UploadImage } from "components";
 
 import { PALETTE } from "constants/styles";
 import { MODAL_IDS } from "constants/modal";

@@ -51,6 +51,7 @@ choosePort(HOST, DEFAULT_PORT)
       hot: true,
       liveReload: false,
       server: "https",
+      historyApiFallback: true,
     };
 
     const devServer = new WebpackDevServer(devServerConfig, compiler);
