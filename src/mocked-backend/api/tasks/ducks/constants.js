@@ -110,8 +110,18 @@ export const CARDS = [
   },
   {
     id: v4(),
+    avatar: "",
+    name: "",
+    type: "",
+    typeImage: "",
+    task: "",
   },
   {
     id: v4(),
+    avatar: "",
+    name: "",
+    type: "",
+    typeImage: "",
+    task: "",
   },
 ];

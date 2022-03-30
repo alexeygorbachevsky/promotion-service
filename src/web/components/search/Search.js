@@ -1,5 +1,6 @@
-import React, { useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import debounce from "lodash/debounce";
 
 import { BlankButton, BlankInput } from "basics";
 
@@ -74,10 +75,19 @@ const CloseButton = styled(BlankButton)`
   animation-duration: 0.5s;
 `;
 
-const Search = ({ isDisabled }) => {
+const Search = ({ isDisabled, onSearchChange }) => {
   const [value, setValue] = useState("");
   const [isOpened, setIsOpened] = useState(false);
   const ref = useRef(null);
+
+  const onSearchChangeLazy = useCallback(
+    debounce(text => {
+      onSearchChange(text);
+    }, 1000),
+    [],
+  );
+
+  useEffect(() => () => onSearchChangeLazy.cancel(), []);
 
   let timeOutId = null;
 
@@ -95,11 +105,15 @@ const Search = ({ isDisabled }) => {
   };
 
   const onChange = e => {
-    setValue(e.target.value);
+    const searchText = e.target.value;
+    setValue(searchText);
+    onSearchChangeLazy(searchText);
   };
 
   const onClear = () => {
+    onSearchChangeLazy.cancel();
     setValue("");
+    onSearchChange("");
     setIsOpened(false);
   };
 

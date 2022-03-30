@@ -59,11 +59,11 @@ const CreateTaskButton = styled(Button)`
   }
 `;
 
-const TaskListHeader = ({ isDisabled }) => (
+const TaskListHeader = ({ isDisabled, setSearchText }) => (
   <Wrapper>
     <Title>Top Tasks</Title>
     <ButtonInputWrapper>
-      <Search isDisabled={isDisabled} />
+      <Search isDisabled={isDisabled} onSearchChange={setSearchText} />
       <Divider />
       <CreateTaskButton
         disabled={isDisabled}

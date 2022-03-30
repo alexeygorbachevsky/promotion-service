@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { customScrollbar, SIZE } from "constants/styles";
@@ -58,6 +58,8 @@ const Error = styled.div``;
 
 const TaskList = () => {
   const { isScroll, containerRefCallback, containerRef } = useScroll();
+  const [searchText, setSearchText] = useState("");
+
   const {
     tasks,
     error,
@@ -69,19 +71,23 @@ const TaskList = () => {
 
   const onLoadMore = useCallback(() => {
     loadTasks({
-      search: "",
+      search: searchText,
     });
-  }, []);
+  }, [searchText]);
 
   useEffect(() => {
     clearTasks();
     onLoadMore();
-  }, []);
+  }, [searchText]);
 
   return (
     <Wrapper>
       <Table>
-        <TaskListHeader isDisabled={isLoadingTasks} />
+        <TaskListHeader
+          isDisabled={isLoadingTasks}
+          searchText={searchText}
+          setSearchText={setSearchText}
+        />
         <Body ref={containerRefCallback}>
           {error && <Error>Something went wrong. Try again later.</Error>}
           {!error &&

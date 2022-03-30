@@ -18,6 +18,7 @@ export const getTasks = async ({
   limit = 12,
   pagingToken = null,
   isLoadAll = false,
+  search = "",
 } = {}) => {
   await wait(2000);
 
@@ -31,7 +32,12 @@ export const getTasks = async ({
         : "",
   }));
 
-  const tasks = CARDS.concat(emptyCards);
+  let tasks = CARDS.concat(emptyCards);
+
+  if (search) {
+    const searchText = search.toLowerCase();
+    tasks = tasks.filter(({ name }) => name.toLowerCase().includes(searchText));
+  }
 
   if (isLoadAll) {
     return { tasks, isLoadedAll: true };
@@ -53,5 +59,5 @@ export const getTasks = async ({
     };
   }
 
-  return { tasks: tasks.slice(0, limit), isLoadedAll: false };
+  return { tasks: tasks.slice(0, limit), isLoadedAll: tasks.length <= limit };
 };
