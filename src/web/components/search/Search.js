@@ -26,6 +26,8 @@ const Input = styled(BlankInput)`
   border-radius: 15px;
   background-color: ${PALETTE.getEmptyItemBackground};
 
+  cursor: ${({ disabled }) => disabled && "not-allowed"};
+
   &:focus {
     border: 2px solid ${PALETTE.blue};
   }
@@ -72,7 +74,7 @@ const CloseButton = styled(BlankButton)`
   animation-duration: 0.5s;
 `;
 
-const Search = () => {
+const Search = ({ isDisabled }) => {
   const [value, setValue] = useState("");
   const [isOpened, setIsOpened] = useState(false);
   const ref = useRef(null);
@@ -121,13 +123,10 @@ const Search = () => {
         onFocus={onFocus}
         onBlur={onBlur}
         placeholder="Search"
+        disabled={isDisabled}
       />
       {isOpened && (
-        <CloseButton
-          onFocus={onFocus}
-          onBlur={onBlur}
-          onClick={onClear}
-        >
+        <CloseButton onFocus={onFocus} onBlur={onBlur} onClick={onClear}>
           <CrossIcon />
         </CloseButton>
       )}

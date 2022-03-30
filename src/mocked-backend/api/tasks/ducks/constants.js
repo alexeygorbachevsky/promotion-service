@@ -27,13 +27,6 @@ import comment from "assets/icons/task-types/comment.svg";
 import followers from "assets/icons/task-types/followers.svg";
 import view from "assets/icons/task-types/view.svg";
 
-export const TASK_LIST_HEADER_HEIGHT = 50;
-export const TASK_LIST_HEADER_PADDING_TOP = 40;
-export const TASK_LIST_MAX_WIDTH = 1300;
-
-
-// TODO: think to move to redux
-
 export const CARDS = [
   {
     id: v4(),

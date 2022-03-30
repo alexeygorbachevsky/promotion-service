@@ -6,11 +6,13 @@ import { addReducers, getStore } from "helpers/reducerRegistry";
 
 import { reducer as auth } from "ducks/auth";
 import { reducer as news } from "ducks/news";
+import { reducer as tasks } from "ducks/tasks";
 
 import App from "./App";
 
 addReducers({
   auth,
+  tasks,
   news,
 });
 

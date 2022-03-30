@@ -4,7 +4,7 @@ import { LAST_NEWS_FIRST_PAGE } from "./ducks";
 import { wait } from "../ducks";
 
 export const getLastNews = async ({ page, itemsPerPage = 5 }) => {
-  await wait(3000);
+  await wait(2000);
 
   const LAST_NEWS_EMPTY_PAGES = Array(42)
     .fill(1)

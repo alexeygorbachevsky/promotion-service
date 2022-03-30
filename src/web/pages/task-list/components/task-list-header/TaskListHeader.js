@@ -10,7 +10,7 @@ import { Search } from "components";
 
 import { Button } from "basics";
 
-import { taskListConstants } from "../../duck";
+import { taskListConstants } from "../../ducks";
 
 const { TASK_LIST_HEADER_HEIGHT } = taskListConstants;
 
@@ -59,13 +59,16 @@ const CreateTaskButton = styled(Button)`
   }
 `;
 
-const TaskListHeader = () => (
+const TaskListHeader = ({ isDisabled }) => (
   <Wrapper>
     <Title>Top Tasks</Title>
     <ButtonInputWrapper>
-      <Search />
+      <Search isDisabled={isDisabled} />
       <Divider />
-      <CreateTaskButton onClick={() => openModal({ id: MODAL_IDS.createTask })}>
+      <CreateTaskButton
+        disabled={isDisabled}
+        onClick={() => openModal({ id: MODAL_IDS.createTask })}
+      >
         Create task
       </CreateTaskButton>
     </ButtonInputWrapper>

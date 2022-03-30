@@ -1,20 +1,22 @@
-import React from "react";
+import React, { useCallback, useEffect } from "react";
 import styled from "styled-components";
 
 import { customScrollbar, SIZE } from "constants/styles";
 
 import { useScroll } from "hooks";
 
-import { GoTop } from "components";
+import { GoTop, InfiniteScroll } from "components";
+
+import Loader from "assets/icons/loader.svg";
 
 import { TaskCard, TaskListHeader } from "./components";
-import { taskListConstants } from "./duck";
+import { taskListConstants, taskListHooks } from "./ducks";
 
+const { useConnect } = taskListHooks;
 const {
   TASK_LIST_HEADER_HEIGHT,
   TASK_LIST_HEADER_PADDING_TOP,
   TASK_LIST_MAX_WIDTH,
-  CARDS,
 } = taskListConstants;
 
 const Wrapper = styled.div`
@@ -40,23 +42,65 @@ const Body = styled.div`
   overflow-y: auto;
   overflow-x: hidden;
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 22px;
+  flex-direction: column;
   ${customScrollbar};
 `;
 
+const TasksWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 22px;
+`;
+
+const Error = styled.div``;
+
 const TaskList = () => {
   const { isScroll, containerRefCallback, containerRef } = useScroll();
+  const {
+    tasks,
+    error,
+    isLoadingTasks,
+    loadTasks,
+    clearTasks,
+    isLoadedAllTasks,
+  } = useConnect();
+
+  const onLoadMore = useCallback(() => {
+    loadTasks({
+      search: "",
+    });
+  }, []);
+
+  useEffect(() => {
+    clearTasks();
+    onLoadMore();
+  }, []);
 
   return (
     <Wrapper>
       <Table>
-        <TaskListHeader />
+        <TaskListHeader isDisabled={isLoadingTasks} />
         <Body ref={containerRefCallback}>
-          {CARDS.map(card => (
-            <TaskCard key={card.id} card={card} />
-          ))}
+          {error && <Error>Something went wrong. Try again later.</Error>}
+          {!error &&
+            (!tasks.length ? (
+              <>{isLoadingTasks ? <Loader /> : "Task list is empty"}</>
+            ) : (
+              <>
+                <TasksWrapper>
+                  {tasks.map(card => (
+                    <TaskCard key={card.id} card={card} />
+                  ))}
+                </TasksWrapper>
+                <InfiniteScroll
+                  onLoadMore={onLoadMore}
+                  isLoading={isLoadingTasks}
+                  isNeedExecute={!isLoadedAllTasks}
+                />
+              </>
+            ))}
         </Body>
       </Table>
       {isScroll && <GoTop containerRef={containerRef} />}

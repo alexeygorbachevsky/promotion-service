@@ -12,7 +12,7 @@ const { FIRST_MIDDLE_PAGE, MIN_PAGES_COUNT_WITH_DOTS } = paginationConstants;
 
 const Wrapper = styled.div`
   margin-top: 20px;
-  height: 100%;
+  height: 40px;
   width: 100%;
 
   display: flex;

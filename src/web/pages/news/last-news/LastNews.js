@@ -6,6 +6,8 @@ import { PALETTE, toREM } from "constants/styles";
 
 import { Pagination } from "components";
 
+import Loader from "assets/icons/loader.svg";
+
 import { LastNew } from "./components";
 import { lastNewsConstants, lastNewsHooks } from "./ducks";
 
@@ -14,6 +16,7 @@ const { useConnect } = lastNewsHooks;
 
 const Wrapper = styled.div`
   margin-top: 40px;
+  // height: 100%;
   width: 100%;
   overflow: hidden;
 `;
@@ -36,6 +39,13 @@ const Title = styled.h2`
 
 const Body = styled.div`
   padding: 40px 0;
+  width: 100%;
+  height: 820px;
+  display: flex;
+  flex-direction: column;
+`;
+
+const NewsWrapper = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
@@ -79,13 +89,13 @@ const LastNews = () => {
         {error && <Error>Something went wrong. Try again later.</Error>}
         {!error &&
           (!currentPageLastNews.length ? (
-            <>{isLoadingLastNews ? "Loading" : "We have no last news"}</>
+            <>{isLoadingLastNews ? <Loader /> : "We have no last news"}</>
           ) : (
-            <>
+            <NewsWrapper>
               {currentPageLastNews.map(lastNew => (
                 <LastNew key={lastNew.id} lastNew={lastNew} />
               ))}
-            </>
+            </NewsWrapper>
           ))}
         <Pagination
           disabled={isLoadingLastNews}

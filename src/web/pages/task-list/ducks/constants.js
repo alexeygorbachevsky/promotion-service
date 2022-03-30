@@ -1,0 +1,4 @@
+export const TASK_LIST_HEADER_HEIGHT = 50;
+export const TASK_LIST_HEADER_PADDING_TOP = 40;
+export const TASK_LIST_MAX_WIDTH = 1300;
+
