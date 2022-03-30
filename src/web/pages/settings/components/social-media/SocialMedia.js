@@ -8,21 +8,18 @@ import { RadioButton as NativeCheckbox } from "basics";
 
 const Wrapper = styled.div`
   margin-top: 50px;
-
   width: 290px;
-  // height: 250px;
 `;
 
 const Title = styled.p`
   margin: 0;
-
   color: ${PALETTE.getNotSelectedTextColor};
   font-size: ${toREM(14)};
   line-height: ${toREM(20)};
 `;
 
 const RadioButtonsWrapper = styled.div`
-  padding: 10px 0 40px 0;
+  margin-top: 10px;
   height: 100%;
   width: 100%;
 `;

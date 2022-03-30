@@ -37,9 +37,9 @@ module.exports = {
 
   plugins,
 
-  performance: {
-    hints: "error",
-    maxAssetSize: 1500000,
-    maxEntrypointSize: 1500000,
-  },
+  // performance: {
+  //   hints: "error",
+  //   maxAssetSize: 1500000,
+  //   maxEntrypointSize: 1500000,
+  // },
 };

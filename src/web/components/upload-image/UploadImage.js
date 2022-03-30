@@ -26,7 +26,7 @@ const ImageAreaWrapper = styled.div`
   background-color: ${PALETTE.getHeaderBackground};
 `;
 
-const Image = styled.img`
+const ImageEl = styled.img`
   width: 250px;
   height: 180px;
 `;
@@ -71,7 +71,13 @@ const Button = styled(NativeButton)`
   margin-top: 10px;
 `;
 
-const UploadImage = ({ className, uploadText, removeText }) => {
+const UploadImage = ({
+  className,
+  uploadText,
+  removeText,
+  defaultImage: DefaultImage,
+  isRemoveButton,
+}) => {
   const [image, setImage] = useState(null);
   const inputRef = useRef(null);
 
@@ -98,11 +104,15 @@ const UploadImage = ({ className, uploadText, removeText }) => {
   return (
     <ImageAreaWrapper className={className}>
       {image ? (
-        <>
-          <Image src={image} alt="Task image preview" />
-        </>
+        <ImageEl src={image} alt="Task image preview" />
       ) : (
-        <EmptyImage />
+        <>
+          {DefaultImage ? (
+            <DefaultImage style={{ width: "250px", height: "250px" }} />
+          ) : (
+            <EmptyImage />
+          )}
+        </>
       )}
       <div>
         <BlankInput
@@ -117,7 +127,11 @@ const UploadImage = ({ className, uploadText, removeText }) => {
         <Label onKeyDown={onKeyDown} tabIndex={0} htmlFor="upload-button">
           {uploadText || "Upload image"}
         </Label>
-        <Button onClick={onRemoveImage}>{removeText || "Remove image"}</Button>
+        {isRemoveButton && (
+          <Button onClick={onRemoveImage}>
+            {removeText || "Remove image"}
+          </Button>
+        )}
       </div>
     </ImageAreaWrapper>
   );

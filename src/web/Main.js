@@ -28,7 +28,7 @@ const Main = () => (
         <Route exact path={ROUTES.taskList} element={<TaskList />} />
         <Route exact path={ROUTES.news} element={<News />} />
         <Route exact path={ROUTES.settings} element={<Settings />} />
-        <Route index element={<Navigate to={ROUTES.settings} replace />} />
+        <Route index element={<Navigate to={ROUTES.taskList} replace />} />
       </Route>
       {/* TODO: Not found route */}
       {/* <Route path="*" element={<NotFound />} /> */}

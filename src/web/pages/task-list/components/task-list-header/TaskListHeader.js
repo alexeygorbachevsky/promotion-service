@@ -66,7 +66,7 @@ const TaskListHeader = () => (
       <Search />
       <Divider />
       <CreateTaskButton onClick={() => openModal({ id: MODAL_IDS.createTask })}>
-        + Create task
+        Create task
       </CreateTaskButton>
     </ButtonInputWrapper>
   </Wrapper>

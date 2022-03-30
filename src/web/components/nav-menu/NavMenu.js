@@ -32,21 +32,19 @@ const Title = styled.div`
 
 const NavMenu = ({ theme }) => (
   <Wrapper>
-    {NAV_MENU_ITEMS.map(({ title, Icon, to }, index) => {
-      return (
-        <Link
-          // eslint-disable-next-line react/no-array-index-key
-          key={index}
-          to={to}
-          render={({ isActive }) => (
-            <>
-              <Icon style={getIconStyles({ theme, isSelected: isActive })} />
-              <Title $isActive={isActive}> {title}</Title>
-            </>
-          )}
-        />
-      );
-    })}
+    {NAV_MENU_ITEMS.map(({ title, Icon, to }, index) => (
+      <Link
+        // eslint-disable-next-line react/no-array-index-key
+        key={index}
+        to={to}
+        render={({ isActive }) => (
+          <>
+            <Icon style={getIconStyles({ theme, isSelected: isActive })} />
+            <Title $isActive={isActive}> {title}</Title>
+          </>
+        )}
+      />
+    ))}
   </Wrapper>
 );
 // TODO: useTheme

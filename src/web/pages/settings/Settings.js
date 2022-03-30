@@ -5,9 +5,13 @@ import { GoTop, UploadImage as NativeUploadImage } from "components";
 
 import { useScroll } from "hooks";
 
+import { Button } from "basics";
+
 import { customScrollbar, PALETTE, toREM } from "constants/styles";
 
-import { SocialMedia } from "./components";
+import AvatarMain250Icon from "assets/icons/avatars/avatar-main250.svg";
+
+import { SocialMedia, Inputs, PersonalStatistic } from "./components";
 
 const Wrapper = styled.div`
   height: 100%;
@@ -15,7 +19,6 @@ const Wrapper = styled.div`
 `;
 
 const ScrollWrapper = styled.div`
-  padding-top: 40px;
   width: 100%;
   height: 100%;
   ${customScrollbar};
@@ -23,8 +26,8 @@ const ScrollWrapper = styled.div`
 `;
 
 const SettingsWrapper = styled.div`
+  padding: 40px 0 80px 0;
   width: 100%;
-  height: 100%;
   max-width: 1300px;
   margin: 0 auto;
 `;
@@ -45,8 +48,16 @@ const Title = styled.h2`
   white-space: nowrap;
 `;
 
+const SubTitle = styled.p`
+  margin: 0 0 10px 0;
+  color: ${PALETTE.getNotSelectedTextColor};
+  font-size: ${toREM(14)};
+  line-height: ${toREM(20)};
+`;
+
 const ContentWrapper = styled.div`
   margin-top: 40px;
+  // margin-bottom: 40px;
 
   width: 100%;
   height: 100%;
@@ -67,6 +78,11 @@ const Column = styled.div`
   }
 `;
 
+const SaveButton = styled(Button)`
+  margin-top: 40px;
+  width: 137px;
+`;
+
 const Settings = () => {
   const { isScroll, containerRefCallback, containerRef } = useScroll();
 
@@ -79,14 +95,21 @@ const Settings = () => {
           </TitleWrapper>
           <ContentWrapper>
             <Column>
+              <SubTitle>Your avatar</SubTitle>
               <UploadImage
                 uploadText="Upload photo"
                 removeText="Remove photo"
+                defaultImage={AvatarMain250Icon}
               />
               <SocialMedia />
             </Column>
-            <Column>Column 2</Column>
-            <Column>Column 3</Column>
+            <Column>
+              <Inputs />
+              <SaveButton>Save changes</SaveButton>
+            </Column>
+            <Column>
+              <PersonalStatistic />
+            </Column>
           </ContentWrapper>
         </SettingsWrapper>
       </ScrollWrapper>

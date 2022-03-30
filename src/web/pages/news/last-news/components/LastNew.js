@@ -57,14 +57,12 @@ const EmptyDate = styled.div`
   border-radius: 15px;
 `;
 
-const LastNew = ({ lastNew: { image, title, date } }) => {
-  return (
-    <Wrapper>
-      {image ? <Image src={image} alt="last new" /> : <EmptyImage />}
-      {title ? <Title>{title}</Title> : <EmptyTitle />}
-      {date ? <Date>{date}</Date> : <EmptyDate />}
-    </Wrapper>
-  );
-};
+const LastNew = ({ lastNew: { image, title, date } }) => (
+  <Wrapper>
+    {image ? <Image src={image} alt="last new" /> : <EmptyImage />}
+    {title ? <Title>{title}</Title> : <EmptyTitle />}
+    {date ? <Date>{date}</Date> : <EmptyDate />}
+  </Wrapper>
+);
 
 export default LastNew;
