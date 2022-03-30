@@ -77,7 +77,12 @@ export const actions = {
       let error;
 
       try {
-        processedTasks = await getTasks({ isLoadAll, limit, pagingToken });
+        processedTasks = await getTasks({
+          isLoadAll,
+          limit,
+          pagingToken,
+          search,
+        });
         isLoadedAllTasks = processedTasks.length < limit || isLoadAll;
       } catch (err) {
         error = err;
