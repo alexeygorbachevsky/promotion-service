@@ -110,7 +110,7 @@ const CreateTaskModal = () => {
             Upload svg task image. You can find images in
             &quot;src/assets/tasks-preview&quot; folder.
           </BlockDescription>
-          <UploadImage />
+          <UploadImage isRemoveButton />
         </BlockWrapper>
 
         <BlockWrapper>

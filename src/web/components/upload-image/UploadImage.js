@@ -76,7 +76,7 @@ const UploadImage = ({
   uploadText,
   removeText,
   defaultImage: DefaultImage,
-  isRemoveButton = true,
+  isRemoveButton = false,
 }) => {
   const [image, setImage] = useState(null);
   const inputRef = useRef(null);

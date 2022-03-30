@@ -34,15 +34,24 @@ export const getTasks = async ({
   const tasks = CARDS.concat(emptyCards);
 
   if (isLoadAll) {
-    return tasks;
+    return { tasks, isLoadedAll: true };
   }
 
   if (pagingToken) {
     const firstRequestedIndex =
       tasks.findIndex(el => el.id === pagingToken) + 1;
 
-    return tasks.slice(firstRequestedIndex, firstRequestedIndex + limit);
+    const newTasks = tasks.slice(
+      firstRequestedIndex,
+      firstRequestedIndex + limit,
+    );
+
+    return {
+      tasks: newTasks,
+      isLoadedAll:
+        newTasks[newTasks.length - 1].id === tasks[tasks.length - 1].id,
+    };
   }
 
-  return tasks.slice(0, limit);
+  return { tasks: tasks.slice(0, limit), isLoadedAll: false };
 };
