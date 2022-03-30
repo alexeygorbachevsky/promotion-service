@@ -33,6 +33,10 @@ const plugins = [
         from: path.resolve(__dirname, "../../../public/favicon.ico"),
         to: path.resolve(__dirname, "../../../build"),
       },
+      {
+        from: path.resolve(__dirname, "../../../public/_redirects"),
+        to: path.resolve(__dirname, "../../../build"),
+      },
     ],
   }),
   new MiniCssExtractPlugin({
