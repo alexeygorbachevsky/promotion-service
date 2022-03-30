@@ -6,8 +6,7 @@ import { KEY_CODES } from "constants/keyCodes";
 
 import { EmptyImage } from "components";
 
-import { Button as NativeButton } from "../../basics/buttons";
-import { BlankInput } from "../../basics/inputs";
+import { Button as NativeButton, BlankInput } from "basics";
 
 const ImageAreaWrapper = styled.div`
   margin-top: 10px;
