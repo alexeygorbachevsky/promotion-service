@@ -5,7 +5,7 @@ import { customScrollbar, SIZE } from "constants/styles";
 
 import { useScroll } from "hooks";
 
-import { GoTop, InfiniteScroll } from "components";
+import { GoTop, InfiniteScroll, Error, BlankState } from "components";
 
 import Loader from "assets/icons/loader.svg";
 
@@ -54,8 +54,6 @@ const TasksWrapper = styled.div`
   gap: 22px;
 `;
 
-const Error = styled.div``;
-
 const TaskList = () => {
   const { isScroll, containerRefCallback, containerRef } = useScroll();
   const [searchText, setSearchText] = useState("");
@@ -84,15 +82,25 @@ const TaskList = () => {
     <Wrapper>
       <Table>
         <TaskListHeader
-          isDisabled={isLoadingTasks}
+          isDisabled={isLoadingTasks || Boolean(error)}
           searchText={searchText}
           setSearchText={setSearchText}
         />
         <Body ref={containerRefCallback}>
-          {error && <Error>Something went wrong. Try again later.</Error>}
+          {error && (
+            <Error>
+              Something went wrong. <br /> Try again later.
+            </Error>
+          )}
           {!error &&
             (!tasks.length ? (
-              <>{isLoadingTasks ? <Loader /> : "Task list is empty"}</>
+              <>
+                {isLoadingTasks ? (
+                  <Loader />
+                ) : (
+                  <BlankState>No tasks found</BlankState>
+                )}
+              </>
             ) : (
               <>
                 <TasksWrapper>

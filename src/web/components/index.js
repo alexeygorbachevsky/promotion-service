@@ -10,3 +10,5 @@ export { Pagination } from "./pagination";
 export { GoTop } from "./go-top";
 export { UploadImage } from "./upload-image";
 export { InfiniteScroll } from "./infinite-scroll";
+export { Error } from "./error";
+export { BlankState } from "./blank-state";

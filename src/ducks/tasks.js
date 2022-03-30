@@ -85,7 +85,7 @@ export const actions = {
         });
         processedTasks = tasks;
         // isLoadedAllTasks = processedTasks.length < limit || isLoadAll;
-        isLoadedAllTasks = isLoadedAll
+        isLoadedAllTasks = isLoadedAll;
       } catch (err) {
         error = err;
       }
