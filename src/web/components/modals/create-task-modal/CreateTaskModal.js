@@ -89,13 +89,10 @@ const CreateTaskModal = () => {
     executionsCount,
     isPinnedTop,
     socialNetwork,
-    taskType,
     taskTypeImage,
   } = state;
 
-  const onCreateTask = () => {
-    console.log("AAA");
-  };
+  const onCreateTask = () => {};
 
   // TODO: move to constants
   // eslint-disable-next-line no-unused-vars

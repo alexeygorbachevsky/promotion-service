@@ -11,17 +11,6 @@ import avatar8 from "assets/icons/avatars/avatar8.svg";
 import avatar9 from "assets/icons/avatars/avatar9.svg";
 import avatar10 from "assets/icons/avatars/avatar10.svg";
 
-import task1 from "assets/icons/tasks/task1.svg";
-import task2 from "assets/icons/tasks/task2.svg";
-import task3 from "assets/icons/tasks/task3.svg";
-import task4 from "assets/icons/tasks/task4.svg";
-import task5 from "assets/icons/tasks/task5.svg";
-import task6 from "assets/icons/tasks/task6.svg";
-import task7 from "assets/icons/tasks/task7.svg";
-import task8 from "assets/icons/tasks/task8.svg";
-import task9 from "assets/icons/tasks/task9.svg";
-import task10 from "assets/icons/tasks/task10.svg";
-
 import like from "assets/icons/task-types/like.svg";
 import comment from "assets/icons/task-types/comment.svg";
 import followers from "assets/icons/task-types/followers.svg";
