@@ -1,11 +1,15 @@
 import { LOCAL_STORAGE_APP_PREFIX } from "constants/app";
 
+import AvatarIcon from "assets/icons/avatars/avatar-main40.svg";
+
 export const actionTypes = {
   CHANGE_VALUE: "auth.CHANGE_VALUE",
   SET_IS_DARK_MODE: "auth.SET_IS_DARK_MODE",
 };
 
 export const initialState = {
+  userId: "some_user_id",
+  avatar: AvatarIcon,
   isDarkMode:
     localStorage.getItem(`${LOCAL_STORAGE_APP_PREFIX}isDarkMode`) !== "false",
 };
@@ -58,7 +62,10 @@ export const actions = {
   },
 
   setDarkMode(isDarkMode) {
-    localStorage.setItem(`${LOCAL_STORAGE_APP_PREFIX}isDarkMode`, isDarkMode ? "true" : "false");
+    localStorage.setItem(
+      `${LOCAL_STORAGE_APP_PREFIX}isDarkMode`,
+      isDarkMode ? "true" : "false",
+    );
 
     return { type: actionTypes.SET_IS_DARK_MODE, payload: { isDarkMode } };
   },

@@ -1,7 +1,14 @@
-import { getTasks } from "mocked-backend";
+import { getTasks, addTask } from "mocked-backend";
 
 export const actionTypes = {
   CHANGE_VALUE: "auth.CHANGE_VALUE",
+
+  LOAD_TASKS_SUCCESS: "auth.LOAD_TASKS_SUCCESS",
+  LOAD_TASKS_FAILURE: "auth.LOAD_TASKS_FAILURE",
+
+  ADD_TASK_SUCCESS: "auth.ADD_TASK_SUCCESS",
+  ADD_TASK_FAILURE: "auth.ADD_TASK_FAILURE",
+
   CLEAR_TASKS: "auth.CLEAR_TASKS",
 };
 
@@ -39,6 +46,48 @@ export const reducer = (state = initialState, action) => {
       };
     }
 
+    case actionTypes.LOAD_TASKS_SUCCESS: {
+      const { tasks, isLoadedAll, isLoadAll } = action.payload;
+
+      return {
+        ...state,
+        lastTaskPagingToken:
+          tasks.length && !isLoadAll ? tasks[tasks.length - 1].id : null,
+        tasks: state.tasks.concat(tasks),
+        tasksError: null,
+        isLoadingTasks: false,
+        isLoadedAllTasks: isLoadedAll,
+      };
+    }
+
+    case actionTypes.LOAD_TASKS_FAILURE: {
+      const { error } = action.payload;
+      return {
+        ...state,
+        tasksError: error,
+        isLoadingTasks: false,
+      };
+    }
+
+    case actionTypes.ADD_TASK_SUCCESS: {
+      const { tasks } = action.payload;
+      return {
+        ...state,
+        tasksError: null,
+        tasks,
+        isLoadingTasks: false,
+      };
+    }
+
+    case actionTypes.ADD_TASK_FAILURE: {
+      const { error } = action.payload;
+      return {
+        ...state,
+        tasksError: error,
+        isLoadingTasks: false,
+      };
+    }
+
     case actionTypes.CLEAR_TASKS: {
       return {
         ...state,
@@ -69,12 +118,12 @@ export const actions = {
     return async (dispatch, getState) => {
       dispatch(actions.changeValue("isLoadingTasks", true));
 
-      const { lastTaskPagingToken: pagingToken, tasks: prevTasks } =
-        getState().tasks;
+      const {
+        tasks: { lastTaskPagingToken: pagingToken },
+      } = getState();
 
-      let processedTasks;
-      let isLoadedAllTasks;
-      let error;
+      let successPayload;
+      let failurePayload;
 
       try {
         const { tasks, isLoadedAll } = await getTasks({
@@ -83,43 +132,67 @@ export const actions = {
           pagingToken,
           search,
         });
-        processedTasks = tasks;
         // isLoadedAllTasks = processedTasks.length < limit || isLoadAll;
-        isLoadedAllTasks = isLoadedAll;
-      } catch (err) {
-        error = err;
+
+        successPayload = {
+          tasks,
+          isLoadedAll,
+          isLoadAll,
+        };
+      } catch (error) {
+        failurePayload = { error };
       }
 
-      if (error) {
-        dispatch(
-          actions.changeValue([
-            { name: "isLoadingTasks", value: false },
-            {
-              name: "tasksError",
-              value: error,
-            },
-          ]),
-        );
+      if (failurePayload) {
+        dispatch({
+          type: actionTypes.LOAD_TASKS_FAILURE,
+          payload: failurePayload,
+        });
+
         return;
       }
 
-      dispatch(
-        actions.changeValue([
-          { name: "isLoadingTasks", value: false },
-          { name: "isLoadedAllTasks", value: isLoadedAllTasks },
-          {
-            name: "lastTaskPagingToken",
-            value:
-              processedTasks.length && !isLoadAll
-                ? processedTasks[processedTasks.length - 1].id
-                : null,
-          },
-          {
-            name: "tasks",
-            value: prevTasks.concat(processedTasks),
-          },
-        ]),
-      );
+      dispatch({
+        type: actionTypes.LOAD_TASKS_SUCCESS,
+        payload: successPayload,
+      });
+    };
+  },
+
+  addTask({ task } = {}) {
+    return async (dispatch, getState) => {
+      dispatch(actions.changeValue("isLoadingTasks", true));
+
+      const {
+        auth: { userId },
+      } = getState();
+
+      let successPayload;
+      let failurePayload;
+
+      try {
+        const { tasks } = await addTask({
+          task,
+          userId,
+        });
+        successPayload = { tasks };
+      } catch (error) {
+        failurePayload = { error };
+      }
+
+      if (failurePayload) {
+        dispatch({
+          type: actionTypes.LOAD_TASKS_FAILURE,
+          payload: failurePayload,
+        });
+
+        return;
+      }
+
+      dispatch({
+        type: actionTypes.LOAD_TASKS_SUCCESS,
+        payload: successPayload,
+      });
     };
   },
 

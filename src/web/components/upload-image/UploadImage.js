@@ -72,20 +72,26 @@ const Button = styled(NativeButton)`
 
 const UploadImage = ({
   className,
+  value,
+  onChange,
   uploadText,
   removeText,
   defaultImage: DefaultImage,
   isRemoveButton = false,
 }) => {
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState(value);
   const inputRef = useRef(null);
 
   const onImageChange = e => {
-    setImage(URL.createObjectURL(e.target.files?.[0]));
+    const file = e.target.files?.[0];
+    const newImage = URL.createObjectURL(file);
+    setImage(newImage);
+    onChange(file.name);
   };
 
   const onRemoveImage = () => {
     setImage(null);
+    onChange(null);
   };
 
   // for case of image selecting after removing the same image

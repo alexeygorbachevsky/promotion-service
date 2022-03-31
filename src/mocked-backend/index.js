@@ -1,2 +1,2 @@
 export { getLastNews } from "./api/last-news";
-export { getTasks } from "./api/tasks";
+export { getTasks, addTask } from "./api/tasks";

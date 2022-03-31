@@ -7,7 +7,11 @@ import { Button as NativeButton } from "basics";
 
 import { EmptyImage } from "components";
 
-import {  UserInfo } from "./components";
+import { UserInfo } from "./components";
+
+import { taskCardSelectors } from "./duck";
+
+const { getTaskIcon } = taskCardSelectors;
 
 const Wrapper = styled.div`
   padding: 20px;
@@ -44,14 +48,16 @@ const EmptyButtonText = styled.div`
 `;
 
 const TaskCard = ({ card }) => {
-  const { avatar: Avatar, name, type, task: Task } = card;
+  const { avatar: Avatar, name, type, taskIcon } = card;
 
   const isCardValid = Boolean(name && type && Avatar);
+
+  const Icon = getTaskIcon(taskIcon);
 
   return (
     <Wrapper>
       <UserInfo card={card} />
-      <TaskWrapper>{Task ? <Task /> : <EmptyImage />}</TaskWrapper>
+      <TaskWrapper>{Icon ? <Icon /> : <EmptyImage />}</TaskWrapper>
       {isCardValid ? (
         <Button>Perform a task</Button>
       ) : (

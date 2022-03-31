@@ -1,44 +1,31 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { RadioButton } from "basics";
 
 import { MODAL_IDS } from "constants/modal";
-import { PALETTE } from "constants/styles";
-
-import BehanceIcon from "assets/icons/social-networks/behance.svg";
-import DribbleIcon from "assets/icons/social-networks/dribbble.svg";
 
 import { createTaskModalComponentsStyled } from "../duck";
+import { socialNetworksConstants } from "./duck";
 
 const { BlockWrapper, IconWrapper, BlockTitle, RadioButtonsWrapper } =
   createTaskModalComponentsStyled;
+const { SOCIAL_NETWORKS } = socialNetworksConstants;
 
-const SocialNetworks = () => {
-  // TODO: move to constants
-  const socialNetworks = [
-    { text: "Dribble", Icon: DribbleIcon, iconBackground: PALETTE.pink },
-    { text: "Behance", Icon: BehanceIcon, iconBackground: PALETTE.blue },
-  ];
-
-  const [checkedSocialText, setCheckedSocialText] = useState(
-    socialNetworks[0].text,
-  );
-
+const SocialNetworks = ({ value, onChange }) => {
   const onChangeSocialNetwork = e => {
-    const { value } = e.target;
-    setCheckedSocialText(value);
+    onChange(e.target.value);
   };
 
   return (
     <BlockWrapper>
       <BlockTitle>Select a social network</BlockTitle>
       <RadioButtonsWrapper>
-        {socialNetworks.map(({ text, Icon, iconBackground }) => (
+        {SOCIAL_NETWORKS.map(({ text, Icon, iconBackground }) => (
           <RadioButton
             key={text}
             value={text}
             name={`${MODAL_IDS.createTask}_social-network`}
-            isChecked={text === checkedSocialText}
+            isChecked={text === value}
             onChange={onChangeSocialNetwork}
           >
             <IconWrapper $iconBackground={iconBackground}>

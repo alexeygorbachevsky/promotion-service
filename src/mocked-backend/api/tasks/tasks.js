@@ -3,21 +3,27 @@ import { v4 } from "uuid";
 import { CARDS } from "./ducks";
 import { wait } from "../ducks";
 
+const DEFAULT_LIMIT = 12;
+const DEFAULT_IS_LOAD_ALL = false;
+
 const EMPTY_CARDS = Array(24)
   .fill(1)
   .map(() => ({
     id: v4(),
+    userId: v4(),
     avatar: "",
     name: "",
     type: "",
     typeImage: "",
-    task: "",
+    taskIcon: "",
   }));
 
+let tasks = CARDS;
+
 export const getTasks = async ({
-  limit = 12,
+  limit = DEFAULT_LIMIT,
   pagingToken = null,
-  isLoadAll = false,
+  isLoadAll = DEFAULT_IS_LOAD_ALL,
   search = "",
 } = {}) => {
   await wait(2000);
@@ -32,7 +38,7 @@ export const getTasks = async ({
         : "",
   }));
 
-  let tasks = CARDS.concat(emptyCards);
+  tasks = CARDS.concat(emptyCards);
 
   if (search) {
     const searchText = search.toLowerCase();
@@ -60,4 +66,12 @@ export const getTasks = async ({
   }
 
   return { tasks: tasks.slice(0, limit), isLoadedAll: tasks.length <= limit };
+};
+
+export const addTask = async ({ task, userId } = {}) => {
+  await wait(2000);
+
+  tasks = [{ id: v4(), userId, ...task }, ...tasks];
+
+  return { tasks: DEFAULT_IS_LOAD_ALL ? tasks : tasks.slice(0, DEFAULT_LIMIT) };
 };

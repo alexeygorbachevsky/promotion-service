@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useReducer } from "react";
 import styled from "styled-components";
 
 import {
@@ -64,10 +64,38 @@ const IsPinnedTop = styled(RadioButton)`
   justify-content: center;
 `;
 
+const reducer = (state, action) => {
+  const {
+    type,
+    payload: { value },
+  } = action;
+  return { ...state, [type]: value };
+};
+
 const CreateTaskModal = () => {
-  const [executionCost, setExecutionCost] = useState(30);
-  const [executionsCount, setExecutionsCount] = useState(500);
-  const [isPinnedTop, setIsPinnedTop] = useState(true);
+  const initialState = {
+    executionCost: 30,
+    executionsCount: 500,
+    isPinnedTop: true,
+    socialNetwork: "Dribble",
+    taskType: "",
+    taskTypeImage: null,
+  };
+
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  const {
+    executionCost,
+    executionsCount,
+    isPinnedTop,
+    socialNetwork,
+    taskType,
+    taskTypeImage,
+  } = state;
+
+  const onCreateTask = () => {
+    console.log("AAA");
+  };
 
   // TODO: move to constants
   // eslint-disable-next-line no-unused-vars
@@ -80,7 +108,10 @@ const CreateTaskModal = () => {
       return;
     }
 
-    setExecutionCost(value);
+    dispatch({
+      type: "executionCost",
+      payload: { value },
+    });
   };
 
   const onChangeExecutionsCount = e => {
@@ -90,18 +121,42 @@ const CreateTaskModal = () => {
       return;
     }
 
-    setExecutionsCount(value);
+    dispatch({
+      type: "executionsCount",
+      payload: { value },
+    });
   };
 
   const onChangePinnedTop = e => {
     const { checked } = e.target;
-    setIsPinnedTop(checked);
+
+    dispatch({
+      type: "isPinnedTop",
+      payload: { value: checked },
+    });
   };
+
+  const onChangeSocialNetwork = useCallback(value => {
+    dispatch({
+      type: "socialNetwork",
+      payload: { value },
+    });
+  }, []);
+
+  const onChangeTaskTypeImage = useCallback(value => {
+    dispatch({
+      type: "taskTypeImage",
+      payload: { value },
+    });
+  }, []);
 
   return (
     <Modal id={MODAL_IDS.createTask} title="Task creation">
       <Wrapper>
-        <SocialNetworks />
+        <SocialNetworks
+          value={socialNetwork}
+          onChange={onChangeSocialNetwork}
+        />
         <TaskTypes />
 
         <BlockWrapper>
@@ -110,7 +165,11 @@ const CreateTaskModal = () => {
             Upload svg task image. You can find images in
             &quot;src/assets/tasks-preview&quot; folder.
           </BlockDescription>
-          <UploadImage isRemoveButton />
+          <UploadImage
+            isRemoveButton
+            value={taskTypeImage}
+            onChange={onChangeTaskTypeImage}
+          />
         </BlockWrapper>
 
         <BlockWrapper>
@@ -155,7 +214,10 @@ const CreateTaskModal = () => {
           />
         </BlockWrapper>
 
-        <CreateTaskButton disabled={!executionCost || !executionsCount}>
+        <CreateTaskButton
+          disabled={!executionCost || !executionsCount}
+          onClick={onCreateTask}
+        >
           Create task
         </CreateTaskButton>
       </Wrapper>
