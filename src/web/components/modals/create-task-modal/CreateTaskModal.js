@@ -183,7 +183,7 @@ const CreateTaskModal = () => {
 
   const onChangeTaskIcon = useCallback(value => {
     dispatch({
-      type: "taskTypeImage",
+      type: "taskIcon",
       payload: { value },
     });
   }, []);
