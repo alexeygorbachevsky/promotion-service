@@ -19,7 +19,6 @@ const Blank = styled.div`
 
 const Text = styled.p`
   margin: 0;
-
   font-size: ${toREM(24)};
   font-weight: 500;
   line-height: ${toREM(32)};

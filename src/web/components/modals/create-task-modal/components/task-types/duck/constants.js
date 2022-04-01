@@ -6,7 +6,7 @@ import ViewIcon from "assets/icons/task-types/view.svg";
 import { PALETTE } from "constants/styles";
 
 export const TASK_TYPES = [
-  { type: "Likes", Icon: LikeIcon, iconBackground: PALETTE.lightPink },
+  { type: "Like", Icon: LikeIcon, iconBackground: PALETTE.lightPink },
   {
     type: "Followers",
     Icon: FollowersIcon,
