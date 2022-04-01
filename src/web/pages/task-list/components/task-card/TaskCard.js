@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 import { PALETTE } from "constants/styles";
@@ -48,18 +49,18 @@ const EmptyButtonText = styled.div`
 `;
 
 const TaskCard = ({ card }) => {
-  const { avatar: Avatar, name, type, taskIcon } = card;
-
-  const isCardValid = Boolean(name && type && Avatar);
-
+  const { name, taskType, taskIcon, userId: cardUserId } = card;
+  const userId = useSelector(state => state.auth.userId);
   const Icon = getTaskIcon(taskIcon);
 
   return (
     <Wrapper>
       <UserInfo card={card} />
       <TaskWrapper>{Icon ? <Icon /> : <EmptyImage />}</TaskWrapper>
-      {isCardValid ? (
-        <Button>Perform a task</Button>
+      {name && taskType ? (
+        <Button>
+          {userId === cardUserId ? "Go to task history" : "Perform a task"}
+        </Button>
       ) : (
         <EmptyButton>
           <EmptyButtonText />

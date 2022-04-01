@@ -1,24 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
-import {RadioButton as NativeRadioButton} from "basics";
+import { RadioButton as NativeRadioButton } from "basics";
 
 import { MODAL_IDS } from "constants/modal";
-import { PALETTE } from "constants/styles";
 
-import LikeIcon from "assets/icons/task-types/like.svg";
-import FollowersIcon from "assets/icons/task-types/followers.svg";
-import CommentsIcon from "assets/icons/task-types/comment.svg";
-import ViewIcon from "assets/icons/task-types/view.svg";
-
+import { taskTypesConstants } from "./duck";
 import { createTaskModalComponentsStyled } from "../duck";
 
-const {
-  BlockWrapper,
-  IconWrapper,
-  BlockTitle,
-  RadioButtonsWrapper,
-} = createTaskModalComponentsStyled;
+const { TASK_TYPES } = taskTypesConstants;
+const { BlockWrapper, IconWrapper, BlockTitle, RadioButtonsWrapper } =
+  createTaskModalComponentsStyled;
 
 const RadioButton = styled(NativeRadioButton)`
   margin: 0;
@@ -32,40 +24,21 @@ const RadioButton = styled(NativeRadioButton)`
   }
 `;
 
-const TaskTypes = () => {
-  // TODO: move out
-  const taskTypes = [
-    { type: "Likes", Icon: LikeIcon, iconBackground: PALETTE.lightPink },
-    {
-      type: "Followers",
-      Icon: FollowersIcon,
-      iconBackground: PALETTE.lightPurple,
-    },
-    {
-      type: "Comments",
-      Icon: CommentsIcon,
-      iconBackground: PALETTE.lightGreen,
-    },
-    { type: "Views", Icon: ViewIcon, iconBackground: PALETTE.lightOrange },
-  ];
-
-  const [checkedTaskType, setCheckedTaskType] = useState(taskTypes[0].type);
-
+const TaskTypes = ({ value, onChange }) => {
   const onChangeTaskType = e => {
-    const { value } = e.target;
-    setCheckedTaskType(value);
+    onChange(e.target.value);
   };
 
   return (
     <BlockWrapper>
       <BlockTitle>Task type</BlockTitle>
       <RadioButtonsWrapper>
-        {taskTypes.map(({ type, Icon, iconBackground }) => (
+        {TASK_TYPES.map(({ type, Icon, iconBackground }) => (
           <RadioButton
             key={type}
             value={type}
             name={`${MODAL_IDS.createTask}_task-type`}
-            isChecked={type === checkedTaskType}
+            isChecked={type === value}
             onChange={onChangeTaskType}
           >
             <IconWrapper $iconBackground={iconBackground}>

@@ -84,7 +84,7 @@ const OptionDot = styled.div`
 `;
 
 const UserInfo = ({
-  card: { avatar: Avatar, typeImage: TypeImage, name, type },
+  card: { avatar: Avatar, taskTypeImage: TypeImage, name, taskType },
 }) => (
   <UserWrapper>
     <AvatarWrapper>
@@ -114,7 +114,7 @@ const UserInfo = ({
       ) : (
         <EmptyUserName />
       )}
-      {type ? <Type>{type}</Type> : <EmptyType />}
+      {taskType ? <Type>{taskType}</Type> : <EmptyType />}
     </UserData>
   </UserWrapper>
 );

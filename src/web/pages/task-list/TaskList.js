@@ -10,7 +10,7 @@ import { GoTop, InfiniteScroll, Error, BlankState } from "components";
 import Loader from "assets/icons/loader.svg";
 
 import { TaskCard, TaskListHeader } from "./components";
-import { taskListConstants, taskListHooks } from "./ducks";
+import { taskListConstants, taskListHooks } from "./duck";
 
 const { useConnect } = taskListHooks;
 const {

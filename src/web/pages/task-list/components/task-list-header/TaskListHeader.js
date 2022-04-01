@@ -10,7 +10,7 @@ import { Search } from "components";
 
 import { Button } from "basics";
 
-import { taskListConstants } from "../../ducks";
+import { taskListConstants } from "../../duck";
 
 const { TASK_LIST_HEADER_HEIGHT } = taskListConstants;
 
@@ -18,7 +18,6 @@ const Wrapper = styled.div`
   width: 100%;
   padding: 0 40px;
   height: ${TASK_LIST_HEADER_HEIGHT}px;
-  // border-top: 2px solid ${PALETTE.getBorderColor};
   border-bottom: 2px solid ${PALETTE.getBorderColor};
   display: flex;
   align-items: center;
@@ -63,7 +62,7 @@ const TaskListHeader = ({ isDisabled, setSearchText }) => (
   <Wrapper>
     <Title>Top Tasks</Title>
     <ButtonInputWrapper>
-      <Search isDisabled={isDisabled} onSearchChange={setSearchText} />
+      <Search onSearchChange={setSearchText} />
       <Divider />
       <CreateTaskButton
         disabled={isDisabled}

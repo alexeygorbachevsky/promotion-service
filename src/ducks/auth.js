@@ -1,15 +1,13 @@
 import { LOCAL_STORAGE_APP_PREFIX } from "constants/app";
 
-import AvatarIcon from "assets/icons/avatars/avatar-main40.svg";
-
 export const actionTypes = {
   CHANGE_VALUE: "auth.CHANGE_VALUE",
   SET_IS_DARK_MODE: "auth.SET_IS_DARK_MODE",
 };
 
 export const initialState = {
-  userId: "some_user_id",
-  avatar: AvatarIcon,
+  userId: "promotion_service_admin_user_id",
+  name: "David McConaughey",
   isDarkMode:
     localStorage.getItem(`${LOCAL_STORAGE_APP_PREFIX}isDarkMode`) !== "false",
 };

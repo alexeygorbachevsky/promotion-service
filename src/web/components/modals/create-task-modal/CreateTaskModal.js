@@ -1,4 +1,4 @@
-import React, { useCallback, useReducer } from "react";
+import React, { useCallback, useEffect, useReducer } from "react";
 import styled from "styled-components";
 
 import {
@@ -9,25 +9,34 @@ import {
   radioButtonConstants,
 } from "basics";
 
-import { UploadImage } from "components";
-
-import { PALETTE } from "constants/styles";
-import { MODAL_IDS } from "constants/modal";
-
+import Loader from "assets/icons/loader.svg";
+import NativeCheckMark from "assets/icons/check-mark.svg";
 import NativeCoinsIcon from "assets/icons/coins.svg";
 import NativeFlashIcon from "assets/icons/flash.svg";
+
+import { UploadImage } from "components";
+
+import { PALETTE, toREM } from "constants/styles";
+import { MODAL_IDS } from "constants/modal";
 
 import {
   SocialNetworks,
   TaskTypes,
   createTaskModalComponentsStyled,
 } from "./components";
+import {
+  createTaskModalReducer as reducer,
+  createTaskModalState,
+  createTaskModalHooks,
+} from "./duck";
+import { Error as NativeError } from "../../error";
 
 const { BlockWrapper, BlockTitle } = createTaskModalComponentsStyled;
 const { RADIO_BUTTON_THEME_NAMES } = radioButtonConstants;
+const { initialState } = createTaskModalState;
+const { useConnect } = createTaskModalHooks;
 
 const Wrapper = styled.div`
-  height: 100%
   width: 100%;
 
   padding: 10px 30px;
@@ -37,6 +46,30 @@ const Wrapper = styled.div`
 
 const BlockDescription = styled(BlockTitle)`
   margin-top: 20px;
+`;
+
+const Error = styled(NativeError)`
+  margin-bottom: 70px;
+`;
+
+const CheckMark = styled(NativeCheckMark)`
+  width: 120px;
+  height: 120px;
+`;
+
+const StateWrapper = styled.div`
+  margin-bottom: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+const StatesWrapper = styled.div`
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const ExecutionCostInput = styled(Input)`
@@ -64,35 +97,43 @@ const IsPinnedTop = styled(RadioButton)`
   justify-content: center;
 `;
 
-const reducer = (state, action) => {
-  const {
-    type,
-    payload: { value },
-  } = action;
-  return { ...state, [type]: value };
-};
+const Text = styled.p`
+  margin: 20px 0 0;
+
+  font-size: ${toREM(24)};
+  font-weight: 500;
+  line-height: ${toREM(32)};
+  text-align: center;
+`;
 
 const CreateTaskModal = () => {
-  const initialState = {
-    executionCost: 30,
-    executionsCount: 500,
-    isPinnedTop: true,
-    socialNetwork: "Dribble",
-    taskType: "",
-    taskTypeImage: null,
-  };
-
   const [state, dispatch] = useReducer(reducer, initialState);
+  const {
+    addTask,
+    onCloseModal,
+    onOpenModal,
+    error,
+    isLoadingTasks,
+    isTaskCreationDone,
+  } = useConnect();
 
   const {
     executionCost,
     executionsCount,
     isPinnedTop,
     socialNetwork,
-    taskTypeImage,
+    taskIcon,
+    taskType,
   } = state;
 
-  const onCreateTask = () => {};
+  const onCreateTask = () => {
+    addTask(state);
+  };
+
+  useEffect(() => {
+    onOpenModal();
+    return () => onCloseModal();
+  }, []);
 
   // TODO: move to constants
   // eslint-disable-next-line no-unused-vars
@@ -140,12 +181,57 @@ const CreateTaskModal = () => {
     });
   }, []);
 
-  const onChangeTaskTypeImage = useCallback(value => {
+  const onChangeTaskIcon = useCallback(value => {
     dispatch({
       type: "taskTypeImage",
       payload: { value },
     });
   }, []);
+
+  const onChangeTaskType = useCallback(value => {
+    dispatch({
+      type: "taskType",
+      payload: { value },
+    });
+  }, []);
+
+  // TODO: refactor
+
+  if (isLoadingTasks) {
+    return (
+      <Modal id={MODAL_IDS.createTask} title="Task creation">
+        <StatesWrapper>
+          <StateWrapper>
+            <Loader />
+            <Text>Task is being added</Text>
+          </StateWrapper>
+        </StatesWrapper>
+      </Modal>
+    );
+  }
+
+  if (error) {
+    return (
+      <Modal id={MODAL_IDS.createTask} title="Task creation">
+        <StatesWrapper>
+          <Error>Something went wrong. Try again later.</Error>
+        </StatesWrapper>
+      </Modal>
+    );
+  }
+
+  if (isTaskCreationDone) {
+    return (
+      <Modal id={MODAL_IDS.createTask} title="Task creation">
+        <StatesWrapper>
+          <StateWrapper>
+            <CheckMark />
+            <Text>Task successfully added</Text>
+          </StateWrapper>
+        </StatesWrapper>
+      </Modal>
+    );
+  }
 
   return (
     <Modal id={MODAL_IDS.createTask} title="Task creation">
@@ -154,7 +240,7 @@ const CreateTaskModal = () => {
           value={socialNetwork}
           onChange={onChangeSocialNetwork}
         />
-        <TaskTypes />
+        <TaskTypes value={taskType} onChange={onChangeTaskType} />
 
         <BlockWrapper>
           <BlockTitle>Task image</BlockTitle>
@@ -164,8 +250,8 @@ const CreateTaskModal = () => {
           </BlockDescription>
           <UploadImage
             isRemoveButton
-            value={taskTypeImage}
-            onChange={onChangeTaskTypeImage}
+            value={taskIcon}
+            onChange={onChangeTaskIcon}
           />
         </BlockWrapper>
 
@@ -212,7 +298,7 @@ const CreateTaskModal = () => {
         </BlockWrapper>
 
         <CreateTaskButton
-          disabled={!executionCost || !executionsCount}
+          disabled={!executionCost || !executionsCount || isLoadingTasks}
           onClick={onCreateTask}
         >
           Create task

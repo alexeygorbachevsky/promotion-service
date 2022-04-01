@@ -7,7 +7,7 @@ import { PALETTE } from "constants/styles";
 
 import NativeArrowHeadUpIcon from "assets/icons/arrowhead-up.svg";
 
-import { taskListConstants } from "../../pages/task-list/ducks";
+import { taskListConstants } from "../../pages/task-list/duck";
 
 const { TASK_LIST_HEADER_PADDING_TOP } = taskListConstants;
 

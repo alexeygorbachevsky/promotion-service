@@ -10,6 +10,7 @@ const Wrapper = styled.div`
   display: flex;
   border-radius: 15px;
   background-color: ${PALETTE.getHeaderBackground};
+  overflow-x: auto;
 `;
 
 const Image = styled.img`
@@ -21,6 +22,7 @@ const Image = styled.img`
 
 const InfoWrapper = styled.div`
   width: 460px;
+  min-width: 372px;
   display: flex;
   flex-direction: column;
 `;

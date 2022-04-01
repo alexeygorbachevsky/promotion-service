@@ -100,6 +100,7 @@ const Modal = ({
   className,
   title,
   isCloseOnOverlayClick = true,
+  onCloseModal,
 }) => {
   const [isWrapperHovered, setIsWrapperHovered] = useState(false);
 
@@ -128,11 +129,17 @@ const Modal = ({
   const onCloseOverlay = e => {
     if (!e.target.closest(`#${MODAL_WRAPPER_ID}`)) {
       closeModal(id);
+      if (onCloseModal) {
+        onCloseModal();
+      }
     }
   };
 
   const onCloseButton = () => {
     closeModal(id);
+    if (onCloseModal) {
+      onCloseModal();
+    }
   };
 
   useEffect(() => {

@@ -1,11 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
 
 import { MODAL_IDS } from "constants/modal";
 
 import { CreateTaskModal } from "components";
 
 import { MODAL_OVERLAY_ID } from "constants/overlays";
+
+import { getStore } from "helpers/reducerRegistry";
 
 export const openModal = ({ id, props }) => {
   let modal;
@@ -23,7 +26,10 @@ export const openModal = ({ id, props }) => {
   const target = document.getElementById(MODAL_OVERLAY_ID);
   target.appendChild(modalContainer);
 
-  ReactDOM.render(modal, modalContainer);
+  ReactDOM.render(
+    <Provider store={getStore()}>{modal}</Provider>,
+    modalContainer,
+  );
 };
 
 export const closeModal = id => {

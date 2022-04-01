@@ -15,10 +15,12 @@ export const actionTypes = {
 export const initialState = {
   tasks: [],
   lastTaskPagingToken: null,
+  isTaskCreationDone: false,
 
   isLoadingTasks: false,
   isLoadedAllTasks: false,
   tasksError: null,
+  addTaskError: null,
 };
 
 export const reducer = (state = initialState, action) => {
@@ -71,9 +73,11 @@ export const reducer = (state = initialState, action) => {
 
     case actionTypes.ADD_TASK_SUCCESS: {
       const { tasks } = action.payload;
+
       return {
         ...state,
-        tasksError: null,
+        addTaskError: null,
+        isTaskCreationDone: true,
         tasks,
         isLoadingTasks: false,
       };
@@ -81,9 +85,11 @@ export const reducer = (state = initialState, action) => {
 
     case actionTypes.ADD_TASK_FAILURE: {
       const { error } = action.payload;
+
       return {
         ...state,
-        tasksError: error,
+        isTaskCreationDone: true,
+        addTaskError: error,
         isLoadingTasks: false,
       };
     }
@@ -160,12 +166,8 @@ export const actions = {
   },
 
   addTask({ task } = {}) {
-    return async (dispatch, getState) => {
+    return async dispatch => {
       dispatch(actions.changeValue("isLoadingTasks", true));
-
-      const {
-        auth: { userId },
-      } = getState();
 
       let successPayload;
       let failurePayload;
@@ -173,7 +175,6 @@ export const actions = {
       try {
         const { tasks } = await addTask({
           task,
-          userId,
         });
         successPayload = { tasks };
       } catch (error) {
@@ -182,7 +183,7 @@ export const actions = {
 
       if (failurePayload) {
         dispatch({
-          type: actionTypes.LOAD_TASKS_FAILURE,
+          type: actionTypes.ADD_TASK_FAILURE,
           payload: failurePayload,
         });
 
@@ -190,7 +191,7 @@ export const actions = {
       }
 
       dispatch({
-        type: actionTypes.LOAD_TASKS_SUCCESS,
+        type: actionTypes.ADD_TASK_SUCCESS,
         payload: successPayload,
       });
     };
