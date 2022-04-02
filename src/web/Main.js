@@ -1,4 +1,4 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import styled from "styled-components";
 import { Routes, Route, Navigate } from "react-router-dom";
 
@@ -7,9 +7,15 @@ import "assets/fonts/fonts.css";
 import { PALETTE, SIZE } from "constants/styles";
 import { ROUTES } from "constants/routes";
 
-import { NavHeader } from "components";
+import { NavHeader, Suspense as SuspenseLoader } from "components";
 
-import { TaskList, News, Settings } from "pages";
+import { TaskList } from "pages";
+
+const News = lazy(() => import(/* webpackChunkName: "News" */ "pages/news"));
+
+const Settings = lazy(() =>
+  import(/* webpackChunkName: "Settings" */ "pages/settings"),
+);
 
 const Wrapper = styled.main`
   min-height: 100vh;
@@ -19,20 +25,19 @@ const Wrapper = styled.main`
   overflow-x: hidden;
 `;
 
-// TODO: split on chunks
 const Main = () => (
   <Wrapper>
     <NavHeader />
-    <Routes>
-      <Route path="/">
+    <Suspense fallback={<SuspenseLoader />}>
+      <Routes>
         <Route exact path={ROUTES.taskList} element={<TaskList />} />
         <Route exact path={ROUTES.news} element={<News />} />
         <Route exact path={ROUTES.settings} element={<Settings />} />
         <Route index element={<Navigate to={ROUTES.taskList} replace />} />
-      </Route>
-      {/* TODO: Not found route */}
-      {/* <Route path="*" element={<NotFound />} /> */}
-    </Routes>
+        {/* TODO: Not found route */}
+        {/* <Route path="*" element={<NotFound />} /> */}
+      </Routes>
+    </Suspense>
   </Wrapper>
 );
 
