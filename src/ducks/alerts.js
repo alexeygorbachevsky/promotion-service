@@ -34,7 +34,7 @@ export const reducer = (state = initialState, action) => {
 };
 
 export const actions = {
-  addAlert({ id, message, type, timeout = 10000 }) {
+  addAlert({ id, message, type, timeout = 5000 }) {
     return (dispatch, getState) => {
       const {
         alerts: { alerts },
