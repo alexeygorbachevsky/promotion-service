@@ -1,13 +1,16 @@
 import { getLastNews } from "mocked-backend";
+
 import { makePaginatedLastNews } from "helpers/news";
 
 export const actionTypes = {
   CHANGE_VALUE: "news.CHANGE_VALUE",
+
+  LOAD_LAST_NEWS_SUCCESS: "tasks.LOAD_LAST_NEWS_SUCCESS",
+  LOAD_LAST_NEWS_ERROR: "tasks.LOAD_LAST_NEWS_ERROR",
 };
 
 export const initialState = {
   lastNews: {},
-  lastNewsPage: 1,
 
   lastNewsTotalCount: 0,
   isLoadingLastNews: false,
@@ -39,6 +42,27 @@ export const reducer = (state = initialState, action) => {
       };
     }
 
+    case actionTypes.LOAD_LAST_NEWS_SUCCESS: {
+      const { lastNews, totalCount } = action.payload;
+
+      return {
+        ...state,
+        isLoadingLastNews: false,
+        lastNews: { ...state.lastNews, ...lastNews },
+        lastNewsTotalCount: totalCount,
+      };
+    }
+
+    case actionTypes.LOAD_LAST_NEWS_ERROR: {
+      const { error } = action.payload;
+
+      return {
+        ...state,
+        isLoadingLastNews: false,
+        lastNewsError: error,
+      };
+    }
+
     default: {
       return state;
     }
@@ -56,55 +80,44 @@ export const actions = {
 
   // Don't send page param for loading all pages
   loadLastNews({ itemsPerPage, page } = {}) {
-    return async (dispatch, getState) => {
+    return async dispatch => {
       dispatch(actions.changeValue("isLoadingLastNews", true));
 
-      const prevLastNews = getState().news.lastNews;
+      let successPayload;
+      let failurePayload;
 
-      let paginatedLastNews;
-      let error;
-      let lastNewsTotalCount;
       try {
         const { lastNews, totalCount } = await getLastNews({
           itemsPerPage,
           page,
         });
-        paginatedLastNews = makePaginatedLastNews({
+        const paginatedLastNews = makePaginatedLastNews({
           lastNews,
           itemsPerPage,
           page,
         });
-        lastNewsTotalCount = totalCount;
-      } catch (err) {
-        error = err;
+
+        successPayload = {
+          lastNews: paginatedLastNews,
+          totalCount,
+        };
+      } catch (error) {
+        failurePayload = { error };
       }
 
-      if (error) {
-        dispatch(
-          actions.changeValue([
-            { name: "isLoadingLastNews", value: false },
-            {
-              name: "lastNewsError",
-              value: error,
-            },
-          ]),
-        );
+      if (failurePayload) {
+        dispatch({
+          type: actionTypes.LOAD_LAST_NEWS_ERROR,
+          payload: failurePayload,
+        });
+
         return;
       }
 
-      dispatch(
-        actions.changeValue([
-          { name: "isLoadingLastNews", value: false },
-          {
-            name: "lastNews",
-            value: { ...prevLastNews, ...paginatedLastNews },
-          },
-          {
-            name: "lastNewsTotalCount",
-            value: lastNewsTotalCount,
-          },
-        ]),
-      );
+      dispatch({
+        type: actionTypes.LOAD_LAST_NEWS_SUCCESS,
+        payload: successPayload,
+      });
     };
   },
 };

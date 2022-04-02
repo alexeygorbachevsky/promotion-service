@@ -8,7 +8,6 @@ export const useConnect = () => {
     lastNews,
     lastNewsError: error,
     isLoadingLastNews,
-    lastNewsPage: page,
     lastNewsTotalCount,
   } = useSelector(state => state.news);
 
@@ -24,7 +23,6 @@ export const useConnect = () => {
     lastNews,
     error,
     isLoadingLastNews,
-    page,
     lastNewsTotalCount,
     loadLastNews,
     setPageNumber,

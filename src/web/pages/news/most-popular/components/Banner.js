@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { PALETTE, toREM } from "constants/styles";
+import { customScrollbar, PALETTE, toREM } from "constants/styles";
 
 const Wrapper = styled.div`
   height: 360px;
@@ -11,6 +11,7 @@ const Wrapper = styled.div`
   border-radius: 15px;
   background-color: ${PALETTE.getHeaderBackground};
   overflow-x: auto;
+  ${customScrollbar};
 `;
 
 const Image = styled.img`

@@ -97,10 +97,6 @@ const Pagination = ({
   disabled,
 }) => {
   const navigate = useNavigate();
-  useEffect(() => {
-    navigate(`?page=${page}`);
-  }, []);
-
   const pagesCount = Math.ceil(itemsCount / itemsPerPage);
 
   const [middlePages, setMiddlePages] = useState([
@@ -108,6 +104,10 @@ const Pagination = ({
     FIRST_MIDDLE_PAGE - 1,
     FIRST_MIDDLE_PAGE,
   ]);
+
+  useEffect(() => {
+    navigate(`?page=${page}`);
+  }, [page]);
 
   const onSetMiddlePages = pageNumber => {
     if (pageNumber < FIRST_MIDDLE_PAGE) {

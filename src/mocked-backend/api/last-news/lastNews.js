@@ -3,7 +3,7 @@ import { v4 } from "uuid";
 import { LAST_NEWS_FIRST_PAGE } from "./ducks";
 import { wait } from "../ducks";
 
-export const getLastNews = async ({ page, itemsPerPage = 5 }) => {
+export const getLastNews = async ({ page, itemsPerPage = 6 }) => {
   await wait(2000);
 
   const LAST_NEWS_EMPTY_PAGES = Array(42)
@@ -21,13 +21,24 @@ export const getLastNews = async ({ page, itemsPerPage = 5 }) => {
     }));
 
   let lastNews = LAST_NEWS_FIRST_PAGE.concat(LAST_NEWS_EMPTY_PAGES);
+  let returnedPage = page;
 
   const totalCount = lastNews.length;
 
   if (page) {
-    const firstItemIndex = itemsPerPage * (page - 1);
-    lastNews = lastNews.slice(firstItemIndex, firstItemIndex + 6);
+    const pagesCount = Math.ceil(lastNews.length / itemsPerPage);
+
+    let firstItemIndex = itemsPerPage * (page - 1);
+    const isIncorrectPage = Number.isNaN(Number(page));
+
+    if (isIncorrectPage || (!isIncorrectPage && page > pagesCount)) {
+      firstItemIndex = 0;
+      returnedPage = 1;
+    }
+
+    lastNews = lastNews.slice(firstItemIndex, firstItemIndex + itemsPerPage);
+
   }
 
-  return { lastNews, totalCount };
+  return { lastNews, totalCount, returnedPage };
 };

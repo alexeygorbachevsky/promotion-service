@@ -11,12 +11,11 @@ import Loader from "assets/icons/loader.svg";
 import { LastNew } from "./components";
 import { lastNewsConstants, lastNewsHooks } from "./ducks";
 
-const { ITEMS_PER_PAGE } = lastNewsConstants;
+const { ITEMS_PER_PAGE, DEFAULT_PAGE } = lastNewsConstants;
 const { useConnect } = lastNewsHooks;
 
 const Wrapper = styled.div`
   margin-top: 40px;
-  // height: 100%;
   width: 100%;
   overflow: hidden;
 `;
@@ -58,7 +57,6 @@ const Error = styled.div``;
 
 const LastNews = () => {
   const {
-    page,
     lastNews,
     error,
     isLoadingLastNews,
@@ -66,9 +64,15 @@ const LastNews = () => {
     loadLastNews,
     setPageNumber,
   } = useConnect();
-
   const [searchParams] = useSearchParams();
-  const currentPage = Number(searchParams.get("page")) || page;
+
+  const searchPage = Number(searchParams.get("page"));
+
+  const pagesCount = Math.ceil(lastNewsTotalCount / ITEMS_PER_PAGE);
+  const currentPage =
+    (lastNewsTotalCount && searchPage > pagesCount) || searchPage < 0
+      ? DEFAULT_PAGE
+      : searchPage || DEFAULT_PAGE;
   const currentPageLastNews = lastNews[currentPage] || [];
 
   useEffect(() => {
