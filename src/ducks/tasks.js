@@ -1,15 +1,19 @@
 import { getTasks, addTask } from "mocked-backend";
 
+import { actions as alertActions } from "ducks/alerts";
+
+import { ALERT_IDS, ALERT_TYPES } from "constants/alerts";
+
 export const actionTypes = {
-  CHANGE_VALUE: "auth.CHANGE_VALUE",
+  CHANGE_VALUE: "tasks.CHANGE_VALUE",
 
-  LOAD_TASKS_SUCCESS: "auth.LOAD_TASKS_SUCCESS",
-  LOAD_TASKS_FAILURE: "auth.LOAD_TASKS_FAILURE",
+  LOAD_TASKS_SUCCESS: "tasks.LOAD_TASKS_SUCCESS",
+  LOAD_TASKS_FAILURE: "tasks.LOAD_TASKS_FAILURE",
 
-  ADD_TASK_SUCCESS: "auth.ADD_TASK_SUCCESS",
-  ADD_TASK_FAILURE: "auth.ADD_TASK_FAILURE",
+  ADD_TASK_SUCCESS: "tasks.ADD_TASK_SUCCESS",
+  ADD_TASK_FAILURE: "tasks.ADD_TASK_FAILURE",
 
-  CLEAR_TASKS: "auth.CLEAR_TASKS",
+  CLEAR_TASKS: "tasks.CLEAR_TASKS",
 };
 
 export const initialState = {
@@ -119,7 +123,6 @@ export const actions = {
     return { type: actionTypes.CHANGE_VALUE, payload };
   },
 
-  // Don't send limit param for loading all tasks
   loadTasks({ limit = 12, search, isLoadAll = false } = {}) {
     return async (dispatch, getState) => {
       dispatch(actions.changeValue("isLoadingTasks", true));
@@ -187,6 +190,14 @@ export const actions = {
           payload: failurePayload,
         });
 
+        dispatch(
+          alertActions.addAlert({
+            message: "Task is not added. Try again.",
+            type: ALERT_TYPES.error,
+            id: ALERT_IDS.addTaskError,
+          }),
+        );
+
         return;
       }
 
@@ -194,6 +205,14 @@ export const actions = {
         type: actionTypes.ADD_TASK_SUCCESS,
         payload: successPayload,
       });
+
+      dispatch(
+        alertActions.addAlert({
+          message: "Task is successfully added",
+          type: ALERT_TYPES.success,
+          id: ALERT_IDS.addTaskSuccess,
+        }),
+      );
     };
   },
 

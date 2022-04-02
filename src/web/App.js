@@ -9,11 +9,15 @@ import { AppStyles } from "styles";
 
 import { MODAL_OVERLAY_ID } from "constants/overlays";
 
-import { ErrorBoundary } from "components";
+import { ErrorBoundary, Alerts } from "components";
 
 import Main from "./Main";
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+`;
 
 const ModalWrapper = styled.div``;
 
@@ -26,6 +30,7 @@ const App = () => {
           <Wrapper>
             <AppStyles />
             <Main />
+            <Alerts />
             <ModalWrapper id={MODAL_OVERLAY_ID} />
           </Wrapper>
         </BrowserRouter>

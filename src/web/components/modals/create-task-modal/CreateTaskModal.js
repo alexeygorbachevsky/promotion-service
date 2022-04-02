@@ -35,10 +35,6 @@ const CreateTaskModal = () => {
     return () => onCloseModal();
   }, []);
 
-  // TODO: move to constants
-  // eslint-disable-next-line no-unused-vars
-  const MIN_EXECUTION_COST = 20;
-
   return (
     <Modal id={MODAL_IDS.createTask} title="Task creation">
       {getModalData({

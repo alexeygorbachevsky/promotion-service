@@ -2,7 +2,7 @@ import { getLastNews } from "mocked-backend";
 import { makePaginatedLastNews } from "helpers/news";
 
 export const actionTypes = {
-  CHANGE_VALUE: "auth.CHANGE_VALUE",
+  CHANGE_VALUE: "news.CHANGE_VALUE",
 };
 
 export const initialState = {

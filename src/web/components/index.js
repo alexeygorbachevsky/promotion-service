@@ -12,3 +12,4 @@ export { UploadImage } from "./upload-image";
 export { InfiniteScroll } from "./infinite-scroll";
 export { Error } from "./error";
 export { BlankState } from "./blank-state";
+export { Alerts } from "./alerts";

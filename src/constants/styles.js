@@ -33,6 +33,9 @@ PALETTE.getText = ({ theme }) => (theme.isDarkMode ? PALETTE.white : "#282B31");
 PALETTE.getHeaderBackground = ({ theme }) =>
   theme.isDarkMode ? "#1c1c24" : PALETTE.white;
 
+PALETTE.getAlertBackground = ({ theme }) =>
+  theme.isDarkMode ? "#343444" : PALETTE.white;
+
 PALETTE.getPageBackground = ({ theme }) =>
   theme.isDarkMode ? "#131419" : "#EAEDF2";
 
@@ -57,6 +60,7 @@ export const SIZE = {
 export const Z_INDEX = {
   navHeader: 1,
   overlay: 5,
+  alerts: 8,
 };
 
 export const customScrollbar = ({ $isScrollWrapperHovered }) => `

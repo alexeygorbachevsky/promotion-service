@@ -47,7 +47,7 @@ const Label = styled.span`
 `;
 
 const Error = styled.div`
-  width: 100%;
+  min-width: 500px;
   position: absolute;
   left: 5px;
   bottom: -20px;

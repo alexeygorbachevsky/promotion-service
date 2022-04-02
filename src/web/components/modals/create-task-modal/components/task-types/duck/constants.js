@@ -13,7 +13,7 @@ export const TASK_TYPES = [
     iconBackground: PALETTE.lightPurple,
   },
   {
-    type: "Comments",
+    type: "Comment",
     Icon: CommentsIcon,
     iconBackground: PALETTE.lightGreen,
   },

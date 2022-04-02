@@ -20,8 +20,12 @@ import {
   TaskTypes,
 } from "../components";
 
+import { getModalDataConstants } from "./duck";
+
 const { BlockWrapper, BlockTitle } = createTaskModalComponentsStyled;
 const { RADIO_BUTTON_THEME_NAMES } = radioButtonConstants;
+const { MIN_EXECUTION_COST, MIN_EXECUTION_COUNT, MAX_EXECUTION_COUNT } =
+  getModalDataConstants;
 
 const Wrapper = styled.div`
   width: 100%;
@@ -109,6 +113,17 @@ const getModalData = ({
   onCreateTask,
   dispatch,
 } = {}) => {
+  const executionCostError =
+    executionCost < MIN_EXECUTION_COST
+      ? `You need to pay at least ${MIN_EXECUTION_COST} coins for execution`
+      : null;
+
+  const executionCountError =
+    executionsCount < MIN_EXECUTION_COUNT ||
+    executionsCount > MAX_EXECUTION_COUNT
+      ? `Execution count should be in range from ${MIN_EXECUTION_COUNT} to ${MAX_EXECUTION_COUNT}`
+      : null;
+
   const onChangeExecutionCost = e => {
     const { validity, value } = e.target;
 
@@ -212,7 +227,7 @@ const getModalData = ({
             <BlockTitle>Task image</BlockTitle>
             <BlockDescription>
               Upload svg task image. You can find images in
-              &quot;src/assets/tasks-preview&quot; folder.
+              &quot;src/assets/icons/tasks&quot; folder.
             </BlockDescription>
             <UploadImage
               isRemoveButton
@@ -224,7 +239,8 @@ const getModalData = ({
           <BlockWrapper>
             <BlockTitle>Execution cost</BlockTitle>
             <BlockDescription>
-              At least 20 coins for execution (50% goes to the site commission)
+              At least {MIN_EXECUTION_COST} coins for execution (50% goes to the
+              site commission)
             </BlockDescription>
             <ExecutionCostInput
               value={executionCost}
@@ -232,6 +248,7 @@ const getModalData = ({
               onChange={onChangeExecutionCost}
               pattern="\d{0,9}"
               label={<CoinsIcon />}
+              error={executionCostError}
             />
           </BlockWrapper>
 
@@ -246,6 +263,7 @@ const getModalData = ({
               onChange={onChangeExecutionsCount}
               pattern="\d{0,9}"
               label={<FlashIcon />}
+              error={executionCountError}
             />
           </BlockWrapper>
 
@@ -264,7 +282,13 @@ const getModalData = ({
           </BlockWrapper>
 
           <CreateTaskButton
-            disabled={!executionCost || !executionsCount || isLoadingTasks}
+            disabled={
+              !executionCost ||
+              !executionsCount ||
+              isLoadingTasks ||
+              !!executionCostError ||
+              !!executionCountError
+            }
             onClick={onCreateTask}
           >
             Create task
