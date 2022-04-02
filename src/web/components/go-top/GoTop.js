@@ -7,11 +7,10 @@ import { PALETTE } from "constants/styles";
 
 import NativeArrowHeadUpIcon from "assets/icons/arrowhead-up.svg";
 
-import { taskListConstants } from "../../pages/task-list/duck";
+import { taskListConstants } from "pages/task-list/duck";
 
 const { TASK_LIST_HEADER_PADDING_TOP } = taskListConstants;
 
-// TODO: helpers media
 const Wrapper = styled(BlankButton)`
   position: absolute;
   bottom: ${TASK_LIST_HEADER_PADDING_TOP}px;
@@ -25,6 +24,10 @@ const Wrapper = styled(BlankButton)`
   background-color: ${({ theme }) =>
     theme.isDarkMode ? "#2d2d3a" : PALETTE.white};
 
+  &:focus {
+    border: 3px solid ${PALETTE.blue};
+  }
+
   @media (max-width: 1480px) {
     display: none;
   }
@@ -34,7 +37,7 @@ const ArrowHeadUpIcon = styled(NativeArrowHeadUpIcon)`
   color: ${({ theme }) => (theme.isDarkMode ? "#4b4b62" : "#a6adb1")};
   transition: color 0.15s ease-out;
 
-  ${Wrapper}:hover & {
+  ${Wrapper}:hover, ${Wrapper}:focus & {
     color: ${PALETTE.blue};
   }
 `;
@@ -47,7 +50,6 @@ const GoTop = ({ containerRef }) => {
     });
   };
 
-  // TODO: make accessibility
   return (
     <Wrapper onClick={onGoTop}>
       <ArrowHeadUpIcon />

@@ -37,7 +37,6 @@ export const getLastNews = async ({ page, itemsPerPage = 6 }) => {
     }
 
     lastNews = lastNews.slice(firstItemIndex, firstItemIndex + itemsPerPage);
-
   }
 
   return { lastNews, totalCount, returnedPage };

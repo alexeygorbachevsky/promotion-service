@@ -1,4 +1,4 @@
-import { getLastNews } from "mocked-backend";
+import { getLastNews, getBanners } from "mocked-backend";
 
 import { makePaginatedLastNews } from "helpers/news";
 
@@ -7,14 +7,20 @@ export const actionTypes = {
 
   LOAD_LAST_NEWS_SUCCESS: "tasks.LOAD_LAST_NEWS_SUCCESS",
   LOAD_LAST_NEWS_ERROR: "tasks.LOAD_LAST_NEWS_ERROR",
+
+  LOAD_BANNERS_SUCCESS: "tasks.LOAD_BANNERS_SUCCESS",
+  LOAD_BANNERS_ERROR: "tasks.LOAD_BANNERS_ERROR",
 };
 
 export const initialState = {
   lastNews: {},
-
+  banners: [],
   lastNewsTotalCount: 0,
+
   isLoadingLastNews: false,
+  isLoadingBanners: false,
   lastNewsError: null,
+  bannersError: null,
 };
 
 export const reducer = (state = initialState, action) => {
@@ -60,6 +66,26 @@ export const reducer = (state = initialState, action) => {
         ...state,
         isLoadingLastNews: false,
         lastNewsError: error,
+      };
+    }
+
+    case actionTypes.LOAD_BANNERS_SUCCESS: {
+      const { banners } = action.payload;
+
+      return {
+        ...state,
+        isLoadingBanners: false,
+        banners,
+      };
+    }
+
+    case actionTypes.LOAD_BANNERS_ERROR: {
+      const { error } = action.payload;
+
+      return {
+        ...state,
+        isLoadingBanners: false,
+        bannersError: error,
       };
     }
 
@@ -116,6 +142,39 @@ export const actions = {
 
       dispatch({
         type: actionTypes.LOAD_LAST_NEWS_SUCCESS,
+        payload: successPayload,
+      });
+    };
+  },
+
+  loadBanners() {
+    return async dispatch => {
+      dispatch(actions.changeValue("isLoadingBanners", true));
+
+      let successPayload;
+      let failurePayload;
+
+      try {
+        const banners = await getBanners();
+
+        successPayload = {
+          banners,
+        };
+      } catch (error) {
+        failurePayload = { error };
+      }
+
+      if (failurePayload) {
+        dispatch({
+          type: actionTypes.LOAD_BANNERS_ERROR,
+          payload: failurePayload,
+        });
+
+        return;
+      }
+
+      dispatch({
+        type: actionTypes.LOAD_BANNERS_SUCCESS,
         payload: successPayload,
       });
     };

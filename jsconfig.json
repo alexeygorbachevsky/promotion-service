@@ -14,7 +14,8 @@
       "styles": ["src/styles"],
       "basics": ["src/web/basics"],
       "components": ["src/web/components"],
-      "pages": ["src/web/pages"]
+      "pages": ["src/web/pages"],
+      "pages/*": ["src/web/pages/*"]
     }
   }
 }

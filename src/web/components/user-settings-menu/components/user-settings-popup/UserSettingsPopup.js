@@ -1,4 +1,5 @@
 import React from "react";
+import { Link as NativeLink } from "react-router-dom";
 import styled, { useTheme } from "styled-components";
 import { useDispatch } from "react-redux";
 
@@ -10,6 +11,9 @@ import Menu24Icon from "assets/icons/menu24.svg";
 import Logout24Icon from "assets/icons/log-out24.svg";
 
 import { actions as authActions } from "ducks/auth";
+
+import { ROUTES } from "constants/routes";
+import { KEY_CODES } from "constants/keyCodes";
 
 const Wrapper = styled.div`
   position: absolute;
@@ -43,8 +47,13 @@ const ModePopupRow = styled(PopupRow)`
   justify-content: space-between;
 `;
 
-const LinkWrapper = styled.p`
+const LinkWrapper = styled.div`
   margin: 0 0 0 10px;
+`;
+
+const Link = styled(NativeLink)`
+  margin: 0 0 0 10px;
+  color: ${PALETTE.getText};
 `;
 
 const LogoutLinkWrapper = styled(LinkWrapper)`
@@ -127,15 +136,29 @@ const UserSettingsPopup = React.forwardRef(({ isOpened, className }, ref) => {
   const { isDarkMode } = useTheme();
   const dispatch = useDispatch();
 
+  const setDarkMode = value => {
+    dispatch(authActions.setDarkMode(value));
+  };
+
   const onToggleChange = e => {
-    dispatch(authActions.setDarkMode(e.target.checked));
+    setDarkMode(e.target.checked);
+  };
+
+  const onKeyDown = e => {
+    if (e.keyCode === KEY_CODES.space) {
+      setDarkMode(e.target.checked);
+    }
+
+    if (e.keyCode === KEY_CODES.enter) {
+      setDarkMode(!e.target.checked);
+    }
   };
 
   return (
     <Wrapper ref={ref} $isOpened={isOpened} className={className}>
       <PopupRow>
         <Profile24Icon />
-        <LinkWrapper>My profile</LinkWrapper>
+        <Link to={ROUTES.settings}>My profile</Link>
       </PopupRow>
       <PopupRow>
         <Menu24Icon />
@@ -147,12 +170,12 @@ const UserSettingsPopup = React.forwardRef(({ isOpened, className }, ref) => {
           <Sun24Icon />
           <LinkWrapper>Dark mode</LinkWrapper>
         </ModeDescription>
-        {/* TODO: on Enter, space click */}
         <ToggleLabel>
           <ToggleInput
             type="checkbox"
             checked={isDarkMode}
             onChange={onToggleChange}
+            onKeyDown={onKeyDown}
           />
           <ToggleSlider />
         </ToggleLabel>

@@ -4,7 +4,7 @@ import { useSearchParams } from "react-router-dom";
 
 import { PALETTE, toREM } from "constants/styles";
 
-import { Pagination } from "components";
+import { BlankState, Pagination, Error } from "components";
 
 import Loader from "assets/icons/loader.svg";
 
@@ -40,6 +40,7 @@ const Body = styled.div`
   padding: 40px 0;
   width: 100%;
   min-height: 810px;
+  height: 810px;
   display: flex;
   flex-direction: column;
 `;
@@ -52,8 +53,6 @@ const NewsWrapper = styled.div`
   flex-wrap: wrap;
   gap: 22px;
 `;
-
-const Error = styled.div``;
 
 const LastNews = () => {
   const {
@@ -93,7 +92,13 @@ const LastNews = () => {
         {error && <Error>Something went wrong. Try again later.</Error>}
         {!error &&
           (!currentPageLastNews.length ? (
-            <>{isLoadingLastNews ? <Loader /> : "We have no last news"}</>
+            <>
+              {isLoadingLastNews ? (
+                <Loader />
+              ) : (
+                <BlankState>No last news exists</BlankState>
+              )}
+            </>
           ) : (
             <NewsWrapper>
               {currentPageLastNews.map(lastNew => (
@@ -102,7 +107,7 @@ const LastNews = () => {
             </NewsWrapper>
           ))}
         <Pagination
-          disabled={isLoadingLastNews}
+          disabled={isLoadingLastNews || error}
           page={currentPage}
           itemsPerPage={ITEMS_PER_PAGE}
           itemsCount={lastNewsTotalCount}
