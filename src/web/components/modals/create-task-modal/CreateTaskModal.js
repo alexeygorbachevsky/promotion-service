@@ -1,6 +1,6 @@
 import React, { useEffect, useReducer } from "react";
 
-import { Modal } from "basics";
+import { Modal } from "basics/modal";
 
 import { MODAL_IDS } from "constants/modal";
 

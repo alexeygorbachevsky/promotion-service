@@ -1,6 +1,6 @@
 import React from "react";
 
-import { RadioButton } from "basics";
+import { RadioButton } from "basics/radio-buttons";
 
 import { MODAL_IDS } from "constants/modal";
 

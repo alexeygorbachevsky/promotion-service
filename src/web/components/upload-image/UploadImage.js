@@ -4,9 +4,10 @@ import styled from "styled-components";
 import { PALETTE } from "constants/styles";
 import { KEY_CODES } from "constants/keyCodes";
 
-import { EmptyImage } from "components";
+import { EmptyImage } from "components/empty-image";
 
-import { Button as NativeButton, BlankInput } from "basics";
+import { Button as NativeButton } from "basics/buttons";
+import { BlankInput } from "basics/inputs";
 
 const ImageAreaWrapper = styled.div`
   margin-top: 10px;

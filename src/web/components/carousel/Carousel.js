@@ -5,7 +5,7 @@ import NativeArrow from "assets/icons/carousel-arrow.svg";
 
 import { PALETTE } from "constants/styles";
 
-import { BlankButton } from "basics";
+import { BlankButton } from "basics/buttons";
 
 const Wrapper = styled.div`
   height: 100%;

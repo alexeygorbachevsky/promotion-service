@@ -1,18 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 import { PALETTE } from "constants/styles";
 
-import { Button as NativeButton } from "basics";
+import { Button as NativeButton } from "basics/buttons";
 
-import { EmptyImage } from "components";
+import { EmptyImage } from "components/empty-image";
 
 import { UserInfo } from "./components";
-
-import { taskCardSelectors } from "./duck";
-
-const { getTaskIcon } = taskCardSelectors;
 
 const Wrapper = styled.div`
   padding: 20px;
@@ -49,14 +45,29 @@ const EmptyButtonText = styled.div`
 `;
 
 const TaskCard = ({ card }) => {
+  const [icon, setIcon] = useState(null);
   const { name, taskType, taskIcon, userId: cardUserId } = card;
   const userId = useSelector(state => state.auth.userId);
-  const Icon = getTaskIcon(taskIcon);
+
+  const getTaskIcon = async fileName => {
+    const module = await import(`assets/icons/tasks/${fileName}`);
+    const Icon = module.default;
+    setIcon(<Icon />);
+  };
+
+  useEffect(() => {
+    if (!taskIcon) {
+      setIcon(null);
+
+      return;
+    }
+    getTaskIcon(taskIcon);
+  }, [taskIcon]);
 
   return (
     <Wrapper>
       <UserInfo card={card} />
-      <TaskWrapper>{Icon ? <Icon /> : <EmptyImage />}</TaskWrapper>
+      <TaskWrapper>{icon || <EmptyImage />}</TaskWrapper>
       {name && taskType ? (
         <Button>
           {userId === cardUserId ? "Go to task history" : "Perform a task"}

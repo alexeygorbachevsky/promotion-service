@@ -1,11 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 
-import { GoTop, UploadImage as NativeUploadImage } from "components";
+import { GoTop } from "components/go-top";
+import { UploadImage as NativeUploadImage } from "components/upload-image";
 
 import { useScroll } from "hooks";
 
-import { Button } from "basics";
+import { Button } from "basics/buttons";
 
 import { customScrollbar, PALETTE, toREM } from "constants/styles";
 

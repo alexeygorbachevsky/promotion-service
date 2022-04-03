@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES6",
+    "target": "es6",
     "module": "commonjs",
     "allowSyntheticDefaultImports": true,
     "baseUrl": "./",
@@ -12,9 +12,8 @@
       "mocked-backend": ["src/mocked-backend"],
       "hooks": ["src/hooks"],
       "styles": ["src/styles"],
-      "basics": ["src/web/basics"],
-      "components": ["src/web/components"],
-      "pages": ["src/web/pages"],
+      "basics/*": ["src/web/basics/*"],
+      "components/*": ["src/web/components/*"],
       "pages/*": ["src/web/pages/*"]
     }
   }

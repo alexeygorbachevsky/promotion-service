@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { RadioButton as NativeRadioButton } from "basics";
+import { RadioButton as NativeRadioButton } from "basics/radio-buttons";
 
 import { MODAL_IDS } from "constants/modal";
 

@@ -4,7 +4,9 @@ import { useSearchParams } from "react-router-dom";
 
 import { PALETTE, toREM } from "constants/styles";
 
-import { BlankState, Pagination, Error } from "components";
+import { BlankState } from "components/blank-state";
+import { Pagination } from "components/pagination";
+import { Error } from "components/error";
 
 import Loader from "assets/icons/loader.svg";
 
@@ -40,7 +42,6 @@ const Body = styled.div`
   padding: 40px 0;
   width: 100%;
   min-height: 810px;
-  height: 810px;
   display: flex;
   flex-direction: column;
 `;

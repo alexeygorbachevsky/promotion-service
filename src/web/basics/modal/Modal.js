@@ -5,13 +5,13 @@ import { Provider } from "react-redux";
 import { getStore } from "helpers/reducerRegistry";
 
 import { customScrollbar, PALETTE, toREM, Z_INDEX } from "constants/styles";
+import { KEY_CODES } from "constants/keyCodes";
 
 import { closeModal } from "helpers/modal";
 
-import { BlankButton } from "basics";
+import { BlankButton } from "basics/buttons";
 
 import Cross30Icon from "assets/icons/cross30.svg";
-import { KEY_CODES } from "constants/keyCodes";
 
 const Overlay = styled.div`
   position: fixed;

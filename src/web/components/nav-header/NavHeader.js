@@ -5,7 +5,7 @@ import NativeLogoIcon from "assets/icons/logo20.svg";
 
 import { PALETTE, SIZE, toREM, Z_INDEX } from "constants/styles";
 
-import { NavMenu } from "components";
+import { NavMenu } from "components/nav-menu";
 
 import { UserSettingsMenu } from "../user-settings-menu";
 

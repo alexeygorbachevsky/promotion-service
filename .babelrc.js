@@ -6,6 +6,5 @@ module.exports = {
     "syntax-dynamic-import",
     "babel-plugin-styled-components",
     "lodash",
-    "dynamic-import-node",
   ],
 };

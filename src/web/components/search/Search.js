@@ -2,7 +2,8 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import debounce from "lodash/debounce";
 
-import { BlankButton, BlankInput } from "basics";
+import { BlankButton } from "basics/buttons";
+import { BlankInput } from "basics/inputs";
 
 import { PALETTE } from "constants/styles";
 import { KEY_CODES } from "constants/keyCodes";

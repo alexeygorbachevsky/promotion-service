@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled, { css } from "styled-components";
 import { useNavigate } from "react-router-dom";
 
-import { BlankButton as NativeBlankButton } from "basics";
+import { BlankButton as NativeBlankButton } from "basics/buttons";
 
 import { PALETTE, toREM } from "constants/styles";
 

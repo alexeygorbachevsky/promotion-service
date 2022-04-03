@@ -5,7 +5,10 @@ import { customScrollbar, SIZE } from "constants/styles";
 
 import { useScroll } from "hooks";
 
-import { GoTop, InfiniteScroll, Error, BlankState } from "components";
+import { GoTop } from "components/go-top";
+import { InfiniteScroll } from "components/infinite-scroll";
+import { Error } from "components/error";
+import { BlankState } from "components/blank-state";
 
 import Loader from "assets/icons/loader.svg";
 

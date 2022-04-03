@@ -9,7 +9,7 @@ import NativeCoinsIcon from "assets/icons/coins.svg";
 import AvatarIcon from "assets/icons/avatars/avatar-main40.svg";
 import NativeArrowDownIcon from "assets/icons/arrow-down.svg";
 
-import { BlankButton } from "basics";
+import { BlankButton } from "basics/buttons";
 
 import { UserSettingsPopup } from "./components";
 

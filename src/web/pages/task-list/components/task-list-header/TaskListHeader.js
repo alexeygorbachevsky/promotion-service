@@ -6,9 +6,9 @@ import { MODAL_IDS } from "constants/modal";
 
 import { openModal } from "helpers/modal";
 
-import { Search } from "components";
+import { Search } from "components/search";
 
-import { Button } from "basics";
+import { Button } from "basics/buttons";
 
 import { taskListConstants } from "../../duck";
 

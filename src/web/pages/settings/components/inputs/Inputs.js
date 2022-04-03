@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { PALETTE, toREM } from "constants/styles";
 
-import { Input as NativeInput } from "basics";
+import { Input as NativeInput } from "basics/inputs";
 
 const Wrapper = styled.div`
   height: 100%;

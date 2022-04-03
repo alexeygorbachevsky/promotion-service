@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 
 import { MODAL_IDS } from "constants/modal";
 
-import { CreateTaskModal } from "components";
+import { CreateTaskModal } from "components/modals";
 
 import { MODAL_OVERLAY_ID } from "constants/overlays";
 

@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { customScrollbar } from "constants/styles";
 
-import { GoTop } from "components";
+import { GoTop } from "components/go-top";
 
 import { useScroll } from "hooks";
 

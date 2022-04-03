@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 
-import { BlankState, Carousel as NativeCarousel } from "components";
+import { BlankState } from "components/blank-state";
+import { Carousel as NativeCarousel } from "components/carousel";
+import { Error } from "components/error";
 
 import { PALETTE, toREM } from "constants/styles";
 
@@ -10,13 +12,11 @@ import Loader from "assets/icons/loader.svg";
 import { Banner } from "./components";
 import { mostPopularHooks } from "./duck";
 
-import Error from "../../../components/error/Error";
-
 const { useConnect } = mostPopularHooks;
 
 const Wrapper = styled.div`
   min-height: 450px;
-  height: 450px;
+  height: 100%;
   width: 100%;
   overflow: hidden;
   display: flex;
@@ -46,6 +46,7 @@ const Carousel = styled(NativeCarousel)`
 
 const StatesWrapper = styled.div`
   height: 100%;
+  min-height: 368px;
   width: 100%;
   display: flex;
   flex-direction: column;

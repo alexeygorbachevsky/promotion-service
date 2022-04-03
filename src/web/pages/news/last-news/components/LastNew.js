@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { PALETTE, toREM } from "constants/styles";
 
-import { EmptyImage as NativeEmptyImage } from "components";
+import { EmptyImage as NativeEmptyImage } from "components/empty-image";
 
 const Wrapper = styled.div`
   padding: 20px;

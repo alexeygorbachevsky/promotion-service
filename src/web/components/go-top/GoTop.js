@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { BlankButton } from "basics";
+import { BlankButton } from "basics/buttons";
 
 import { PALETTE } from "constants/styles";
 

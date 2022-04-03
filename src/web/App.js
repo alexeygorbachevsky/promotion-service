@@ -9,7 +9,9 @@ import { AppStyles } from "styles";
 
 import { MODAL_OVERLAY_ID } from "constants/overlays";
 
-import { ErrorBoundary, Alerts } from "components";
+// Imports not from "components" through the whole project because of webpack tree-shaking not configured
+import { ErrorBoundary } from "components/error-boundary";
+import { Alerts } from "components/alerts";
 
 import Main from "./Main";
 

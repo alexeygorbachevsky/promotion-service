@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { PALETTE, toREM } from "constants/styles";
 import { SOCIAL_MEDIA } from "constants/temp";
 
-import { RadioButton as NativeCheckbox } from "basics";
+import { RadioButton as NativeCheckbox } from "basics/radio-buttons";
 
 const Wrapper = styled.div`
   margin-top: 50px;

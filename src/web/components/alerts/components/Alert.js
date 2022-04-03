@@ -5,7 +5,7 @@ import { PALETTE, toREM } from "constants/styles";
 
 import CrossIcon from "assets/icons/cross.svg";
 
-import { BlankButton } from "basics";
+import { BlankButton } from "basics/buttons";
 
 import { ALERT_COLORS } from "constants/alerts";
 

@@ -3,7 +3,7 @@ import styled, { withTheme, css } from "styled-components";
 
 import { PALETTE, toREM } from "constants/styles";
 
-import { Link as NativeLink } from "basics";
+import { Link as NativeLink } from "basics/links";
 
 import { getIconStyles } from "helpers/icons";
 

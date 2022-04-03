@@ -1,12 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 
-import { UploadImage } from "components";
+import { UploadImage } from "components/upload-image";
 
 import { MODAL_IDS } from "constants/modal";
 import { PALETTE, toREM } from "constants/styles";
 
-import { Button, Input, RadioButton, radioButtonConstants } from "basics";
+import { Button } from "basics/buttons";
+import { Input } from "basics/inputs";
+import { RadioButton, radioButtonConstants } from "basics/radio-buttons";
 
 import NativeCoinsIcon from "assets/icons/coins.svg";
 import NativeFlashIcon from "assets/icons/flash.svg";
