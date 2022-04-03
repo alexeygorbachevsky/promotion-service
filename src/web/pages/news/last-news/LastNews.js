@@ -73,7 +73,7 @@ const LastNews = () => {
     (lastNewsTotalCount && searchPage > pagesCount) || searchPage < 0
       ? DEFAULT_PAGE
       : searchPage || DEFAULT_PAGE;
-  const currentPageLastNews = lastNews[currentPage] || [];
+  const currentPageLastNews = lastNews[currentPage];
 
   useEffect(() => {
     if (lastNews[currentPage]) {
@@ -91,22 +91,26 @@ const LastNews = () => {
 
       <Body>
         {error && <Error>Something went wrong. Try again later.</Error>}
-        {!error &&
-          (!currentPageLastNews.length ? (
-            <>
-              {isLoadingLastNews ? (
-                <Loader />
-              ) : (
-                <BlankState>No last news exists</BlankState>
-              )}
-            </>
-          ) : (
-            <NewsWrapper>
-              {currentPageLastNews.map(lastNew => (
-                <LastNew key={lastNew.id} lastNew={lastNew} />
-              ))}
-            </NewsWrapper>
-          ))}
+        {!error && (
+          <>
+            {isLoadingLastNews || !currentPageLastNews ? (
+              <Loader />
+            ) : (
+              <>
+                {currentPageLastNews && !currentPageLastNews.length ? (
+                  <BlankState>No last news exists</BlankState>
+                ) : (
+                  <NewsWrapper>
+                    {currentPageLastNews.map(lastNew => (
+                      <LastNew key={lastNew.id} lastNew={lastNew} />
+                    ))}
+                  </NewsWrapper>
+                )}
+              </>
+            )}
+          </>
+        )}
+
         <Pagination
           disabled={isLoadingLastNews || error}
           page={currentPage}

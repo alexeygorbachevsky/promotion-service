@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 
 import { BlankState } from "components/blank-state";
-import { Carousel as NativeCarousel } from "components/carousel";
+import {  Carousel as NativeCarousel } from "components/carousel";
 import { Error } from "components/error";
 
 import { PALETTE, toREM } from "constants/styles";
