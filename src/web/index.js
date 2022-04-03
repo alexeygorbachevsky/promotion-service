@@ -9,13 +9,15 @@ import { reducer as news } from "ducks/news";
 import { reducer as tasks } from "ducks/tasks";
 import { reducer as alerts } from "ducks/alerts";
 
+import { ErrorBoundary } from "components/error-boundary";
+
 import App from "./App";
 
 addReducers({
   auth,
   tasks,
   news,
-  alerts
+  alerts,
 });
 
 // Allow webpack to use hot module replacement
@@ -26,8 +28,10 @@ if (module.hot) {
 const rootEl = document.getElementById("root");
 
 ReactDOM.render(
-  <Provider store={getStore()}>
-    <App />
-  </Provider>,
+  <ErrorBoundary>
+    <Provider store={getStore()}>
+      <App />
+    </Provider>
+  </ErrorBoundary>,
   rootEl,
 );
