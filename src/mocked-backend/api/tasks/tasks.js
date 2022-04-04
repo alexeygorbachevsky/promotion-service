@@ -86,7 +86,7 @@ const myCards = MY_CARDS.map(card => {
   };
 });
 
-let tasks = CARDS;
+let tasks = CARDS.concat(myCards);
 
 export const getTasks = async ({
   limit = DEFAULT_LIMIT,
@@ -106,22 +106,24 @@ export const getTasks = async ({
   //       : "",
   // }));
 
-  tasks = CARDS.concat(myCards);
+  let loadedTasks = tasks;
 
   if (search) {
     const searchText = search.toLowerCase();
-    tasks = tasks.filter(({ name }) => name.toLowerCase().includes(searchText));
+    loadedTasks = loadedTasks.filter(({ name }) =>
+      name.toLowerCase().includes(searchText),
+    );
   }
 
   if (isLoadAll) {
-    return { tasks, isLoadedAll: true };
+    return { tasks: loadedTasks, isLoadedAll: true };
   }
 
   if (pagingToken) {
     const firstRequestedIndex =
-      tasks.findIndex(el => el.id === pagingToken) + 1;
+      loadedTasks.findIndex(el => el.id === pagingToken) + 1;
 
-    const newTasks = tasks.slice(
+    const newTasks = loadedTasks.slice(
       firstRequestedIndex,
       firstRequestedIndex + limit,
     );
@@ -129,11 +131,15 @@ export const getTasks = async ({
     return {
       tasks: newTasks,
       isLoadedAll:
-        newTasks[newTasks.length - 1].id === tasks[tasks.length - 1].id,
+        newTasks[newTasks.length - 1].id ===
+        loadedTasks[loadedTasks.length - 1].id,
     };
   }
 
-  return { tasks: tasks.slice(0, limit), isLoadedAll: tasks.length <= limit };
+  return {
+    tasks: loadedTasks.slice(0, limit),
+    isLoadedAll: loadedTasks.length <= limit,
+  };
 };
 
 export const addTask = async ({ task } = {}) => {
@@ -151,5 +157,5 @@ export const addTask = async ({ task } = {}) => {
     ...tasks,
   ];
 
-  return { tasks: DEFAULT_IS_LOAD_ALL ? tasks : tasks.slice(0, DEFAULT_LIMIT) };
+  return { isSuccess: true };
 };

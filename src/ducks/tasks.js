@@ -22,6 +22,7 @@ export const initialState = {
   isTaskCreationDone: false,
 
   isLoadingTasks: false,
+  isAddingTask: false,
   isLoadedAllTasks: false,
   tasksError: null,
   addTaskError: null,
@@ -76,14 +77,11 @@ export const reducer = (state = initialState, action) => {
     }
 
     case actionTypes.ADD_TASK_SUCCESS: {
-      const { tasks } = action.payload;
-
       return {
         ...state,
         addTaskError: null,
         isTaskCreationDone: true,
-        tasks,
-        isLoadingTasks: false,
+        isAddingTask: false,
       };
     }
 
@@ -94,7 +92,7 @@ export const reducer = (state = initialState, action) => {
         ...state,
         isTaskCreationDone: true,
         addTaskError: error,
-        isLoadingTasks: false,
+        isAddingTask: false,
       };
     }
 
@@ -170,16 +168,24 @@ export const actions = {
 
   addTask({ task } = {}) {
     return async dispatch => {
-      dispatch(actions.changeValue("isLoadingTasks", true));
+      dispatch(actions.changeValue("isAddingTask", true));
 
       let successPayload;
       let failurePayload;
 
       try {
-        const { tasks } = await addTask({
+        const { isSuccess } = await addTask({
           task,
         });
-        successPayload = { tasks };
+
+        if (!isSuccess) {
+          failurePayload = { error: "Task is not added" };
+        } else {
+          dispatch(actions.clearTasks());
+          await dispatch(actions.loadTasks());
+        }
+
+        successPayload = { isSuccess };
       } catch (error) {
         failurePayload = { error };
       }

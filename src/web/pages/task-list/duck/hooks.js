@@ -8,6 +8,7 @@ export const useConnect = () => {
     tasks,
     tasksError: error,
     isLoadingTasks,
+    isAddingTask,
     isLoadedAllTasks,
   } = useSelector(state => state.tasks);
 
@@ -22,7 +23,7 @@ export const useConnect = () => {
   return {
     tasks,
     error,
-    isLoadingTasks,
+    isLoadingTasks: isLoadingTasks || isAddingTask,
     isLoadedAllTasks,
     loadTasks,
     clearTasks,

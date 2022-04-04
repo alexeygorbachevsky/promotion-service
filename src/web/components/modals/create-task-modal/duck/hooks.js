@@ -7,6 +7,7 @@ export const useConnect = () => {
   const {
     addTaskError: error,
     isLoadingTasks,
+    isAddingTask,
     isTaskCreationDone,
   } = useSelector(state => state.tasks);
   const { userId, name } = useSelector(state => state.auth);
@@ -37,7 +38,7 @@ export const useConnect = () => {
     onOpenModal,
     onCloseModal,
     error,
-    isLoadingTasks,
+    isLoadingTasks: isLoadingTasks || isAddingTask,
     isTaskCreationDone,
   };
 };
