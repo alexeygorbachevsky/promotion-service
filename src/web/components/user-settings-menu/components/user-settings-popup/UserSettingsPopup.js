@@ -3,12 +3,14 @@ import { Link as NativeLink } from "react-router-dom";
 import styled, { useTheme } from "styled-components";
 import { useDispatch } from "react-redux";
 
-import { PALETTE, toREM } from "constants/styles";
+import { PALETTE, toREM, Z_INDEX } from "constants/styles";
 
 import Profile24Icon from "assets/icons/profile24.svg";
 import Sun24Icon from "assets/icons/sun24.svg";
-import Menu24Icon from "assets/icons/menu24.svg";
+import History24Icon from "assets/icons/history24.svg";
 import Logout24Icon from "assets/icons/log-out24.svg";
+
+import { BlankButton } from "basics/buttons";
 
 import { actions as authActions } from "ducks/auth";
 
@@ -17,6 +19,7 @@ import { KEY_CODES } from "constants/keyCodes";
 
 const Wrapper = styled.div`
   position: absolute;
+  z-index: ${Z_INDEX.popup};
   padding: 0 20px;
   top: 55px;
   width: 254px;
@@ -56,7 +59,8 @@ const Link = styled(NativeLink)`
   color: ${PALETTE.getText};
 `;
 
-const LogoutLinkWrapper = styled(LinkWrapper)`
+const LogoutLinkWrapper = styled(BlankButton)`
+  margin: 0 0 0 10px;
   color: ${PALETTE.red};
 `;
 
@@ -161,7 +165,7 @@ const UserSettingsPopup = React.forwardRef(({ isOpened, className }, ref) => {
         <Link to={ROUTES.settings}>My profile</Link>
       </PopupRow>
       <PopupRow>
-        <Menu24Icon />
+        <History24Icon />
         <LinkWrapper>Task history</LinkWrapper>
       </PopupRow>
       <Divider />
@@ -183,7 +187,7 @@ const UserSettingsPopup = React.forwardRef(({ isOpened, className }, ref) => {
       <Divider />
       <PopupRow>
         <Logout24Icon />
-        <LogoutLinkWrapper>Log out</LogoutLinkWrapper>
+        <LogoutLinkWrapper disabled>Log out</LogoutLinkWrapper>
       </PopupRow>
     </Wrapper>
   );

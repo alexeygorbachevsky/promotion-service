@@ -17,6 +17,7 @@ const { useConnect } = createTaskModalHooks;
 
 const CreateTaskModal = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
+
   const {
     addTask,
     onCloseModal,

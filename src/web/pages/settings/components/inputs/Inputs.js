@@ -38,25 +38,51 @@ const PrimaryPasswordTitle = styled(Title)`
 
 const Input = styled(NativeInput)`
   margin-top: 10px;
-
-  -webkit-text-security: asterisk;
 `;
 
-const Inputs = () => (
+const Inputs = ({ control, isDisabled, error }) => (
   <Wrapper>
     <Title>Dribble link</Title>
-    <Input value="https://dribbble.com/alexeygorbachevskiy" />
+    <Input
+      error={error}
+      disabled={isDisabled}
+      name="dribble"
+      control={control}
+    />
     <SubTitle>Behance link</SubTitle>
-    <Input value="https://www.behance.net/alexeygorbachevskiy" />
+    <Input
+      error={error}
+      disabled={isDisabled}
+      name="behance"
+      control={control}
+    />
     <Title>E-mail</Title>
-    <Input value="alexeygorbachevskiyy@gmail.com" />
+    <Input error={error} disabled={isDisabled} name="email" control={control} />
     <PasswordManagement>Password management</PasswordManagement>
     <PrimaryPasswordTitle>Primary password</PrimaryPasswordTitle>
-    <Input type="password" value="alexeygorbachevskiyy@gmail.com" />
+    <Input
+      error={error}
+      disabled={isDisabled}
+      name="primaryPassword"
+      control={control}
+      type="password"
+    />
     <SubTitle>New password</SubTitle>
-    <Input type="password" value="alexeygorbachevskiyy@gmail.com" />
+    <Input
+      error={error}
+      disabled={isDisabled}
+      name="newPassword"
+      control={control}
+      type="password"
+    />
     <SubTitle>Confirm password</SubTitle>
-    <Input type="password" value="alexeygorbachevskiyy@gmail.com" />
+    <Input
+      error={error}
+      disabled={isDisabled}
+      name="confirmPassword"
+      control={control}
+      type="password"
+    />
   </Wrapper>
 );
 

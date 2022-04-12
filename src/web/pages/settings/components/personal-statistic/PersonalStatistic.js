@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 
 import { PALETTE, toREM } from "constants/styles";
-import { PERSONAL_STATISTIC } from "constants/temp";
 
 const Wrapper = styled.div`
   height: 100%;
@@ -63,13 +62,13 @@ const Description = styled(Title)`
   font-size: ${toREM(16)};
 `;
 
-const PersonalStatistic = () => (
+const PersonalStatistic = ({ personalStatistic }) => (
   <Wrapper>
     <Title>Personal statistic</Title>
 
-    {PERSONAL_STATISTIC.map(
-      ({ iconBackground, icon: Icon, description, statistic }) => (
-        <StatisticBlock>
+    {personalStatistic.map(
+      ({ id, iconBackground, icon: Icon, description, statistic }) => (
+        <StatisticBlock key={id}>
           <IconWrapper $iconBackground={iconBackground}>
             <Icon width={24} height={24} />
           </IconWrapper>

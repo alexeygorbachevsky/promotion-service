@@ -1,13 +1,16 @@
-import React, { useState } from "react";
-import styled from "styled-components";
+import React from "react";
+import styled, { css } from "styled-components";
 
 import { PALETTE, toREM } from "constants/styles";
-import { SOCIAL_MEDIA } from "constants/temp";
 
 import { RadioButton as NativeCheckbox } from "basics/radio-buttons";
 
+import { socialMediaConstants } from "./duck";
+
+const { SOCIAL_MEDIA } = socialMediaConstants;
+
 const Wrapper = styled.div`
-  margin-top: 50px;
+  margin-top: 35px;
   width: 290px;
 `;
 
@@ -40,46 +43,43 @@ const Checkbox = styled(NativeCheckbox)`
   width: 100%;
   margin: 20px 0 0;
 
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      cursor: not-allowed;
+      border: 2px solid ${PALETTE.getEmptyItemBackground};
+      opacity: 0.5;
+    `};
+
   &:first-of-type {
     margin: 0;
   }
 `;
 
-const SocialMedia = () => {
-  const [checkedSocialMedia, setCheckedSocialMedia] = useState([
-    SOCIAL_MEDIA[0].name,
-  ]);
-
+const SocialMedia = ({ checkedSocialMedia, onChange, isDisabled }) => {
   const onChangeSocialMedia = e => {
-    const { checked, name } = e.target;
-
-    if (checked) {
-      setCheckedSocialMedia([...checkedSocialMedia, name]);
-    } else {
-      const newCheckedSocialMedia = checkedSocialMedia.filter(
-        socialName => socialName !== name,
-      );
-      setCheckedSocialMedia(newCheckedSocialMedia);
-    }
+    const { checked, value } = e.target;
+    onChange({ ...checkedSocialMedia, [value]: checked });
   };
 
   return (
     <Wrapper>
       <Title>Social media</Title>
       <RadioButtonsWrapper>
-        {SOCIAL_MEDIA.map(({ name, Icon, iconBackground }) => (
+        {SOCIAL_MEDIA.map(({ name, label, Icon, iconBackground }) => (
           <Checkbox
             type="checkbox"
             key={name}
-            name={name}
+            name="socialMedia"
             value={name}
-            isChecked={checkedSocialMedia.includes(name)}
+            isChecked={checkedSocialMedia[name]}
             onChange={onChangeSocialMedia}
+            disabled={isDisabled}
           >
             <IconWrapper $iconBackground={iconBackground}>
               <Icon width={24} height={24} />
             </IconWrapper>
-            {name}
+            {label}
           </Checkbox>
         ))}
       </RadioButtonsWrapper>

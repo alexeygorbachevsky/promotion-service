@@ -228,7 +228,7 @@ const getModalData = ({
           <BlockWrapper>
             <BlockTitle>Task image</BlockTitle>
             <BlockDescription>
-              Upload svg task image. You can find images in
+              Upload svg task image. You can load images only from
               &quot;src/assets/icons/tasks&quot; folder.
             </BlockDescription>
             <UploadImage
@@ -251,6 +251,7 @@ const getModalData = ({
               pattern="\d{0,9}"
               label={<CoinsIcon />}
               error={executionCostError}
+              isRequired
             />
           </BlockWrapper>
 
@@ -266,6 +267,7 @@ const getModalData = ({
               pattern="\d{0,9}"
               label={<FlashIcon />}
               error={executionCountError}
+              isRequired
             />
           </BlockWrapper>
 

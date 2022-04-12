@@ -126,9 +126,8 @@ const Search = ({ isDisabled, onSearchChange }) => {
     }
   };
 
-  // TODO: aria-expanded
   return (
-    <Wrapper $isOpened={isOpened}>
+    <Wrapper $isOpened={isOpened} aria-expanded={isOpened}>
       <SearchIcon />
       <Input
         ref={ref}

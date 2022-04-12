@@ -26,7 +26,6 @@ const Wrapper = styled.div`
 const BalanceWrapper = styled.div`
   width: 146px;
   height: 100%;
-  background: red;
   background-color: ${PALETTE.getEmptyItemBackground};
   border-radius: 15px;
 
@@ -79,9 +78,6 @@ const UserSettingsButton = styled(BlankButton)`
 `;
 
 const UserSettingsMenu = () => {
-  //  TODO: from redux user state
-  const userCoins = 2023;
-
   const dropdownRef = useRef(null);
   const [isDropdownOpened, setIsDropdownOpened] = useState(false);
 
@@ -120,7 +116,7 @@ const UserSettingsMenu = () => {
           <PlusIcon />
         </AddIconButton>
         <CoinsIcon />
-        {userCoins}
+        2023
       </BalanceWrapper>
       <UserSettingsButton onClick={onOpenCloseDropdown}>
         <AvatarIcon />

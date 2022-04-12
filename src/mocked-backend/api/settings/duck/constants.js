@@ -1,17 +1,11 @@
 import { v4 } from "uuid";
 
-
 import { PALETTE } from "constants/styles";
 
 import LikeIcon from "assets/icons/personal-statistic/like.svg";
 import AddPersonIcon from "assets/icons/personal-statistic/person-add.svg";
 import CalendarIcon from "assets/icons/personal-statistic/calendar.svg";
 import MoneyIcon from "assets/icons/personal-statistic/money.svg";
-import Facebook from "assets/icons/social-networks/facebook.svg";
-import Twitter from "assets/icons/social-networks/twitter.svg";
-import Vk from "assets/icons/social-networks/vk.svg";
-
-// TODO: move to redux
 
 export const PERSONAL_STATISTIC = [
   {
@@ -45,19 +39,5 @@ export const PERSONAL_STATISTIC = [
     description: "Real money spent",
     iconBackground: PALETTE.lightOrange,
     statistic: "$ 1456,23",
-  },
-];
-
-export const SOCIAL_MEDIA = [
-  { name: "Facebook", Icon: Facebook, iconBackground: PALETTE.facebook },
-  {
-    name: "Twitter",
-    Icon: Twitter,
-    iconBackground: PALETTE.twitter,
-  },
-  {
-    name: "VKontakte",
-    Icon: Vk,
-    iconBackground: PALETTE.vk,
   },
 ];

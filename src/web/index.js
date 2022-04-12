@@ -7,6 +7,7 @@ import { addReducers, getStore } from "helpers/reducerRegistry";
 import { reducer as auth } from "ducks/auth";
 import { reducer as news } from "ducks/news";
 import { reducer as tasks } from "ducks/tasks";
+import { reducer as settings } from "ducks/settings";
 import { reducer as alerts } from "ducks/alerts";
 
 import { ErrorBoundary } from "components/error-boundary";
@@ -17,6 +18,7 @@ addReducers({
   auth,
   tasks,
   news,
+  settings,
   alerts,
 });
 

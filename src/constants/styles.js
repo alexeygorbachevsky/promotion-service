@@ -60,6 +60,7 @@ export const SIZE = {
 export const Z_INDEX = {
   navHeader: 1,
   overlay: 5,
+  popup: 7,
   alerts: 8,
 };
 

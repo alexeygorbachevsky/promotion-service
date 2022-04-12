@@ -3,7 +3,11 @@ import styled, { css } from "styled-components";
 
 import { PALETTE, toREM } from "constants/styles";
 
-import NativeBlankInput from "./BlankInput";
+import NativeBlankInput from "../BlankInput";
+
+import { inputHooks } from "./duck";
+
+const { useFormConnector } = inputHooks;
 
 const InputWrapper = styled.label`
   width: 430px;
@@ -36,6 +40,12 @@ const BlankInput = styled(NativeBlankInput)`
   &::placeholder {
     color: ${PALETTE.getNotSelectedTextColor};
   }
+
+  &:disabled {
+    cursor: not-allowed;
+    border: 2px solid ${PALETTE.getEmptyItemBackground};
+    opacity: 0.5;
+  }
 `;
 
 const Label = styled.span`
@@ -58,11 +68,14 @@ const Error = styled.div`
 `;
 
 const Input = React.forwardRef(
-  ({ label, className, error, value, isRequired = true, ...props }, ref) => {
+  ({ label, className, error, isRequired, ...props }, ref) => {
+    const { value, fieldState, ...processedProps } = useFormConnector(props);
+
+    const errorFromHookForm = fieldState?.error?.message;
+
     const requiredError =
       isRequired && !value ? "Input field is required" : null;
-
-    const inputError = error || requiredError;
+    const inputError = error || errorFromHookForm || requiredError;
 
     const isLabel = Boolean(label);
     const isError = Boolean(inputError);
@@ -75,7 +88,7 @@ const Input = React.forwardRef(
           $isLabel={isLabel}
           ref={ref}
           value={value}
-          {...props}
+          {...processedProps}
         />
         {isError && <Error>{inputError}</Error>}
       </InputWrapper>

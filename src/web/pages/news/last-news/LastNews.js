@@ -11,7 +11,7 @@ import { Error } from "components/error";
 import Loader from "assets/icons/loader.svg";
 
 import { LastNew } from "./components";
-import { lastNewsConstants, lastNewsHooks } from "./ducks";
+import { lastNewsConstants, lastNewsHooks } from "./duck";
 
 const { ITEMS_PER_PAGE, DEFAULT_PAGE } = lastNewsConstants;
 const { useConnect } = lastNewsHooks;

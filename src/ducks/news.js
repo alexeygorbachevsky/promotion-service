@@ -5,9 +5,11 @@ import { makePaginatedLastNews } from "helpers/news";
 export const actionTypes = {
   CHANGE_VALUE: "news.CHANGE_VALUE",
 
+  LOAD_LAST_NEWS: "tasks.LOAD_LAST_NEWS",
   LOAD_LAST_NEWS_SUCCESS: "tasks.LOAD_LAST_NEWS_SUCCESS",
   LOAD_LAST_NEWS_ERROR: "tasks.LOAD_LAST_NEWS_ERROR",
 
+  LOAD_BANNERS: "tasks.LOAD_BANNERS",
   LOAD_BANNERS_SUCCESS: "tasks.LOAD_BANNERS_SUCCESS",
   LOAD_BANNERS_ERROR: "tasks.LOAD_BANNERS_ERROR",
 };
@@ -48,6 +50,14 @@ export const reducer = (state = initialState, action) => {
       };
     }
 
+    case actionTypes.LOAD_LAST_NEWS: {
+      return {
+        ...state,
+        isLoadingLastNews: true,
+        lastNewsError: null,
+      };
+    }
+
     case actionTypes.LOAD_LAST_NEWS_SUCCESS: {
       const { lastNews, totalCount } = action.payload;
 
@@ -66,6 +76,14 @@ export const reducer = (state = initialState, action) => {
         ...state,
         isLoadingLastNews: false,
         lastNewsError: error,
+      };
+    }
+
+    case actionTypes.LOAD_BANNERS: {
+      return {
+        ...state,
+        isLoadingBanners: true,
+        bannersError: null,
       };
     }
 
@@ -107,7 +125,9 @@ export const actions = {
   // Don't send page param for loading all pages
   loadLastNews({ itemsPerPage, page } = {}) {
     return async dispatch => {
-      dispatch(actions.changeValue("isLoadingLastNews", true));
+      dispatch({
+        type: actionTypes.LOAD_LAST_NEWS,
+      });
 
       let successPayload;
       let failurePayload;
@@ -149,7 +169,9 @@ export const actions = {
 
   loadBanners() {
     return async dispatch => {
-      dispatch(actions.changeValue("isLoadingBanners", true));
+      dispatch({
+        type: actionTypes.LOAD_BANNERS,
+      });
 
       let successPayload;
       let failurePayload;

@@ -87,9 +87,13 @@ const Label = styled.label`
     `;
   }};
 
-  &:focus {
-    border: 2px solid ${PALETTE.blue};
-  }
+  ${({ disabled }) =>
+    !disabled &&
+    css`
+      &:focus {
+        border: 2px solid ${PALETTE.blue};
+      }
+    `};
 
   ${Input}:checked ~ ${Checkmark} {
     background-color: ${PALETTE.green};
@@ -117,6 +121,7 @@ const RadioButton = ({
   onChange,
   value,
   themeName = RADIO_BUTTON_THEME_NAMES.primary,
+  disabled,
   ...props
 }) => {
   const onKeyDown = e => {
@@ -132,6 +137,7 @@ const RadioButton = ({
       onKeyDown={onKeyDown}
       $isChecked={isChecked}
       $themeName={themeName}
+      disabled={disabled}
     >
       {children}
       <Input
@@ -140,6 +146,7 @@ const RadioButton = ({
         name={name || "radio"}
         checked={isChecked}
         onChange={onChange}
+        disabled={disabled}
         {...props}
       />
       <Checkmark

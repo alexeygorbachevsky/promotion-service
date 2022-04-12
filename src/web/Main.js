@@ -12,6 +12,10 @@ import { Suspense as SuspenseLoader } from "components/suspense";
 
 import TaskList from "pages/task-list";
 
+// const TaskHistory = lazy(() =>
+//   import(/* webpackChunkName: "TaskHistory" */ "pages/task-history"),
+// );
+
 const News = lazy(() => import(/* webpackChunkName: "News" */ "pages/news"));
 
 const Settings = lazy(() =>
@@ -32,6 +36,7 @@ const Main = () => (
     <Suspense fallback={<SuspenseLoader />}>
       <Routes>
         <Route exact path={ROUTES.taskList} element={<TaskList />} />
+        {/* <Route exact path={ROUTES.taskHistory} element={<TaskHistory />} /> */}
         <Route exact path={ROUTES.news} element={<News />} />
         <Route exact path={ROUTES.settings} element={<Settings />} />
         <Route path="*" element={<Navigate to={ROUTES.taskList} replace />} />

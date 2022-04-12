@@ -36,7 +36,6 @@ const Overlay = styled.div`
 `;
 
 const Wrapper = styled.div`
-  margin 0 5vw 10vh 5vw;
   width: 800px;
   height: 450px;
   max-height: 450px;
@@ -46,12 +45,12 @@ const Wrapper = styled.div`
   border-radius: 15px;
   border: 2px solid ${PALETTE.getBorderColor};
   box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
-  
+
   overflow: hidden;
 `;
 
-// TODO: move to constants MODAL_HEADER_HEIGHT
 const MODAL_HEADER_HEIGHT = 87;
+
 const ScrollWrapper = styled.div`
   height: calc(100% - ${MODAL_HEADER_HEIGHT}px);
   width: 100%;
@@ -68,8 +67,6 @@ const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  // border-bottom: 2px solid ${PALETTE.getBorderColor};
 `;
 
 const Title = styled.h2`
@@ -94,6 +91,8 @@ const CloseButton = styled(BlankButton)`
   }
 `;
 
+const MODAL_WRAPPER_ID = "modal_wrapper";
+
 const Modal = ({
   children,
   id,
@@ -114,9 +113,6 @@ const Modal = ({
 
   const store = getStore();
   const { getState } = store;
-
-  // TODO: move to constants
-  const MODAL_WRAPPER_ID = "modal_wrapper";
 
   const overlayRef = useRef(null);
 

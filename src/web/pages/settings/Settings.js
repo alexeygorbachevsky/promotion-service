@@ -8,13 +8,22 @@ import { useScroll } from "hooks";
 
 import { Button } from "basics/buttons";
 
-import { customScrollbar, PALETTE, toREM } from "constants/styles";
-
 import AvatarMain250Icon from "assets/icons/avatars/avatar-main250.svg";
 
+import { customScrollbar, PALETTE, toREM } from "constants/styles";
+
+import Loader from "assets/icons/loader.svg";
+
+import { LinearLoader } from "components/linear-loader";
+import { Error } from "components/error";
+
 import { SocialMedia, Inputs, PersonalStatistic } from "./components";
+import { settingsHooks } from "./duck";
+
+const { useProfile } = settingsHooks;
 
 const Wrapper = styled.div`
+  z-index: 0;
   height: 100%;
   overflow-y: hidden;
 `;
@@ -58,7 +67,6 @@ const SubTitle = styled.p`
 
 const ContentWrapper = styled.div`
   margin-top: 40px;
-  // margin-bottom: 40px;
 
   width: 100%;
   height: 100%;
@@ -74,6 +82,8 @@ const UploadImage = styled(NativeUploadImage)`
 const Column = styled.div`
   height: 100%;
 
+  ${({ isRelative }) => isRelative && `position: relative`};
+
   &:nth-child(2) {
     margin: 0 80px;
   }
@@ -84,37 +94,92 @@ const SaveButton = styled(Button)`
   width: 137px;
 `;
 
+const LoaderWrapper = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const Settings = () => {
   const { isScroll, containerRefCallback, containerRef } = useScroll();
+  const {
+    isSaving,
+    isLoaded,
+    error,
+    saveProfile,
+    control,
+    isSubmitDisabled,
+    saveProfileError,
+    checkedSocialMedia,
+    onChangeSocialMedia,
+    personalStatistic,
+  } = useProfile();
 
   return (
     <Wrapper>
-      <ScrollWrapper ref={containerRefCallback}>
-        <SettingsWrapper>
-          <TitleWrapper>
-            <Title>Profile</Title>
-          </TitleWrapper>
-          <ContentWrapper>
-            <Column>
-              <SubTitle>Your avatar</SubTitle>
-              <UploadImage
-                uploadText="Upload photo"
-                removeText="Remove photo"
-                defaultImage={AvatarMain250Icon}
-              />
-              <SocialMedia />
-            </Column>
-            <Column>
-              <Inputs />
-              <SaveButton>Save changes</SaveButton>
-            </Column>
-            <Column>
-              <PersonalStatistic />
-            </Column>
-          </ContentWrapper>
-        </SettingsWrapper>
-      </ScrollWrapper>
-      {isScroll && <GoTop containerRef={containerRef} />}
+      {error && <Error>Something went wrong. Try again later.</Error>}
+      {!error && (
+        <>
+          {!isLoaded ? (
+            <LoaderWrapper>
+              <Loader />
+            </LoaderWrapper>
+          ) : (
+            <>
+              {isSaving && <LinearLoader />}
+              <ScrollWrapper ref={containerRefCallback}>
+                <SettingsWrapper>
+                  <TitleWrapper>
+                    <Title>Profile</Title>
+                  </TitleWrapper>
+                  <ContentWrapper>
+                    <Column>
+                      <SubTitle>Your avatar</SubTitle>
+                      <UploadImage
+                        name="profileImage"
+                        uploadText="Upload photo"
+                        removeText="Remove photo"
+                        defaultImage={AvatarMain250Icon}
+                      />
+                      <SocialMedia
+                        isDisabled={isSaving}
+                        checkedSocialMedia={checkedSocialMedia}
+                        onChange={onChangeSocialMedia}
+                      />
+                    </Column>
+                    <Column isRelative>
+                      <Inputs
+                        control={control}
+                        isDisabled={isSaving}
+                        error={
+                          saveProfileError
+                            ? saveProfileError?.message ||
+                              "Something went wrong.Try again later."
+                            : null
+                        }
+                      />
+                      <SaveButton
+                        disabled={isSubmitDisabled}
+                        onClick={saveProfile}
+                      >
+                        Save changes
+                      </SaveButton>
+                    </Column>
+                    <Column>
+                      <PersonalStatistic
+                        personalStatistic={personalStatistic}
+                      />
+                    </Column>
+                  </ContentWrapper>
+                </SettingsWrapper>
+              </ScrollWrapper>
+              {isScroll && <GoTop containerRef={containerRef} />}
+            </>
+          )}
+        </>
+      )}
     </Wrapper>
   );
 };

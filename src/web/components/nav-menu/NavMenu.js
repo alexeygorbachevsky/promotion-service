@@ -1,5 +1,5 @@
 import React from "react";
-import styled, { withTheme, css } from "styled-components";
+import styled, { useTheme, css } from "styled-components";
 
 import { PALETTE, toREM } from "constants/styles";
 
@@ -30,22 +30,26 @@ const Title = styled.div`
     `};
 `;
 
-const NavMenu = ({ theme }) => (
-  <Wrapper>
-    {NAV_MENU_ITEMS.map(({ title, Icon, to }, index) => (
-      <Link
-        // eslint-disable-next-line react/no-array-index-key
-        key={index}
-        to={to}
-        render={({ isActive }) => (
-          <>
-            <Icon style={getIconStyles({ theme, isSelected: isActive })} />
-            <Title $isActive={isActive}> {title}</Title>
-          </>
-        )}
-      />
-    ))}
-  </Wrapper>
-);
-// TODO: useTheme
-export default withTheme(NavMenu);
+const NavMenu = () => {
+  const theme = useTheme();
+
+  return (
+    <Wrapper>
+      {NAV_MENU_ITEMS.map(({ title, Icon, to }, index) => (
+        <Link
+          // eslint-disable-next-line react/no-array-index-key
+          key={index}
+          to={to}
+          render={({ isActive }) => (
+            <>
+              <Icon style={getIconStyles({ theme, isSelected: isActive })} />
+              <Title $isActive={isActive}> {title}</Title>
+            </>
+          )}
+        />
+      ))}
+    </Wrapper>
+  );
+};
+
+export default NavMenu;

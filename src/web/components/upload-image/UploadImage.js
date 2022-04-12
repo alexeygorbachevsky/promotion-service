@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import { PALETTE } from "constants/styles";
 import { KEY_CODES } from "constants/keyCodes";
@@ -53,14 +53,18 @@ const Label = styled.label`
 
   background-color: transparent;
 
-  &:focus-within {
-    box-shadow: 0 0 10px ${PALETTE.blue};
-  }
+  ${({ disabled }) =>
+    !disabled &&
+    css`
+      &:focus-within {
+        box-shadow: 0 0 10px ${PALETTE.blue};
+      }
 
-  &:hover:not(:disabled) {
-    color: ${PALETTE.white};
-    background-color: ${PALETTE.blue};
-  }
+      &:hover:not(:disabled) {
+        color: ${PALETTE.white};
+        background-color: ${PALETTE.blue};
+      }
+    `};
 
   &:disabled {
     opacity: 0.5;
@@ -79,6 +83,9 @@ const UploadImage = ({
   removeText,
   defaultImage: DefaultImage,
   isRemoveButton = false,
+  name = "uploadImage",
+  isDisabled,
+  ...props
 }) => {
   const [image, setImage] = useState(value);
   const inputRef = useRef(null);
@@ -87,7 +94,7 @@ const UploadImage = ({
     const file = e.target.files?.[0];
     const newImage = URL.createObjectURL(file);
     setImage(newImage);
-    onChange(file.name);
+    onChange(file.name, file);
   };
 
   const onRemoveImage = () => {
@@ -129,12 +136,20 @@ const UploadImage = ({
           onChange={onImageChange}
           onClick={onInputClick}
           hidden
+          name={name}
+          disabled={isDisabled}
+          {...props}
         />
-        <Label onKeyDown={onKeyDown} tabIndex={0} htmlFor="upload-button">
+        <Label
+          disabled={isDisabled}
+          onKeyDown={onKeyDown}
+          tabIndex={0}
+          htmlFor="upload-button"
+        >
           {uploadText || "Upload image"}
         </Label>
         {isRemoveButton && (
-          <Button onClick={onRemoveImage}>
+          <Button disabled={isDisabled} onClick={onRemoveImage}>
             {removeText || "Remove image"}
           </Button>
         )}

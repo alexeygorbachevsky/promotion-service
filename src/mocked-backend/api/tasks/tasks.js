@@ -16,8 +16,6 @@ const AvatarIcon = styled(NativeAvatarIcon)`
   height: 50px;
 `;
 
-// TODO: refactor
-
 const DEFAULT_LIMIT = 12;
 const DEFAULT_IS_LOAD_ALL = false;
 
