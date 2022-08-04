@@ -15,7 +15,6 @@ import { Alerts } from "components/alerts";
 import Main from "./Main";
 
 const Wrapper = styled.div`
-  position: relative;
   width: 100%;
   height: 100%;
 `;

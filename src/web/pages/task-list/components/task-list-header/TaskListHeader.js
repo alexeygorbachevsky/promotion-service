@@ -53,6 +53,7 @@ const CreateTaskButton = styled(Button)`
   align-items: center;
   justify-content: center;
   background-color: ${PALETTE.getEmptyItemBackground};
+
   &:focus {
     border: 2px solid ${PALETTE.blue};
   }
@@ -62,7 +63,7 @@ const TaskListHeader = ({ isDisabled, setSearchText }) => (
   <Wrapper>
     <Title>Top Tasks</Title>
     <ButtonInputWrapper>
-      <Search onSearchChange={setSearchText} />
+      <Search onSearchChange={setSearchText} isDisabled={isDisabled} />
       <Divider />
       <CreateTaskButton
         disabled={isDisabled}
