@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { PALETTE } from "constants/styles";
 import { KEY_CODES } from "constants/keyCodes";
 
+import Media from "helpers/media";
+
 import PlusIcon from "assets/icons/plus.svg";
 import NativeCoinsIcon from "assets/icons/coins.svg";
 import AvatarIcon from "assets/icons/avatars/avatar-main40.svg";
@@ -21,6 +23,10 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  ${Media.smallerThan.mobileLarge`
+     width: initial;
+  `}
 `;
 
 const BalanceWrapper = styled.div`
@@ -31,6 +37,10 @@ const BalanceWrapper = styled.div`
 
   display: flex;
   align-items: center;
+
+  ${Media.smallerThan.mobileLarge`
+     display: none;
+  `}
 `;
 
 const AddIconButton = styled(BlankButton)`
@@ -85,16 +95,16 @@ const UserSettingsMenu = () => {
     setIsDropdownOpened(prevIsOpened => !prevIsOpened);
   };
 
-  const onEscKeyDown = e => {
-    if (e.keyCode === KEY_CODES.esc) {
-      onOpenCloseDropdown();
-    }
-  };
-
   useEffect(() => {
     const onCloseDropdown = e => {
       if (!dropdownRef.current.contains(e.target)) {
         setIsDropdownOpened(false);
+      }
+    };
+
+    const onEscKeyDown = e => {
+      if (e.keyCode === KEY_CODES.esc) {
+        onOpenCloseDropdown();
       }
     };
 

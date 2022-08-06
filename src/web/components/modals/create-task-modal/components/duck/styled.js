@@ -1,5 +1,8 @@
 import styled from "styled-components";
+
 import { PALETTE } from "constants/styles";
+
+import Media from "helpers/media";
 
 export const BlockWrapper = styled.div`
   height: 100%;
@@ -40,4 +43,8 @@ export const RadioButtonsWrapper = styled.div`
 
   display: flex;
   flex-wrap: wrap;
+
+  ${Media.smallerThan.mobileLarge`
+     flex-direction: column;
+  `}
 `;

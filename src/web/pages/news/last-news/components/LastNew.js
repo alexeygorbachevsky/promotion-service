@@ -3,14 +3,19 @@ import styled from "styled-components";
 
 import { PALETTE, toREM } from "constants/styles";
 
+import Media from "helpers/media";
+
 import { EmptyImage as NativeEmptyImage } from "components/empty-image";
 
 const Wrapper = styled.div`
   padding: 20px;
   width: 390px;
-  height: 324px;
   border-radius: 15px;
   background-color: ${PALETTE.getHeaderBackground};
+
+  ${Media.smallerThan.mobileLarge`
+     max-width: 300px;
+  `}
 `;
 
 const Image = styled.img`
@@ -18,6 +23,10 @@ const Image = styled.img`
   height: 190px;
   user-select: none;
   border-radius: 15px;
+
+  ${Media.smallerThan.mobileLarge`
+     width: 100%;
+  `}
 `;
 
 const Text = styled.p`
@@ -39,6 +48,10 @@ const Date = styled(Text)`
 const EmptyImage = styled(NativeEmptyImage)`
   width: 350px;
   height: 190px;
+
+  ${Media.smallerThan.mobileLarge`
+     width: 100%;
+  `}
 `;
 
 const EmptyTitle = styled.div`

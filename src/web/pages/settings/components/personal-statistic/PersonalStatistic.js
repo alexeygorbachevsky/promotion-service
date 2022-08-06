@@ -3,9 +3,16 @@ import styled from "styled-components";
 
 import { PALETTE, toREM } from "constants/styles";
 
+import Media from "helpers/media";
+
+
 const Wrapper = styled.div`
   height: 100%;
   width: 340px;
+
+  ${Media.smallerThan.mobileMedium`
+      width: 100%;
+  `}
 `;
 
 const Title = styled.p`

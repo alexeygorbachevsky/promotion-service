@@ -3,10 +3,17 @@ import styled from "styled-components";
 
 import { PALETTE, toREM } from "constants/styles";
 
+import Media from "helpers/media";
+
 import { Input as NativeInput } from "basics/inputs";
 
 const Wrapper = styled.div`
+  width: 430px;
   height: 100%;
+
+  ${Media.smallerThan.tabletLarge`
+    width: 300px;
+  `}
 `;
 
 const SubTitle = styled.p`
@@ -38,6 +45,7 @@ const PrimaryPasswordTitle = styled(Title)`
 
 const Input = styled(NativeInput)`
   margin-top: 10px;
+  width: 100%;
 `;
 
 const Inputs = ({ control, isDisabled, error }) => (

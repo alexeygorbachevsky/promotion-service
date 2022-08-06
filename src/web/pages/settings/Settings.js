@@ -9,10 +9,11 @@ import { useScroll } from "hooks";
 import { Button } from "basics/buttons";
 
 import AvatarMain250Icon from "assets/icons/avatars/avatar-main250.svg";
+import Loader from "assets/icons/loader.svg";
 
 import { customScrollbar, PALETTE, toREM } from "constants/styles";
 
-import Loader from "assets/icons/loader.svg";
+import Media from "helpers/media";
 
 import { LinearLoader } from "components/linear-loader";
 import { Error } from "components/error";
@@ -23,7 +24,7 @@ import { settingsHooks } from "./duck";
 const { useProfile } = settingsHooks;
 
 const Wrapper = styled.div`
-  z-index: 0;
+  padding-bottom: 20px;
   height: 100%;
   overflow-y: hidden;
 `;
@@ -36,7 +37,7 @@ const ScrollWrapper = styled.div`
 `;
 
 const SettingsWrapper = styled.div`
-  padding: 40px 0 80px 0;
+  padding: 40px 20px 0;
   width: 100%;
   max-width: 1300px;
   margin: 0 auto;
@@ -67,31 +68,63 @@ const SubTitle = styled.p`
 
 const ContentWrapper = styled.div`
   margin-top: 40px;
-
   width: 100%;
-  height: 100%;
 
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+
+  ${Media.smallerThan.desktopMedium`
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  `}
 `;
 
 const UploadImage = styled(NativeUploadImage)`
   margin: 0;
 `;
 
+const MainColumnsWrapper = styled.div`
+  display: flex;
+
+  ${Media.smallerThan.tabletLarge`
+      flex-direction: column;
+      align-items: center;
+  `}
+`;
+
 const Column = styled.div`
   height: 100%;
-
-  ${({ isRelative }) => isRelative && `position: relative`};
 
   &:nth-child(2) {
     margin: 0 80px;
   }
+
+  ${Media.smallerThan.tabletLarge`    
+    &:nth-child(2) {
+      margin: 40px 0 0;
+    }
+  `}
+`;
+
+const PersonalStatisticColumn = styled(Column)`
+  &:nth-child(n) {
+    margin: unset;
+  }
+
+  ${Media.smallerThan.desktopMedium`
+   &:nth-child(n) {
+     margin-top: 40px;
+   }
+  `}
 `;
 
 const SaveButton = styled(Button)`
-  margin-top: 40px;
   width: 137px;
+
+  ${Media.smallerThan.desktopMedium`
+     margin-top: 40px;
+  `}
 `;
 
 const LoaderWrapper = styled.div`
@@ -135,43 +168,46 @@ const Settings = () => {
                     <Title>Profile</Title>
                   </TitleWrapper>
                   <ContentWrapper>
-                    <Column>
-                      <SubTitle>Your avatar</SubTitle>
-                      <UploadImage
-                        name="profileImage"
-                        uploadText="Upload photo"
-                        removeText="Remove photo"
-                        defaultImage={AvatarMain250Icon}
-                      />
-                      <SocialMedia
-                        isDisabled={isSaving}
-                        checkedSocialMedia={checkedSocialMedia}
-                        onChange={onChangeSocialMedia}
-                      />
-                    </Column>
-                    <Column isRelative>
-                      <Inputs
-                        control={control}
-                        isDisabled={isSaving}
-                        error={
-                          saveProfileError
-                            ? saveProfileError?.message ||
-                              "Something went wrong.Try again later."
-                            : null
-                        }
-                      />
-                      <SaveButton
-                        disabled={isSubmitDisabled}
-                        onClick={saveProfile}
-                      >
-                        Save changes
-                      </SaveButton>
-                    </Column>
-                    <Column>
+                    <MainColumnsWrapper>
+                      <Column>
+                        <SubTitle>Your avatar</SubTitle>
+                        <UploadImage
+                          name="profileImage"
+                          uploadText="Upload photo"
+                          removeText="Remove photo"
+                          defaultImage={AvatarMain250Icon}
+                        />
+                        <SocialMedia
+                          isDisabled={isSaving}
+                          checkedSocialMedia={checkedSocialMedia}
+                          onChange={onChangeSocialMedia}
+                        />
+                      </Column>
+                      <Column>
+                        <Inputs
+                          control={control}
+                          isDisabled={isSaving}
+                          error={
+                            saveProfileError
+                              ? saveProfileError?.message ||
+                                "Something went wrong.Try again later."
+                              : null
+                          }
+                        />
+                        <SaveButton
+                          disabled={isSubmitDisabled}
+                          onClick={saveProfile}
+                        >
+                          Save changes
+                        </SaveButton>
+                      </Column>
+                    </MainColumnsWrapper>
+
+                    <PersonalStatisticColumn>
                       <PersonalStatistic
                         personalStatistic={personalStatistic}
                       />
-                    </Column>
+                    </PersonalStatisticColumn>
                   </ContentWrapper>
                 </SettingsWrapper>
               </ScrollWrapper>

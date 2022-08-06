@@ -3,6 +3,8 @@ import styled from "styled-components";
 
 import { customScrollbar, PALETTE, toREM } from "constants/styles";
 
+import Media from "helpers/media";
+
 const Wrapper = styled.div`
   height: 360px;
   padding: 20px;
@@ -12,13 +14,22 @@ const Wrapper = styled.div`
   background-color: ${PALETTE.getHeaderBackground};
   overflow-x: auto;
   ${customScrollbar};
+
+  ${Media.smallerThan.tabletLarge`
+     flex-direction: column;
+  `}
 `;
 
 const Image = styled.img`
   height: 320px;
   width: 700px;
+  min-width: 380px;
   user-select: none;
   border-radius: 15px;
+
+  ${Media.smallerThan.tabletLarge`
+     width: 100%;
+  `}
 `;
 
 const InfoWrapper = styled.div`
@@ -31,12 +42,20 @@ const InfoWrapper = styled.div`
 const Text = styled.p`
   margin: 0 0 0 40px;
   line-height: ${toREM(20)};
+
+  ${Media.smallerThan.tabletLarge`
+     margin: 0 0 0 20px;
+  `}
 `;
 
 const Title = styled(Text)`
   font-weight: 500;
   font-size: ${toREM(34)};
   line-height: ${toREM(40)};
+
+  ${Media.smallerThan.tabletLarge`
+     margin-top: 10px;
+  `}
 `;
 
 const Description = styled(Text)`

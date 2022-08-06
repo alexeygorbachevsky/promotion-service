@@ -13,7 +13,7 @@ const { TASK_LIST_HEADER_PADDING_TOP } = taskListConstants;
 
 const Wrapper = styled(BlankButton)`
   position: absolute;
-  bottom: ${TASK_LIST_HEADER_PADDING_TOP}px;
+  bottom: ${TASK_LIST_HEADER_PADDING_TOP.primary}px;
   right: 30px;
   width: 50px;
   height: 50px;

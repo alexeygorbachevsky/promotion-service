@@ -5,6 +5,8 @@ import NativeLogoIcon from "assets/icons/logo20.svg";
 
 import { PALETTE, SIZE, toREM, Z_INDEX } from "constants/styles";
 
+import Media from "helpers/media";
+
 import { NavMenu } from "components/nav-menu";
 
 import { UserSettingsMenu } from "../user-settings-menu";
@@ -31,6 +33,10 @@ const Wrapper = styled.div`
       bottom: 0;
       border-top: 2px solid ${PALETTE.getBorderColor};
     `}
+
+  ${Media.smallerThan.mobileLarge`
+     padding: 0 20px;
+  `}
 `;
 
 const LogoWrapper = styled.div`

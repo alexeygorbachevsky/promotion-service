@@ -2,8 +2,10 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 
 import { BlankState } from "components/blank-state";
-import {  Carousel as NativeCarousel } from "components/carousel";
+import { Carousel as NativeCarousel } from "components/carousel";
 import { Error } from "components/error";
+
+import Media from "helpers/media";
 
 import { PALETTE, toREM } from "constants/styles";
 
@@ -22,6 +24,10 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  ${Media.smallerThan.mobileLarge`
+     display: none;
+  `}
 `;
 
 const TitleWrapper = styled.div`
@@ -68,7 +74,7 @@ const MostPopular = () => {
       </TitleWrapper>
       {error && <Error>Something went wrong. Try again later.</Error>}
       {!error &&
-        (!banners.length ? (
+        (isLoading || !banners.length ? (
           <StatesWrapper>
             {isLoading ? (
               <Loader />

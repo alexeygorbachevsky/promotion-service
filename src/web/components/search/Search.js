@@ -8,6 +8,8 @@ import { BlankInput } from "basics/inputs";
 import { PALETTE } from "constants/styles";
 import { KEY_CODES } from "constants/keyCodes";
 
+import Media from "helpers/media";
+
 import NativeSearchIcon from "assets/icons/search.svg";
 import CrossIcon from "assets/icons/cross.svg";
 
@@ -19,6 +21,14 @@ const Wrapper = styled.div`
   justify-content: flex-start;
   align-items: center;
   transition: all 0.5s;
+
+  ${Media.smallerThan.tabletLarge`
+     width: 380px;
+  `}
+
+  ${Media.smallerThan.mobileMedium`
+     width: 100%;
+  `}
 `;
 
 const Input = styled(BlankInput)`
@@ -76,7 +86,7 @@ const CloseButton = styled(BlankButton)`
   animation-duration: 0.5s;
 `;
 
-const Search = ({ isDisabled, onSearchChange }) => {
+const Search = ({ isDisabled, onSearchChange, className }) => {
   const [value, setValue] = useState("");
   const [isOpened, setIsOpened] = useState(false);
   const ref = useRef(null);
@@ -127,7 +137,11 @@ const Search = ({ isDisabled, onSearchChange }) => {
   };
 
   return (
-    <Wrapper $isOpened={isOpened} aria-expanded={isOpened}>
+    <Wrapper
+      $isOpened={isOpened}
+      aria-expanded={isOpened}
+      className={className}
+    >
       <SearchIcon />
       <Input
         ref={ref}
@@ -140,7 +154,12 @@ const Search = ({ isDisabled, onSearchChange }) => {
         disabled={isDisabled}
       />
       {isOpened && (
-        <CloseButton onFocus={onFocus} onBlur={onBlur} onClick={onClear}>
+        <CloseButton
+          disabled={isDisabled}
+          onFocus={onFocus}
+          onBlur={onBlur}
+          onClick={onClear}
+        >
           <CrossIcon />
         </CloseButton>
       )}

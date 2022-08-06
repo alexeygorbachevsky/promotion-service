@@ -6,6 +6,8 @@ import { BlankButton as NativeBlankButton } from "basics/buttons";
 
 import { PALETTE, toREM } from "constants/styles";
 
+import Media from "helpers/media";
+
 import { paginationConstants } from "./ducks";
 
 const { FIRST_MIDDLE_PAGE, MIN_PAGES_COUNT_WITH_DOTS } = paginationConstants;
@@ -56,18 +58,27 @@ const BlankButton = styled(NativeBlankButton)`
         color: ${PALETTE.getNotSelectedTextColor};
       }
     `}
+
+  ${Media.smallerThan.mobileLarge`
+     margin: 0 4px;
+     font-size: ${toREM(18)};
+  `}
 `;
 
 const Page = styled(BlankButton)`
   font-size: ${toREM(18)};
   font-weight: 500;
+
+  ${Media.smallerThan.mobileLarge`
+     font-size: ${toREM(14)};
+  `}
 `;
 
 const Dots = styled.div`
   margin: 0 10px;
   width: 40px;
   height: 40px;
-  font-size: ${toREM(18)};
+  font-size: ${toREM(14)};
   font-weight: 500;
 
   display: flex;
@@ -81,6 +92,11 @@ const Dots = styled.div`
     css`
       color: ${PALETTE.getNotSelectedTextColor};
     `}
+
+  ${Media.smallerThan.mobileLarge`
+     margin: 0 4px;
+     font-size: ${toREM(10)};
+  `}
 `;
 
 const ToFirst = styled(BlankButton)``;

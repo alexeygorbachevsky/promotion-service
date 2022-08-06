@@ -3,6 +3,8 @@ import styled from "styled-components";
 
 import { customScrollbar } from "constants/styles";
 
+import Media from "helpers/media";
+
 import { GoTop } from "components/go-top";
 
 import { useScroll } from "hooks";
@@ -26,6 +28,10 @@ const ScrollWrapper = styled.div`
   height: 100%;
   overflow-y: auto;
   ${customScrollbar};
+
+  ${Media.smallerThan.mobileLarge`
+     padding-top: 0;
+  `}
 `;
 
 const NewsWrapper = styled.div`

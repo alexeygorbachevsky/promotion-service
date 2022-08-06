@@ -5,9 +5,10 @@ import { useDispatch } from "react-redux";
 
 import { PALETTE, toREM, Z_INDEX } from "constants/styles";
 
-import Profile24Icon from "assets/icons/profile24.svg";
+import Settings24Icon from "assets/icons/settings24.svg";
+import Menu24Icon from "assets/icons/menu24.svg";
+import News24Icon from "assets/icons/news24.svg";
 import Sun24Icon from "assets/icons/sun24.svg";
-import History24Icon from "assets/icons/history24.svg";
 import Logout24Icon from "assets/icons/log-out24.svg";
 
 import { BlankButton } from "basics/buttons";
@@ -19,9 +20,10 @@ import { KEY_CODES } from "constants/keyCodes";
 
 const Wrapper = styled.div`
   position: absolute;
+  right: 0;
+  top: 55px;
   z-index: ${Z_INDEX.popup};
   padding: 0 20px;
-  top: 55px;
   width: 254px;
   height: 238px;
   background-color: ${PALETTE.getHeaderBackground};
@@ -50,18 +52,47 @@ const ModePopupRow = styled(PopupRow)`
   justify-content: space-between;
 `;
 
-const LinkWrapper = styled.div`
-  margin: 0 0 0 10px;
+const ToggleInputButton = styled(BlankButton)`
+  width: 100%;
+  display: flex;
+  align-items: center;
+
+  border: 2px solid transparent;
+
+  &:focus {
+    border: 2px solid ${PALETTE.blue};
+  }
 `;
 
 const Link = styled(NativeLink)`
-  margin: 0 0 0 10px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+
   color: ${PALETTE.getText};
+  border: 2px solid transparent;
+
+  &:focus {
+    border: 2px solid ${PALETTE.blue};
+  }
+`;
+
+const LinkText = styled.span`
+  margin-left: 10px;
 `;
 
 const LogoutLinkWrapper = styled(BlankButton)`
-  margin: 0 0 0 10px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+
   color: ${PALETTE.red};
+
+  border: 2px solid transparent;
+
+  &:focus {
+    border: 2px solid ${PALETTE.blue};
+  }
 `;
 
 const Divider = styled.div`
@@ -148,6 +179,10 @@ const UserSettingsPopup = React.forwardRef(({ isOpened, className }, ref) => {
     setDarkMode(e.target.checked);
   };
 
+  const onToggleInputClick = () => {
+    setDarkMode(!isDarkMode);
+  };
+
   const onKeyDown = e => {
     if (e.keyCode === KEY_CODES.space) {
       setDarkMode(e.target.checked);
@@ -158,21 +193,37 @@ const UserSettingsPopup = React.forwardRef(({ isOpened, className }, ref) => {
     }
   };
 
+  const onLogoutClick = () => {
+    window.location.reload();
+  };
+
   return (
     <Wrapper ref={ref} $isOpened={isOpened} className={className}>
       <PopupRow>
-        <Profile24Icon />
-        <Link to={ROUTES.settings}>My profile</Link>
+        <Link to={ROUTES.taskList}>
+          <Menu24Icon />
+          <LinkText>Task list</LinkText>
+        </Link>
       </PopupRow>
       <PopupRow>
-        <History24Icon />
-        <LinkWrapper>Task history</LinkWrapper>
+        <Link to={ROUTES.news}>
+          <News24Icon />
+          <LinkText>News</LinkText>
+        </Link>
+      </PopupRow>
+      <PopupRow>
+        <Link to={ROUTES.settings}>
+          <Settings24Icon />
+          <LinkText>My profile</LinkText>
+        </Link>
       </PopupRow>
       <Divider />
       <ModePopupRow>
         <ModeDescription>
-          <Sun24Icon />
-          <LinkWrapper>Dark mode</LinkWrapper>
+          <ToggleInputButton onClick={onToggleInputClick}>
+            <Sun24Icon />
+            <LinkText>Dark mode</LinkText>
+          </ToggleInputButton>
         </ModeDescription>
         <ToggleLabel>
           <ToggleInput
@@ -186,8 +237,10 @@ const UserSettingsPopup = React.forwardRef(({ isOpened, className }, ref) => {
       </ModePopupRow>
       <Divider />
       <PopupRow>
-        <Logout24Icon />
-        <LogoutLinkWrapper disabled>Log out</LogoutLinkWrapper>
+        <LogoutLinkWrapper onClick={onLogoutClick}>
+          <Logout24Icon />
+          <LinkText>Log out</LinkText>
+        </LogoutLinkWrapper>
       </PopupRow>
     </Wrapper>
   );

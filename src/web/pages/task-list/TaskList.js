@@ -10,6 +10,8 @@ import { InfiniteScroll } from "components/infinite-scroll";
 import { Error } from "components/error";
 import { BlankState } from "components/blank-state";
 
+import Media from "helpers/media";
+
 import Loader from "assets/icons/loader.svg";
 
 import { TaskCard, TaskListHeader } from "./components";
@@ -23,19 +25,54 @@ const {
 } = taskListConstants;
 
 const Wrapper = styled.div`
-  padding-top: ${TASK_LIST_HEADER_PADDING_TOP}px;
+  padding-top: ${TASK_LIST_HEADER_PADDING_TOP.primary}px;
   max-width: ${TASK_LIST_MAX_WIDTH}px;
   margin: 0 auto;
   height: 100%;
   overflow-y: hidden;
+
+  ${Media.smallerThan.tabletLarge`
+     padding-top: ${TASK_LIST_HEADER_PADDING_TOP.tablet}px;
+     flex-direction: column;
+     align-items: flex-start;
+     justify-content: center;
+  `}
+
+  ${Media.smallerThan.mobileLarge`
+     padding-top: ${TASK_LIST_HEADER_PADDING_TOP.mobile}px;
+  `}
 `;
 
 const Table = styled.div`
   width: 100%;
   height: calc(
     100vh -
-      ${SIZE.header + TASK_LIST_HEADER_HEIGHT + TASK_LIST_HEADER_PADDING_TOP}px
+      ${SIZE.header +
+      TASK_LIST_HEADER_HEIGHT.primary +
+      TASK_LIST_HEADER_PADDING_TOP.primary}px
   );
+
+  ${Media.smallerThan.tabletLarge`
+     height: calc(
+    100vh -
+      ${
+        SIZE.header +
+        TASK_LIST_HEADER_HEIGHT.tablet +
+        TASK_LIST_HEADER_PADDING_TOP.tablet
+      }px
+  );
+  `};
+
+  ${Media.smallerThan.mobileLarge`
+     height: calc(
+    100vh -
+      ${
+        SIZE.header +
+        TASK_LIST_HEADER_HEIGHT.mobile +
+        TASK_LIST_HEADER_PADDING_TOP.mobile
+      }px
+  );
+  `}
 `;
 
 const Body = styled.div`
@@ -47,6 +84,10 @@ const Body = styled.div`
   display: flex;
   flex-direction: column;
   ${customScrollbar};
+
+  ${Media.smallerThan.tabletLarge`
+     padding: 20px 0;
+  `}
 `;
 
 const TasksWrapper = styled.div`

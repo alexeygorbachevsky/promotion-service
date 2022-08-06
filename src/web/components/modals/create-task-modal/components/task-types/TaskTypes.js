@@ -5,6 +5,8 @@ import { RadioButton as NativeRadioButton } from "basics/radio-buttons";
 
 import { MODAL_IDS } from "constants/modal";
 
+import Media from "helpers/media";
+
 import { taskTypesConstants } from "./duck";
 import { createTaskModalComponentsStyled } from "../duck";
 
@@ -14,14 +16,26 @@ const { BlockWrapper, IconWrapper, BlockTitle, RadioButtonsWrapper } =
 
 const RadioButton = styled(NativeRadioButton)`
   margin: 0;
+
   &:nth-of-type(3),
   &:nth-of-type(4) {
     margin-top: 10px;
   }
+
   &:nth-of-type(2),
   &:nth-of-type(4) {
     margin-left: 20px;
   }
+
+  ${Media.smallerThan.mobileLarge` 
+     &:nth-of-type(n){
+         margin: 0;   
+     }
+     
+     &:not(:first-of-type){
+         margin-top: 10px;   
+     }
+  `}
 `;
 
 const TaskTypes = ({ value, onChange }) => {

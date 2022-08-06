@@ -64,6 +64,16 @@ export const Z_INDEX = {
   alerts: 8,
 };
 
+export const SCREEN_WIDTH = {
+  desktopLarge: 1440,
+  desktopMedium: 1366,
+  desktopSmall: 1200,
+  tabletLarge: 1000,
+  tabletSmall: 768,
+  mobileLarge: 720,
+  mobileMedium: 420,
+};
+
 export const customScrollbar = ({ $isScrollWrapperHovered }) => `
       &::-webkit-scrollbar {
         width: ${SIZE.customScrollbarWidth}px;
