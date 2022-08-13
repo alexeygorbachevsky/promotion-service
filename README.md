@@ -1,5 +1,7 @@
 # Promotion service
 
+![image](./src/assets/screenshots/promotion-service.png)
+
 ## Deploy
 
 https://promotion-service.netlify.app
@@ -18,13 +20,9 @@ git clone {repository URL}
 ## Installing
 
 ```
-1. yarn install (npm modules installing)
+1. yarn install
 2. yarn start
 ```
-
-## Screenshot
-
-![image](./src/assets/screenshots/promotion-service.png)
 
 ## Figma
 
